@@ -2,50 +2,115 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed;
+    private Transform testBody;
+
+    [SerializeField]
+    private Transform testDestination;
+
+
 
     private Camera cam;
     private NavMeshAgent navAgent;
+    private Animator animator;
+    private Coroutine moveToMousePosition;
 
-    public Transform testPosition1;
-    public Transform testPosition2;
+    private readonly int MOVE_HASH = Animator.StringToHash("isMoving");
+
+    private float rotSpeed = 3f;
+
+
+    private bool canMoving;
+    public bool CanMoving
+    {
+        get => canMoving;
+        set
+        {
+            if (value)
+            {
+                if (moveToMousePosition != null)
+                    StopCoroutine(moveToMousePosition);
+
+                moveToMousePosition = StartCoroutine(MoveToMousePosition());
+                
+            }
+            else
+            {
+                if (moveToMousePosition != null)
+                    StopCoroutine(moveToMousePosition);
+            }
+
+            canMoving = value;
+        }
+    }
+
+
+
 
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();       
+
         cam = Camera.main;
+        navAgent.updateRotation = false;
+
+        CanMoving = true;
     }
 
 
-    void Update()
+    
+
+
+    private IEnumerator MoveToMousePosition()
     {
-        if (Input.GetMouseButton(1))
+        while (true)
         {
-            PrintMousePosition();
-        }
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    // ****** 바닥만 인식할 수 있도록하기*****
+                    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        navAgent.destination = hit.point;
+
+                        testDestination.position = hit.point;
+                    }
+                }                
+            }
+
+            if (navAgent.remainingDistance < 0.1f)
+            {
+                animator.SetBool(MOVE_HASH, false);
+            }
+            else
+            {
+                animator.SetBool(MOVE_HASH, true);
+                RotateToTarget();
+            }            
+
+            yield return null;
+        }        
     }
 
 
-    private void PrintMousePosition()
+    private void RotateToTarget()
     {
-        // 마우스가 UI에서 클릭 or 드래그라면
-        // 좀더 상황 세분화 하기
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        Vector3 direction = navAgent.destination - transform.position;
+        Quaternion lookTarget = Quaternion.LookRotation(direction);
 
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            navAgent.destination = hit.point;
-        }
+        Quaternion nextRot = Quaternion.Slerp(testBody.rotation, lookTarget, rotSpeed * Time.deltaTime);
+        nextRot.x = 0f;
+        nextRot.z = 0f;
+        testBody.rotation = nextRot;
     }
 }
 

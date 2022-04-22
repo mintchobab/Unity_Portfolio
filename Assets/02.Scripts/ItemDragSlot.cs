@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class ItemDragSlot : MonoBehaviour
 {
-    [SerializeField]
-    private float alpha = 0;
+    //[SerializeField]
+    //private float alpha = 0;
 
     private Image image;
 

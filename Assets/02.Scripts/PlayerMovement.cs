@@ -13,18 +13,17 @@ public class PlayerMovement : MonoBehaviour
     private Transform testDestination;
 
 
-
     private Camera cam;
     private NavMeshAgent navAgent;
     private Animator animator;
     private Coroutine moveToMousePosition;
 
-    private readonly int MOVE_HASH = Animator.StringToHash("isMoving");
+    private int MOVE_HASH = Animator.StringToHash("isMove");
 
-    private float rotSpeed = 3f;
+    private float rotSpeed = 10f;
 
 
-    private bool canMoving;
+    private bool canMoving = false;
     public bool CanMoving
     {
         get => canMoving;
@@ -48,22 +47,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
+    private void Awake()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
+    }
 
 
     private void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();       
-
         cam = Camera.main;
         navAgent.updateRotation = false;
 
         CanMoving = true;
-    }
-
-
-    
+    }    
 
 
     private IEnumerator MoveToMousePosition()

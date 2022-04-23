@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float rotSpeed = 10f;
 
+    private int planeLayer;
+
 
     private bool canMoving = false;
     public bool CanMoving
@@ -34,8 +36,7 @@ public class PlayerMovement : MonoBehaviour
                 if (moveToMousePosition != null)
                     StopCoroutine(moveToMousePosition);
 
-                moveToMousePosition = StartCoroutine(MoveToMousePosition());
-                
+                moveToMousePosition = StartCoroutine(MoveToMousePosition());                
             }
             else
             {
@@ -75,10 +76,9 @@ public class PlayerMovement : MonoBehaviour
                     Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
 
-                    if (Physics.Raycast(ray, out hit))
+                    if (Physics.Raycast(ray, out hit, 1000f, 1 << LayerMask.NameToLayer("Plane")))
                     {
                         navAgent.destination = hit.point;
-
                         testDestination.position = hit.point;
                     }
                 }                

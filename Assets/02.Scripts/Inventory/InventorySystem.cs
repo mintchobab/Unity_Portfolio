@@ -27,7 +27,7 @@ public class InventorySystem : Singleton<InventorySystem>
 
         for (int i = 0; i < length; i++)
         {
-            slots[i].SetSlotIndex(i);
+            slots[i].SlotNumber = i;
             itemList.Add(null);
         }
     }
@@ -175,8 +175,12 @@ public class InventorySystem : Singleton<InventorySystem>
     public void RemoveItem(int index)
     {
         itemList[index] = null;
-
         slots[index].SetSlotEmpty();
+    }
+
+    public bool CheckEmptySlot(int slotNumber)
+    {
+        return itemList[slotNumber] != null ? true : false;
     }
 
 

@@ -7,12 +7,12 @@ public class ItemData : ScriptableObject
     public int Id { get => id; }
 
     [SerializeField]
-    protected Sprite image;
-    public Sprite Image { get => image; }
-
-    [SerializeField]
     protected ItemType itemType;
     public ItemType ItemType { get => itemType; }
+
+    [SerializeField]
+    protected Sprite image;
+    public Sprite Image { get => image; }
 
     [SerializeField]
     protected new string name;

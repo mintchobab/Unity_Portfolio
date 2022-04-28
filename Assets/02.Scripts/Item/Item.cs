@@ -5,6 +5,7 @@ public class Item
 
     public int CurrentCount { get; private set; }
 
+
     public void SetItemData(ItemData itemData)
     {
         this.ItemData = itemData;
@@ -19,5 +20,4 @@ public class Item
     {
         CurrentCount -= count;
     }
-
 }

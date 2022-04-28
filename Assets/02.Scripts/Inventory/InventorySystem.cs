@@ -13,8 +13,6 @@ public class InventorySystem : Singleton<InventorySystem>
     [SerializeField]
     private InventorySlot[] slots;
 
-
-    // 테스트 때문에 인스펙터에서 보이도록 설정
     [SerializeField]
     private List<Item> itemList = new List<Item>();
 
@@ -67,7 +65,7 @@ public class InventorySystem : Singleton<InventorySystem>
     // 2. 소비 아이템 획득
     //   2-1 슬롯에 개수가 가득찬 경우
     //   2-2 인벤토리가 가득 찬 경우
-    public void Add(ItemData itemData, int count)
+    public void Add(ItemData itemData, int count = 0)
     {
         if (itemData.ItemType == ItemType.Equipment)
             AddCountlessItem(itemData);
@@ -178,6 +176,7 @@ public class InventorySystem : Singleton<InventorySystem>
         slots[index].SetSlotEmpty();
     }
 
+
     public bool CheckEmptySlot(int slotNumber)
     {
         return itemList[slotNumber] != null ? true : false;
@@ -239,22 +238,22 @@ public class InventorySystem : Singleton<InventorySystem>
 
 
 
-    #region 아이템 사용
+    #region 아이템 사용 or 장비 장착
 
-    public void RightClickedSlot(int slotIndex)
+    public void RightClickedSlot(int slotNumber)
     {
-        Item item = itemList[slotIndex];
+        Item item = itemList[slotNumber];
 
         if (item == null)
             return;
 
         if (item.ItemData.ItemType == ItemType.Consumerable)
         {
-            UseItem(item, slotIndex);
+            UseItem(item, slotNumber);
         }
         else if (item.ItemData.ItemType == ItemType.Equipment)
         {
-            EquipItem();
+            EquipItem(item, slotNumber);
         }
         else
         {
@@ -262,7 +261,8 @@ public class InventorySystem : Singleton<InventorySystem>
         }
     }
 
-    private void UseItem(Item item, int slotIndex)
+
+    private void UseItem(Item item, int slotNumber)
     {
         // 개수 1개 감소
         item.DecreseItemCount(1);
@@ -270,17 +270,19 @@ public class InventorySystem : Singleton<InventorySystem>
         // 개수 0개가 되면 슬롯 비우기
         if (item.CurrentCount == 0)
         {
-            RemoveItem(slotIndex);
+            RemoveItem(slotNumber);
         }
         else
         {
-            UpdateSlotCount(slotIndex);
+            UpdateSlotCount(slotNumber);
         }
     }
 
-    private void EquipItem()
+
+    private void EquipItem(Item item, int slotNumber)
     {
-        //EquipSystem.Instance
+        EquipmentSystem.Instance.EquipItem(item);
+        RemoveItem(slotNumber);
     }
 
     #endregion

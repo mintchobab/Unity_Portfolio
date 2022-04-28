@@ -1,61 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventorySlot : ItemSlot
 {
     [field: SerializeField]
     public Text ItemCountText { get; private set; }
 
-    [field: SerializeField]
-    public Image ItemImage { get; private set; }
 
-    private GameObject dragObj;
-    private Sprite defaultSprite;
-
-    private bool isDraging;
-
-    private int slotNumber;
-    public int SlotNumber
-    {
-        get => slotNumber;
-        set
-        {
-            slotNumber = value;
-        }
-    }
-
-
-
-    private void Awake()
-    {
-        defaultSprite = ItemImage.sprite;
-    }
-
-    public void SetItemImage(Sprite sprite)
-    {
-        if (defaultSprite == null)
-            defaultSprite = ItemImage.sprite;
-
-        ItemImage.sprite = sprite;
-    }
 
     public void SetItemCount(int count)
     {
         ItemCountText.text = count.ToString();
     }
 
-    public void SetSlotEmpty()
+
+    public override void SetSlotEmpty()
     {
-        SetItemImage(defaultSprite);
+        base.SetSlotEmpty();
         SetItemCount(0);
         ItemCountText.gameObject.SetActive(false);
     }
 
-
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
@@ -65,8 +32,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
 
     // 마우스 왼쪽버튼 드래그 시작
-    // 여기에 아이템이 있는지 확인해야됨 (빈 슬롯인지 아닌지 구분)
-    public void OnBeginDrag(PointerEventData eventData)
+    public override void OnBeginDrag(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
             return;
@@ -76,14 +42,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
         isDraging = true;
 
-        InventorySystem.Instance.DragSlot.StartDrag(ItemImage.sprite);
+        InventorySystem.Instance.DragSlot.StartDrag(SlotImage.sprite);
         dragObj = InventorySystem.Instance.DragSlot.gameObject;
         dragObj.gameObject.SetActive(true);
     }
 
 
     // 마우스 왼쪽버튼 드래그 중
-    public void OnDrag(PointerEventData eventData)
+    public override void OnDrag(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
             return;
@@ -96,7 +62,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
 
     // 마우스 왼쪽버튼 드래그 종료
-    public void OnEndDrag(PointerEventData eventData)
+    public override void OnEndDrag(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
             return;

@@ -9,6 +9,9 @@ public class CharacterEquipment : MonoBehaviour
     [SerializeField]
     private Dictionary<EquipmentType, Transform> equipmentDic = new Dictionary<EquipmentType, Transform>();
 
+    [SerializeField]
+    private GameObject hair;
+
 
     private void Awake()
     {
@@ -33,10 +36,14 @@ public class CharacterEquipment : MonoBehaviour
         obj.gameObject.name = item.ItemData.Name;
 
         // 프리팹 위치 지정
-        EquipmentType itemType = (item.ItemData as EquipmentData).EquipmentType;
-        obj.transform.parent = equipmentDic[itemType];
+        EquipmentType equipmentType = (item.ItemData as EquipmentData).EquipmentType;
+        obj.transform.parent = equipmentDic[equipmentType];
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
+
+
+        if (equipmentType == EquipmentType.Helmet)
+            hair.gameObject.SetActive(false);
     }
 
 
@@ -47,7 +54,10 @@ public class CharacterEquipment : MonoBehaviour
         if (child)
         {
             Destroy(child.gameObject);
-        }        
+        }
+
+        if (equipmentType == EquipmentType.Helmet)
+            hair.gameObject.SetActive(true);
     }
 }
 

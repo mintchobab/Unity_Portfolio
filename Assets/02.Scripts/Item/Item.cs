@@ -3,7 +3,7 @@ public class Item
 {
     public ItemData ItemData { get; private set; }
 
-    public int CurrentCount { get; private set; }
+    public int CurrentCount { get; private set; } = 1;
 
 
     public void SetItemData(ItemData itemData)

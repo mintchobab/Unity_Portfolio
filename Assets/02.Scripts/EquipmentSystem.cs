@@ -1,100 +1,79 @@
-using System.Collections;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
+
+public class ItemInEquipSlot
+{
+    public Item item;
+    public EquipSlot slot;
+
+    public ItemInEquipSlot(Item item, EquipSlot slot)
+    {
+        this.item = item;
+        this.slot = slot;
+    }
+}
 
 public class EquipmentSystem : Singleton<EquipmentSystem>
 {
-    [SerializeField]
-    private GameObject equipObj;
-
-    [SerializeField]
-    private EquipSlot[] slots;
-
-    [SerializeField]
-    private Sprite emptySprite;
-
-    private List<Item> itemList = new List<Item>();
-
+    //[SerializeField]
+    //private List<EquipSlot> slots = new List<EquipSlot>();
+    private List<ItemInEquipSlot> slotList = new List<ItemInEquipSlot>();
     private CharacterEquipment characterEquipment;
-
 
     private bool isActive;
 
 
+
     private void Awake()
     {
-        for (int i = 0; i < slots.Length; i++)
+        EquipSlot[] equipSlots = GetComponentsInChildren<EquipSlot>();
+
+        for (int i = 0; i < equipSlots.Length; i++)
         {
-            itemList.Add(null);
+            ItemInEquipSlot slot = new ItemInEquipSlot(null, equipSlots[i]);
+            slotList.Add(slot);
         }
 
         characterEquipment = FindObjectOfType<CharacterEquipment>();
     }
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (!isActive)
-                Activate();
-            else
-                Deactivate();
-        }
-    }
-
-
-    public void Activate()
-    {
-        isActive = true;
-        equipObj.SetActive(true);
-    }
-
-
-    public void Deactivate()
-    {
-        isActive = false;
-        equipObj.SetActive(false);
-    }
-
-
     // 아이템 장착
-    // UI 장착 + 실제 캐릭터에도 바뀌어야함
     public void EquipItem(Item item)
     {
-        EquipmentData data = item.ItemData as EquipmentData;
+        int index = FindSlotIndex(item);
+        slotList[index].item = item;
+        slotList[index].slot.UpdateSlotImage(item);
 
-        if (data == null)
-            return;
-
-        // 슬롯에서 해당 타입을 찾아서 아이콘 넣기
-        int index = FindSlotIndex(data.EquipmentType);
-        slots[index].SlotImage.sprite = item.ItemData.Image;
-
-        item.SetItemData(data);
-        itemList[index] = item;
-
-        // 실제 장비가 변경
+        // 실제 장비 변경
         characterEquipment.Equip(item);
 
         // 장비 효과도 추가하기???
     }
 
 
-
-
-    private int FindSlotIndex(EquipmentType equipType)
+    private int FindSlotIndex(Item item)
     {
-        if (slots == null)
-            slots = GetComponentsInChildren<EquipSlot>();
-
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slotList.Count; i++)
         {
-            if (slots[i].EquipmentType == equipType)
-            {
+            EquipmentData data = item.ItemData as EquipmentData;
+
+            if (slotList[i].slot.EquipmentType == data.EquipmentType)
                 return i;
-            }
+        }
+
+        return -1;
+    }
+
+    private int FindSlotIndex(EquipSlot slot)
+    {
+        for (int i = 0; i < slotList.Count; i++)
+        {
+            if (slotList[i].slot == slot)
+                return i;
         }
 
         return -1;
@@ -102,20 +81,21 @@ public class EquipmentSystem : Singleton<EquipmentSystem>
 
 
     // 아이템 장착 해제
-    public void UnequipItem(EquipmentType equipType)
+    public void UnequipItem(EquipSlot slot)
     {
-        // 이미지 제거
-        int index = FindSlotIndex(equipType);
-        slots[index].SlotImage.sprite = emptySprite;
+        int index = FindSlotIndex(slot);        
 
         // 인벤토리로 이동
-        ItemData data = itemList[index].ItemData;
+        ItemData data = slotList[index].item.ItemData;
 
         InventorySystem.Instance.Add(data);
 
-        itemList[index] = null;
+        slotList[index].item = null;
 
-        characterEquipment.UnEquip(equipType);
+        EquipmentData equipmentData = data as EquipmentData;
+        characterEquipment.UnEquip(equipmentData.EquipmentType);
+
+        slotList[index].slot.ClearSlot();
     }
 
 }

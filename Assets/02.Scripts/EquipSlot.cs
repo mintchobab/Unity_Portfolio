@@ -1,37 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class EquipSlot : ItemSlot
 {
     [field: SerializeField]
     public EquipmentType EquipmentType { get; private set; }
 
-
-    public override void OnPointerClick(PointerEventData eventData)
+    protected override void ClickedDouble()
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            EquipmentSystem.Instance.UnequipItem(EquipmentType);
-        }
+        isClicked = false;
+        selectedObj.SetActive(false);
+
+        EquipmentSystem.Instance.UnequipItem(this);
     }
 
-
-    public override void OnBeginDrag(PointerEventData eventData)
+    public override void ClearSlot()
     {
-
+        isEmpty = true;
+        SlotImage.sprite = emptySprite;
     }
-
-
-    public override void OnDrag(PointerEventData eventData)
-    {
-
-    }
-
-
-    public override void OnEndDrag(PointerEventData eventData)
-    {
-
-    }
-
 }

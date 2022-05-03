@@ -1,34 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+
+public class ItemInSlot
+{
+    public Item item;
+    public ItemSlot slot;
+
+    public ItemInSlot(Item item, ItemSlot slot)
+    {
+        this.item = item;
+        this.slot = slot;
+    }
+}
+
 
 public class InventorySystem : Singleton<InventorySystem>
 {
     [SerializeField]
-    private GameObject inventoryObj;
-
-    [field: SerializeField]
-    public ItemDragSlot DragSlot { get; private set; }
+    private Transform scrollContent;
 
     [SerializeField]
-    private InventorySlot[] slots;
+    private int slotRowCount = 10;
 
     [SerializeField]
-    private List<Item> itemList = new List<Item>();
+    private Button expandButton;
+
+    private List<ItemInSlot> slotList = new List<ItemInSlot>();
+
+    private Canvas canvas;
+
+    private const string PATH_SLOT_ROW = "UI/SlotRow";
 
     private bool isActive;
 
 
     private void Awake()
     {
-        int length = slots.Length;
+        canvas = GetComponent<Canvas>();
 
-        for (int i = 0; i < length; i++)
-        {
-            slots[i].SlotNumber = i;
-            itemList.Add(null);
-        }
+        expandButton.onClick.AddListener(() => CreateSlotRows(1));
+        CreateSlotRows(slotRowCount);
     }
+
 
     private void Update()
     {
@@ -45,32 +62,46 @@ public class InventorySystem : Singleton<InventorySystem>
     public void Activate()
     {
         isActive = true;
-        inventoryObj.SetActive(true);
+        canvas.enabled = true;
     }
+
 
     public void Deactivate()
     {
         isActive = false;
-        inventoryObj.SetActive(false);
+        canvas.enabled = false;
     }
 
-    public List<Item> GetItemList()
+
+    private void CreateSlotRows(int count)
     {
-        return itemList;
+        for (int i = 0; i < count; i++)
+        {
+            GameObject slotRow = Instantiate(Resources.Load<GameObject>(PATH_SLOT_ROW));
+            slotRow.transform.SetParent(scrollContent);
+            slotRow.transform.localScale = Vector3.one;
+
+            for (int j = 0; j < slotRow.transform.childCount; j++)
+            {
+                ItemSlot slot = slotRow.transform.GetChild(j).GetComponent<ItemSlot>();
+
+                ItemInSlot itemInSlot = new ItemInSlot(null, slot);
+                slotList.Add(itemInSlot);
+            }
+        }
     }
 
 
-    // 1. 장비 아이템 획득
-    //   1-1 인벤토리가 가득 찬 경우
-    // 2. 소비 아이템 획득
-    //   2-1 슬롯에 개수가 가득찬 경우
-    //   2-2 인벤토리가 가득 찬 경우
     public void Add(ItemData itemData, int count = 0)
     {
         if (itemData.ItemType == ItemType.Equipment)
+        {
             AddCountlessItem(itemData);
+        }
         else if (itemData.ItemType == ItemType.Consumerable)
+        {
             AddCountableItem(itemData, count);
+        }
     }
 
 
@@ -79,12 +110,12 @@ public class InventorySystem : Singleton<InventorySystem>
     private void AddCountableItem(ItemData itemData, int count)
     {
         // 아이템을 가지고 있다면 개수 추가
-        for (int i = 0; i < itemList.Count; i++)
+        for (int i = 0; i < slotList.Count; i++)
         {
-            if (itemList[i] == null)
+            if (slotList[i].item == null)
                 continue;
 
-            if (itemList[i].ItemData.Id == itemData.Id)
+            if (slotList[i].item.ItemData.Id == itemData.Id)
             {
                 bool isSuccess = IncreaseItemCount(i, ref count);
 
@@ -109,26 +140,27 @@ public class InventorySystem : Singleton<InventorySystem>
     {
         bool returnFlag = false;
 
-        ConsumerableData currentData = (ConsumerableData)itemList[index].ItemData;
+        ConsumerableData currentData = (ConsumerableData)slotList[index].item.ItemData;
 
         // 아이템의 최대치를 넘지 않을 때
-        if (itemList[index].CurrentCount + count <= currentData.MaxCount)
+        if (slotList[index].item.CurrentCount + count <= currentData.MaxCount)
         {
-            itemList[index].IncreaseItemCount(count);
+            slotList[index].item.IncreaseItemCount(count);
             count = 0;
             returnFlag = true;
         }
         // 아이템의 최대치를 넘을 때
         else
         {
-            int current = currentData.MaxCount - itemList[index].CurrentCount;
-            itemList[index].IncreaseItemCount(current);
+            int current = currentData.MaxCount - slotList[index].item.CurrentCount;
+            slotList[index].item.IncreaseItemCount(current);
             count -= current;
             returnFlag = false;
         }
 
         // UI 갱신
-        UpdateSlotCount(index);
+        slotList[index].slot.UpdateSlotCount(slotList[index].item);
+        slotList[index].slot.UpdateSlotImage(slotList[index].item);
 
         return returnFlag;
     }
@@ -146,25 +178,21 @@ public class InventorySystem : Singleton<InventorySystem>
 
     private void AddNewItem(ItemData itemData, int count)
     {
-        Item item = new Item();
-        item.SetItemData(itemData);
-
-        for (int i = 0; i < itemList.Count; i++)
-        {
-            if (itemList[i] == null)
+        for (int i = 0; i < slotList.Count; i++)
+        { 
+            if (slotList[i].item == null)
             {
-                itemList[i] = item;
-                itemList[i].IncreaseItemCount(count);
+                Item item = new Item();
+                item.SetItemData(itemData);
 
-                // UI 갱신하기
+                slotList[i].item = item;
+                slotList[i].slot.UpdateSlotImage(item);
+                slotList[i].slot.UpdateSlotCount(item);
 
-                UpdateSlotCount(i);
-                ChangeSlotImage(i);
                 return;
             }
         }
 
-        // 인벤토리가 가득찬 경우 실행됨
         Debug.LogWarning("인벤토리가 가득찼습니다.");
     }
 
@@ -172,88 +200,31 @@ public class InventorySystem : Singleton<InventorySystem>
     // 아이템 제거
     public void RemoveItem(int index)
     {
-        itemList[index] = null;
-        slots[index].SetSlotEmpty();
+        slotList[index].item = null;
+        slotList[index].slot.ClearSlot();
     }
-
-
-    public bool CheckEmptySlot(int slotNumber)
-    {
-        return itemList[slotNumber] != null ? true : false;
-    }
-
-
-    private void UpdateSlotCount(int index)
-    {
-        var itemList = GetItemList();
-
-        if (itemList[index].ItemData.ItemType == ItemType.Equipment)
-        {
-            if (slots[index].ItemCountText.gameObject.activeSelf)
-            {
-                slots[index].ItemCountText.gameObject.SetActive(false);
-            }
-
-            return;
-        }
-        else if (itemList[index].ItemData.ItemType == ItemType.Consumerable)
-        {
-            if (!slots[index].ItemCountText.gameObject.activeSelf)
-            {
-                slots[index].ItemCountText.gameObject.SetActive(true);
-            }
-
-            slots[index].SetItemCount(itemList[index].CurrentCount);
-        }
-    }
-
-    private void ChangeSlotImage(int index)
-    {
-        var itemList = GetItemList();
-
-        slots[index].SetItemImage(itemList[index].ItemData.Image);
-    }
-
-
-    public void ExchangeItem(int index, int index2)
-    {
-        (itemList[index], itemList[index2]) = (itemList[index2], itemList[index]);
-
-        //UI 갱신
-
-        if (itemList[index] == null)
-        {
-            RemoveItem(index);
-        }
-        else
-        {
-            UpdateSlotCount(index);
-            ChangeSlotImage(index);
-        }
-
-
-        UpdateSlotCount(index2);
-        ChangeSlotImage(index2);
-    }
-
 
 
     #region 아이템 사용 or 장비 장착
 
-    public void RightClickedSlot(int slotNumber)
+    // 이름바꾸기
+    public void ClickedInventorySlot(ItemSlot slot)
     {
-        Item item = itemList[slotNumber];
+        int index = FindSlotIndex(slot);
+
+        Item item = slotList[index].item;
 
         if (item == null)
             return;
 
         if (item.ItemData.ItemType == ItemType.Consumerable)
         {
-            UseItem(item, slotNumber);
+            UseItem(index);
         }
         else if (item.ItemData.ItemType == ItemType.Equipment)
         {
-            EquipItem(item, slotNumber);
+            RemoveItem(index);
+            EquipmentSystem.Instance.EquipItem(item);
         }
         else
         {
@@ -262,27 +233,26 @@ public class InventorySystem : Singleton<InventorySystem>
     }
 
 
-    private void UseItem(Item item, int slotNumber)
+    private int FindSlotIndex(ItemSlot slot)
     {
-        // 개수 1개 감소
-        item.DecreseItemCount(1);
-
-        // 개수 0개가 되면 슬롯 비우기
-        if (item.CurrentCount == 0)
-        {
-            RemoveItem(slotNumber);
-        }
-        else
-        {
-            UpdateSlotCount(slotNumber);
-        }
+        return slotList.FindIndex(0, x => x.slot == slot);
     }
 
 
-    private void EquipItem(Item item, int slotNumber)
+    private void UseItem(int index)
     {
-        EquipmentSystem.Instance.EquipItem(item);
-        RemoveItem(slotNumber);
+        // 개수 1개 감소
+        slotList[index].item.DecreseItemCount(1);
+
+        // 개수 0개가 되면 슬롯 비우기
+        if (slotList[index].item.CurrentCount == 0)
+        {
+            RemoveItem(index);
+        }
+        else
+        {
+            slotList[index].slot.UpdateSlotCount(slotList[index].item);
+        }
     }
 
     #endregion

@@ -70,6 +70,8 @@ public class InventorySystem : Singleton<InventorySystem>
     {
         isActive = false;
         canvas.enabled = false;
+
+        CommonSystem.ClearSelectedSlot();
     }
 
 

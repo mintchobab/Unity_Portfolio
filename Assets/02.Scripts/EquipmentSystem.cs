@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 public class ItemInEquipSlot
@@ -18,13 +16,11 @@ public class ItemInEquipSlot
 
 public class EquipmentSystem : Singleton<EquipmentSystem>
 {
-    //[SerializeField]
-    //private List<EquipSlot> slots = new List<EquipSlot>();
     private List<ItemInEquipSlot> slotList = new List<ItemInEquipSlot>();
-    private CharacterEquipment characterEquipment;
+    private PlayerEquipment characterEquipment;
 
-    private bool isActive;
-
+    public event Action<EquipmentData> onEquipItem;
+    public event Action<EquipmentData> onUnEquipItem;
 
 
     private void Awake()
@@ -37,21 +33,50 @@ public class EquipmentSystem : Singleton<EquipmentSystem>
             slotList.Add(slot);
         }
 
-        characterEquipment = FindObjectOfType<CharacterEquipment>();
+        characterEquipment = FindObjectOfType<PlayerEquipment>();
     }
 
 
     // 아이템 장착
+    // 이미 아이템이 장착되어 있는 경우는????
     public void EquipItem(Item item)
     {
         int index = FindSlotIndex(item);
+
+        // 슬롯에 아이템이 있을때만
+        if (slotList[index].item != null)
+            UnequipItem(slotList[index].slot);
+
         slotList[index].item = item;
         slotList[index].slot.UpdateSlotImage(item);
 
-        // 실제 장비 변경
+        // 플레이어 장비 변경
         characterEquipment.Equip(item);
 
-        // 장비 효과도 추가하기???
+        // 장비 효과 변경
+        EquipmentData data = slotList[index].item.ItemData as EquipmentData;
+        onEquipItem?.Invoke(data);
+    }
+
+
+    public void UnequipItem(EquipSlot slot)
+    {
+        int index = FindSlotIndex(slot);
+
+        // 인벤토리로 이동
+        ItemData data = slotList[index].item.ItemData;
+
+        InventorySystem.Instance.Add(data);
+
+        EquipmentData equipmentData = data as EquipmentData;
+        characterEquipment.UnEquip(equipmentData.EquipmentType);
+
+        slotList[index].slot.ClearSlot();
+
+        // 장비 효과 변경
+        onUnEquipItem?.Invoke(equipmentData);
+
+        slotList[index].item = null;
     }
 
 
@@ -68,6 +93,7 @@ public class EquipmentSystem : Singleton<EquipmentSystem>
         return -1;
     }
 
+
     private int FindSlotIndex(EquipSlot slot)
     {
         for (int i = 0; i < slotList.Count; i++)
@@ -80,22 +106,6 @@ public class EquipmentSystem : Singleton<EquipmentSystem>
     }
 
 
-    // 아이템 장착 해제
-    public void UnequipItem(EquipSlot slot)
-    {
-        int index = FindSlotIndex(slot);        
 
-        // 인벤토리로 이동
-        ItemData data = slotList[index].item.ItemData;
-
-        InventorySystem.Instance.Add(data);
-
-        slotList[index].item = null;
-
-        EquipmentData equipmentData = data as EquipmentData;
-        characterEquipment.UnEquip(equipmentData.EquipmentType);
-
-        slotList[index].slot.ClearSlot();
-    }
 
 }

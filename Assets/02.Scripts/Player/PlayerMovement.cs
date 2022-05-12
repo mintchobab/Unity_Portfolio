@@ -9,19 +9,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform testBody;
 
-    [SerializeField]
-    private Transform testDestination;
-
     private Camera cam;
     private NavMeshAgent navAgent;
     private Animator animator;
-    private Coroutine moveToMousePosition;
+    private Coroutine moveByJoystick;
+    private Joystick joystick;
+
+    private bool isMoving = false;
 
     private int MOVE_HASH = Animator.StringToHash("isMove");
 
     private float rotSpeed = 10f;
-
-    private int planeLayer;
 
 
 
@@ -34,15 +32,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if (value)
             {
-                if (moveToMousePosition != null)
-                    StopCoroutine(moveToMousePosition);
+                if (moveByJoystick != null)
+                    StopCoroutine(moveByJoystick);
 
-                moveToMousePosition = StartCoroutine(MoveToMousePosition());                
+                moveByJoystick = StartCoroutine(MoveByJoystick());
             }
             else
             {
-                if (moveToMousePosition != null)
-                    StopCoroutine(moveToMousePosition);
+                if (moveByJoystick != null)
+                    StopCoroutine(moveByJoystick);
             }
 
             canMoving = value;
@@ -54,8 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
-
-        planeLayer = 1 << LayerMask.NameToLayer("Plane");
+        joystick = FindObjectOfType<Joystick>();
     }
 
 
@@ -65,52 +62,41 @@ public class PlayerMovement : MonoBehaviour
         navAgent.updateRotation = false;
 
         CanMoving = true;
-    }    
-
-
-    private IEnumerator MoveToMousePosition()
-    {
-        while (true)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(ray, out hit, 1000f, planeLayer))
-                    {
-                        navAgent.destination = hit.point;
-                        testDestination.position = hit.point;
-                    }
-                }                
-            }
-
-            if (navAgent.remainingDistance < 0.1f)
-            {
-                animator.SetBool(MOVE_HASH, false);
-            }
-            else
-            {
-                animator.SetBool(MOVE_HASH, true);
-                RotateToTarget();
-            }            
-
-            yield return null;
-        }        
     }
 
 
-    private void RotateToTarget()
+    private IEnumerator MoveByJoystick()
     {
-        Vector3 direction = navAgent.destination - transform.position;
-        Quaternion lookTarget = Quaternion.LookRotation(direction);
+        while (true)
+        {
+            if (joystick.IsMoving)
+            {
+                if (!isMoving)
+                {
+                    isMoving = true;
+                    animator.SetBool(MOVE_HASH, true);
+                }
 
-        Quaternion nextRot = Quaternion.Slerp(testBody.rotation, lookTarget, rotSpeed * Time.deltaTime);
-        nextRot.x = 0f;
-        nextRot.z = 0f;
-        testBody.rotation = nextRot;
+                // 이동
+                Vector3 direction = cam.transform.TransformDirection(joystick.StickVector);
+                direction.y = 0f;
+                direction.Normalize();
+                transform.position += direction * 5f * Time.deltaTime;
+
+                // 회전
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+            }
+            else
+            {
+                if (isMoving)
+                {
+                    isMoving = false;
+                    animator.SetBool(MOVE_HASH, false);
+                }
+            }
+
+            yield return null;
+        }
     }
 }
 

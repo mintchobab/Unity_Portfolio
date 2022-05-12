@@ -29,6 +29,9 @@ public class InventorySystem : Singleton<InventorySystem>
     [SerializeField]
     private Button expandButton;
 
+    [SerializeField]
+    private Text itemCountText;
+
     private List<ItemInSlot> slotList = new List<ItemInSlot>();
 
     private Canvas canvas;
@@ -38,11 +41,25 @@ public class InventorySystem : Singleton<InventorySystem>
     private bool isActive;
 
 
+    [SerializeField]
+    private int itemCount;
+    public int ItemCount
+    {
+        get => itemCount;
+        set
+        {
+            itemCount = value;
+            UpdateItemCountText();
+        }
+    }
+
+
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
 
         expandButton.onClick.AddListener(() => CreateSlotRows(1));
+
         CreateSlotRows(slotRowCount);
     }
 
@@ -91,7 +108,10 @@ public class InventorySystem : Singleton<InventorySystem>
                 slotList.Add(itemInSlot);
             }
         }
+
+        UpdateItemCountText();
     }
+
 
 
     public void Add(ItemData itemData, int count = 0)
@@ -191,6 +211,7 @@ public class InventorySystem : Singleton<InventorySystem>
                 slotList[i].slot.UpdateSlotImage(item);
                 slotList[i].slot.UpdateSlotCount(item);
 
+                ItemCount++;
                 return;
             }
         }
@@ -199,12 +220,26 @@ public class InventorySystem : Singleton<InventorySystem>
     }
 
 
+    public void UpdateItemCountText()
+    {
+        itemCountText.text = $"{ItemCount} / {slotList.Count}";
+    }
+
+
+
     // 아이템 제거
     public void RemoveItem(int index)
     {
         slotList[index].item = null;
         slotList[index].slot.ClearSlot();
     }
+
+
+    private int FindSlotIndex(ItemSlot slot)
+    {
+        return slotList.FindIndex(0, x => x.slot == slot);
+    }
+
 
 
     #region 아이템 사용 or 장비 장착
@@ -232,12 +267,6 @@ public class InventorySystem : Singleton<InventorySystem>
         {
             return;
         }
-    }
-
-
-    private int FindSlotIndex(ItemSlot slot)
-    {
-        return slotList.FindIndex(0, x => x.slot == slot);
     }
 
 

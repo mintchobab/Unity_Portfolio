@@ -32,6 +32,8 @@ public class CharacterStat : MonoBehaviour
 
     #region Cutom Inspector
 
+#if UNITY_EDITOR
+
     [CustomEditor(typeof(CharacterStat))]
     public class PlayerStatEditor : Editor
     {
@@ -52,9 +54,11 @@ public class CharacterStat : MonoBehaviour
                 EditorGUILayout.LabelField("Damage", playerStat.stats[StatType.Damage].GetValue().ToString());
                 EditorGUILayout.LabelField("Armor", playerStat.stats[StatType.Armor].GetValue().ToString());
                 EditorGUILayout.LabelField("MoveSpeed", playerStat.stats[StatType.MoveSpeed].GetValue().ToString());
-            }            
+            }
         }
     }
+
+#endif
 
     #endregion
 

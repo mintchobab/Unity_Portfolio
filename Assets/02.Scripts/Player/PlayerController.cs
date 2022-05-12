@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private HpController hpController;
     private PlayerStat playerStat;
+    private Animator anim;
 
 
     private void Awake()
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerStat = GetComponent<PlayerStat>();
         hpController = GetComponent<HpController>();
+        anim = GetComponentInChildren<Animator>();
     }
 
 
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage(10);
+            TestAttack();
         }
     }
 
@@ -45,5 +47,10 @@ public class PlayerController : MonoBehaviour
 
         if (currentHp <= 0)
             Debug.LogWarning("»ç¸Á");
+    }
+
+    public void TestAttack()
+    {
+        anim.SetTrigger("attack");
     }
 }

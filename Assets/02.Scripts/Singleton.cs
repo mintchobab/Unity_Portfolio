@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
 
@@ -13,7 +13,10 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 T t = FindObjectOfType<T>();
                 if (t == null)
                 {
-                    Debug.Log("싱글톤 없음");
+                    GameObject obj = new GameObject();
+                    T newT = obj.AddComponent<T>();
+
+                    instance = newT;
                 }
                 else
                 {
@@ -24,4 +27,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             return instance;
         }
     }
+
+    protected virtual void Awake()
+    {
+        Init();
+    }
+
+    public abstract void Init();
 }

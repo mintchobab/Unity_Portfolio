@@ -23,8 +23,10 @@ public class EquipmentSystem : Singleton<EquipmentSystem>
     public event Action<EquipmentData> onUnEquipItem;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         EquipSlot[] equipSlots = GetComponentsInChildren<EquipSlot>();
 
         for (int i = 0; i < equipSlots.Length; i++)
@@ -107,7 +109,8 @@ public class EquipmentSystem : Singleton<EquipmentSystem>
         return -1;
     }
 
-
-
-
+    public override void Init()
+    {
+        throw new NotImplementedException();
+    }
 }

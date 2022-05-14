@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
     private Camera cam;
     private NavMeshAgent navAgent;
     private Animator animator;
-    private Coroutine moveByJoystick;
     private Joystick joystick;
 
     private bool isMoving = false;
@@ -25,27 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     // 프로퍼티 없애기
     private bool canMoving = false;
-    public bool CanMoving
-    {
-        get => canMoving;
-        set
-        {
-            if (value)
-            {
-                if (moveByJoystick != null)
-                    StopCoroutine(moveByJoystick);
-
-                moveByJoystick = StartCoroutine(MoveByJoystick());
-            }
-            else
-            {
-                if (moveByJoystick != null)
-                    StopCoroutine(moveByJoystick);
-            }
-
-            canMoving = value;
-        }
-    }
 
 
     private void Awake()
@@ -61,41 +39,39 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
         navAgent.updateRotation = false;
 
-        CanMoving = true;
+        canMoving = true;
+
+        joystick.onStickMove += OnStickMove;
+        joystick.onEndStickMove += OnEndStickMove;
     }
 
 
-    private IEnumerator MoveByJoystick()
+    // 조이스틱이 움직일때만 작동하는 이벤트로 바꾸자...
+    private void OnStickMove(Vector2 stickVector)
     {
-        while (true)
+        if (!isMoving)
         {
-            if (joystick.IsMoving)
-            {
-                if (!isMoving)
-                {
-                    isMoving = true;
-                    animator.SetBool(MOVE_HASH, true);
-                }
+            isMoving = true;
+            animator.SetBool(MOVE_HASH, true);
+        }
 
-                // 이동
-                Vector3 direction = cam.transform.TransformDirection(joystick.StickVector);
-                direction.y = 0f;
-                direction.Normalize();
-                transform.position += direction * 5f * Time.deltaTime;
+        // 이동
+        Vector3 direction = cam.transform.TransformDirection(stickVector);
+        direction.y = 0f;
+        direction.Normalize();
+        transform.position += direction * 5f * Time.deltaTime;
 
-                // 회전
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
-            }
-            else
-            {
-                if (isMoving)
-                {
-                    isMoving = false;
-                    animator.SetBool(MOVE_HASH, false);
-                }
-            }
+        // 회전
+        if (direction != Vector3.zero)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+    }
 
-            yield return null;
+    private void OnEndStickMove()
+    {
+        if (isMoving)
+        {
+            isMoving = false;
+            animator.SetBool(MOVE_HASH, false);
         }
     }
 }

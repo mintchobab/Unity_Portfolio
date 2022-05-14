@@ -286,6 +286,11 @@ public class InventorySystem : Singleton<InventorySystem>
         }
     }
 
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
+    }
+
     #endregion
 
 }

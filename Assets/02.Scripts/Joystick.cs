@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Joystick : MonoBehaviour
 {
     [SerializeField]
     private RectTransform stickBG;
@@ -15,9 +16,14 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [SerializeField]
     private float smoothSpeed = 10f;
 
-    private Coroutine resetStickPosition;
 
-    public Vector2 StickVector { get; private set; }
+    public event Action<Vector2> onStickMove;
+    public event Action onEndStickMove;
+
+
+    private Coroutine resetStickPosition;
+    private Coroutine drag;
+
     private Vector3 smoothVelocity;
     
     private float bgRadius;
@@ -25,6 +31,8 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private float stickReturnTime = 0.5f;
 
 
+
+    public Vector2 StickVector { get; private set; }
     public Vector2 StickVectorByRatio { get => StickVector.normalized * stickDistRatio; }
     public bool IsMoving { get; private set; }
     
@@ -34,8 +42,43 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     void Start()
     {
         bgRadius = stickBG.rect.width * 0.5f;
+        gameObject.SetActive(false);
     }
 
+
+
+    public void BeginDrag(PointerEventData eventData)
+    {
+        IsMoving = true;
+
+        if (drag != null)
+            StopCoroutine(drag);
+
+        drag = StartCoroutine(Drag(eventData));
+    }
+
+
+    public IEnumerator Drag(PointerEventData eventData)
+    {
+        while (true)
+        {
+            MoveStick(eventData.position);
+            onStickMove?.Invoke(StickVector);
+            yield return null;
+        }           
+    }
+
+
+    public void EndDrag(PointerEventData eventData)
+    {
+        IsMoving = false;
+        onEndStickMove?.Invoke();
+
+        if (resetStickPosition != null)
+            StopCoroutine(resetStickPosition);
+
+        resetStickPosition = StartCoroutine(ResetStickPosition());
+    }
 
 
     private void MoveStick(Vector2 pointerPos)
@@ -63,25 +106,4 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         stickButton.position = stickBG.position;
     }
 
-
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        IsMoving = true;
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        MoveStick(eventData.position);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        IsMoving = false;
-
-        if (resetStickPosition != null)
-            StopCoroutine(resetStickPosition);
-
-        resetStickPosition = StartCoroutine(ResetStickPosition());
-    }
 }

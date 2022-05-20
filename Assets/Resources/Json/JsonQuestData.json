@@ -1,0 +1,52 @@
+{
+  "quests": 
+  [
+    {
+      "questId": 2000,
+      "npcId": 1000,
+      "questName": "Quest_Name_1",
+      "description": "Quest_Description_1",
+      "nextQuest": 2001,
+      "startDialogues": [ "Quest_Dialogue_1", "Quest_Dialogue_2" ],
+      "endDialogues": [ "Quest_Dialogue_5", "Quest_Dialogue_6" ],
+      "task": {
+        "talk": [],
+        "collect": [],
+        "kill": []
+      },
+      "reward": {
+        "exp": 100,
+        "gold": 200,
+        "items": [
+          {
+            "id": 0,
+            "amount": 1
+          }
+        ]
+      }
+    },
+
+    {
+      "questId": 2001,
+      "npcId": 1000,
+      "questName": "Quest_Name_2",
+      "description": "Quest_Description_2",
+      "nextQuest": -1,
+      "task": {
+        "talk": [],
+        "collect": [],
+        "kill": []
+      },
+      "reward": {
+        "exp": 100,
+        "gold": 200,
+        "items": [
+          {
+            "id": 0,
+            "amount": 1
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "npcs": 
+  [
+    {
+      "id": 1000,
+      "name": "NPC_Malcom"
+    },
+    {
+      "id": 1001,
+      "name": "NPC_Demian"
+    }
+  ]
+}

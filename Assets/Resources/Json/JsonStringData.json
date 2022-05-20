@@ -1,0 +1,101 @@
+﻿{
+  "stringNpcNames": [
+    {
+      "key": "NPC_Malcom",
+      "values": [ "말콤", "Malcom" ]
+    },
+    {
+      "key": "NPC_Demian",
+      "values": [ "데미안", "Demian" ]
+    }
+  ],
+
+  "stringDialogues": [
+    {
+      "key": "Dialogue_Malcom_1",
+      "values": [ "말콤의 대사 1", "Malcom's Dialogue 1" ]
+    },
+    {
+      "key": "Dialogue_Malcom_2",
+      "values": [ "말콤의 대사 2", "Malcom's Dialogue 2" ]
+    },
+    {
+      "key": "Dialogue_Malcom_3",
+      "values": [ "말콤의 대사 3", "Malcom's Dialogue 3" ]
+    },
+    {
+      "key": "Dialogue_Malcom_4",
+      "values": [ "말콤의 대사 4", "Malcom's Dialogue 4" ]
+    }
+  ],
+
+  "stringQuestNames": [
+    {
+      "key": "Quest_Name_1",
+      "values": [ "1번 퀘스트입니다.", "This is Quest 1" ]
+    },
+    {
+      "key": "Quest_Name_2",
+      "values": [ "2번 퀘스트입니다.", "This is Quest 2" ]
+    },
+    {
+      "key": "Quest_Name_3",
+      "values": [ "3번 퀘스트입니다.", "This is Quest 3" ]
+    },
+    {
+      "key": "Quest_Name_4",
+      "values": [ "4번 퀘스트입니다.", "This is Quest 4" ]
+    }
+  ],
+
+  "stringQuestDescriptions": [
+    {
+      "key": "Quest_Description_1",
+      "values": [ "1번 퀘스트 설명입니다.", "This is Quest Description 1" ]
+    },
+    {
+      "key": "Quest_Description_2",
+      "values": [ "2번 퀘스트 설명입니다.", "This is Quest Description 2" ]
+    },
+    {
+      "key": "Quest_Description_3",
+      "values": [ "3번 퀘스트 설명입니다.", "This is Quest Description 3" ]
+    },
+    {
+      "key": "Quest_Description_4",
+      "values": [ "4번 퀘스트 설명입니다.", "This is Quest Description 4" ]
+    }
+  ],
+
+  "stringQuestDialogues": [
+    {
+      "key": "Quest_Dialogue_1",
+      "values": [ "1번 퀘스트 대사입니다.", "This is Quest Dialouge 1" ]
+    },
+    {
+      "key": "Quest_Dialogue_2",
+      "values": [ "2번 퀘스트 대사입니다.", "This is Quest Dialouge 2" ]
+    },
+    {
+      "key": "Quest_Dialogue_3",
+      "values": [ "3번 퀘스트 대사입니다.", "This is Quest Dialouge 3" ]
+    },
+    {
+      "key": "Quest_Dialogue_4",
+      "values": [ "4번 퀘스트 대사입니다.", "This is Quest Dialouge 4" ]
+    },
+    {
+      "key": "Quest_Dialogue_5",
+      "values": [ "5번 퀘스트 대사입니다.", "This is Quest Dialouge 5" ]
+    },
+    {
+      "key": "Quest_Dialogue_6",
+      "values": [ "6번 퀘스트 대사입니다.", "This is Quest Dialouge 6" ]
+    },
+    {
+      "key": "Quest_Dialogue_7",
+      "values": [ "7번 퀘스트 대사입니다.", "This is Quest Dialouge 7" ]
+    }
+  ]
+
+}

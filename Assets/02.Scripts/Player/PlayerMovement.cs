@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    // 프로퍼티 없애기
     private bool canMoving = false;
 
 
@@ -46,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    // 조이스틱이 움직일때만 작동하는 이벤트로 바꾸자...
+    
     private void OnStickMove(Vector2 stickVector)
     {
         if (!isMoving)

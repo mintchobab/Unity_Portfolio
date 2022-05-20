@@ -14,6 +14,8 @@ public class ItemInEquipSlot
     }
 }
 
+
+// 이거도 싱글톤 뺴버리기
 public class EquipmentSystem : Singleton<EquipmentSystem>
 {
     private List<ItemInEquipSlot> slotList = new List<ItemInEquipSlot>();
@@ -111,6 +113,5 @@ public class EquipmentSystem : Singleton<EquipmentSystem>
 
     public override void Init()
     {
-        throw new NotImplementedException();
     }
 }

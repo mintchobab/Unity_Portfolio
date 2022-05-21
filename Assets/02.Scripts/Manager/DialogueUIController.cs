@@ -16,15 +16,18 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     [SerializeField]
     private Button closeButton;
 
-
     public event Action onEndDialogue;
 
     private Coroutine typing;
+    private Coroutine showNextDialogue;
+
     private List<string> currentDialogues;
 
-    private float typingSpeed = 0.15f;
+    private bool isTyping;
+
     private int currentIndex;
     private int lastIndex;
+    private float typingSpeed = 0.15f;
 
 
     protected override void Awake()
@@ -34,18 +37,19 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     }
 
 
-    // 대화창 or 화면 클릭시 실행
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        ShowNextSentence();
-    }
-
-
     // 캔버스 활성화
     public override void Show()
     {
         base.Show();
-        ShowNextSentence();
+
+        ShowNextDialogue();
+    }
+
+
+    // 대화창 or 화면 클릭시 실행
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        ShowNextDialogue();
     }
 
 
@@ -53,19 +57,6 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     public void SetNameText(string name)
     {
         nameText.text = name;
-    }
-
-
-    // 대사 타이핑 효과
-    public IEnumerator Typing(string str)
-    {
-        for (int i = 0; i < str.Length; i++)
-        {
-            dialogueText.text = str.Substring(0, i + 1);
-            yield return new WaitForSeconds(typingSpeed);
-        }
-
-        yield return null;
     }
 
 
@@ -82,30 +73,63 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
 
 
     // 다음 문장 출력
-    private void ShowNextSentence()
+    private void ShowNextDialogue()
     {
-        if (currentDialogues == null)
+        if (currentDialogues == null || currentIndex == -1)
             return;
 
-        if (currentIndex == -1)
-            return;
-
-        // 대화 종료
-        if (currentIndex > lastIndex)
+        // 대사가 출력중일 때
+        if (isTyping)
         {
-            currentIndex = -1;
-            onEndDialogue?.Invoke();
+            StopCoroutine(typing);
+            isTyping = false;
+            dialogueText.text = currentDialogues[currentIndex];
+            currentIndex++;
 
-            closeButton.gameObject.SetActive(true);
-            return;
+            if (currentIndex > lastIndex)
+            {
+                AfterLastDialouge();
+            }
+        }
+        else
+        {
+            if (typing != null)
+                StopCoroutine(typing);
+
+            if (currentIndex != lastIndex)
+                typing = StartCoroutine(Typing(currentDialogues[currentIndex], () => currentIndex++));
+            else
+                typing = StartCoroutine(Typing(currentDialogues[currentIndex], AfterLastDialouge));
+        }
+    }
+
+
+    // 마지막 대사 출력 이후 실행
+    private void AfterLastDialouge()
+    {
+        currentIndex = -1;
+        onEndDialogue?.Invoke();
+
+        closeButton.gameObject.SetActive(true);
+    }
+
+
+
+    // 대사 타이핑 효과
+    public IEnumerator Typing(string str, Action afterTyping = null)
+    {
+        isTyping = true;
+
+        for (int i = 0; i < str.Length; i++)
+        {
+            dialogueText.text = str.Substring(0, i + 1);
+            yield return new WaitForSeconds(typingSpeed);
         }
 
-        // 대사 변경 + 타이핑 효과
-        if (typing != null)
-            StopCoroutine(typing);
+        isTyping = false;
+        afterTyping?.Invoke();
 
-        typing = StartCoroutine(Typing(currentDialogues[currentIndex]));
-
-        currentIndex++;
+        yield return null;
     }
+
 }

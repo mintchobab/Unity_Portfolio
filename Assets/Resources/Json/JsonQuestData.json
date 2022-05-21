@@ -47,6 +47,75 @@
           }
         ]
       }
+    },
+
+    {
+      "questId": 2002,
+      "npcId": 1000,
+      "questName": "Quest_Name_2",
+      "description": "Quest_Description_2",
+      "nextQuest": -1,
+      "task": {
+        "talk": [],
+        "collect": [],
+        "kill": []
+      },
+      "reward": {
+        "exp": 100,
+        "gold": 200,
+        "items": [
+          {
+            "id": 0,
+            "amount": 1
+          }
+        ]
+      }
+    },
+
+    {
+      "questId": 2003,
+      "npcId": 1000,
+      "questName": "Quest_Name_2",
+      "description": "Quest_Description_2",
+      "nextQuest": -1,
+      "task": {
+        "talk": [],
+        "collect": [],
+        "kill": []
+      },
+      "reward": {
+        "exp": 100,
+        "gold": 200,
+        "items": [
+          {
+            "id": 0,
+            "amount": 1
+          }
+        ]
+      }
+    },
+
+    {
+      "questId": 2004,
+      "npcId": 1000,
+      "questName": "Quest_Name_2",
+      "description": "Quest_Description_2",
+      "nextQuest": -1,
+      "task": {
+        "talk": [],
+        "collect": [],
+        "kill": []
+      },
+      "reward": {
+        "exp": 100,
+        "gold": 200,
+        "items": [
+          {
+            "id": 0,
+            "amount": 1
+          }
+        ]
+      }
     }
   ]
 }

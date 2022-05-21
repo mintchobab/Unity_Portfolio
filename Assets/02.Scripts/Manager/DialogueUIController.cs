@@ -33,6 +33,7 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     protected override void Awake()
     {
         base.Awake();
+        Hide();
         closeButton.onClick.AddListener(() => Hide());
     }
 

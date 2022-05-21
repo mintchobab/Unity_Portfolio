@@ -9,6 +9,7 @@ public class InteractQuestNPC : InteractNPC
 
 
     // 퀘스트 받기전 or 퀘스트 받은 후 구분해야 할듯
+    // 대화가 끝난후에 퀘스트창 띄우기
     public override void Interact()
     {
         if (currentQuest == null)

@@ -5,7 +5,6 @@ using UnityEngine;
 public class UIManager : IManager
 {
     private readonly string RootCanvasName = "CanvasRoot";
-    private readonly string FolderPath = "UI/Canvas/";
 
     private GameObject rootCanvas;
 
@@ -13,6 +12,7 @@ public class UIManager : IManager
 
     public DialogueUIController DialogueController { get; private set; }
     public InputUIController InputController { get; private set; }
+    public QuestUIController QuestUIController { get; private set; }
 
 
     public void Init()
@@ -36,9 +36,11 @@ public class UIManager : IManager
     // ÇÁ¸®ÆÕ Canvas »ý¼º
     private void MakeCanvas()
     {
-        InputController = Managers.Instance.ResourceManager.Instantiate<InputUIController>($"{FolderPath}InputCanvas", rootCanvas.transform);
-        Managers.Instance.ResourceManager.Instantiate<Canvas>($"{FolderPath}InventoryCanvas", rootCanvas.transform);
-        DialogueController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>($"{FolderPath}DialogueCanvas", rootCanvas.transform);
+        InputController = Managers.Instance.ResourceManager.Instantiate<InputUIController>(ResourceFolderPath.InputCanvas, rootCanvas.transform);
+        Managers.Instance.ResourceManager.Instantiate<Canvas>(ResourceFolderPath.InventoryCanvas, rootCanvas.transform);
+
+        DialogueController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourceFolderPath.DialogueCanvas, rootCanvas.transform);
+        QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourceFolderPath.QuestCanvas, rootCanvas.transform);
     }    
 
 }

@@ -9,16 +9,23 @@ public class InputUIController : SceneUI
     [SerializeField]
     private Button dialogueButton;
 
+    [SerializeField]
+    private Button questButton;
+
     private event Action onInteract;
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Show();
+    }
 
     private void Start()
     {
         dialogueButton.onClick.AddListener(OnClickInteractButton);
+        questButton.onClick.AddListener(OnClickQuestButton);
     }
-
-
-
 
 
     // 버튼 이미지 변경 + 버튼 이벤트 변경
@@ -41,6 +48,12 @@ public class InputUIController : SceneUI
     private void OnClickInteractButton()
     {
         onInteract?.Invoke();
+    }
+
+
+    private void OnClickQuestButton()
+    {
+        Managers.Instance.UIManager.QuestUIController.Show();
     }
 
 

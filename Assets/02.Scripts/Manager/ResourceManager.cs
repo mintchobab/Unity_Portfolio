@@ -4,7 +4,6 @@ public class ResourceManager : IManager
 {
     public void Init() { }
 
-
     public T Load<T>(string path) where T : Object
     {
         return Resources.Load<T>(path);

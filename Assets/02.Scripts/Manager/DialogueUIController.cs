@@ -14,9 +14,15 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     private Text dialogueText;
 
     [SerializeField]
+    private Button acceptButton;
+
+    [SerializeField]
     private Button closeButton;
 
+
     public event Action onEndDialogue;
+    public event Action onAcceptEvent;
+
 
     private Coroutine typing;
     private Coroutine showNextDialogue;
@@ -34,7 +40,17 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     {
         base.Awake();
         Hide();
+
+        acceptButton.onClick.AddListener(OnClickAcceptButton);
         closeButton.onClick.AddListener(() => Hide());
+    }
+
+
+    public override void Hide()
+    {
+        base.Hide();
+        acceptButton.gameObject.SetActive(false);
+        closeButton.gameObject.SetActive(false);
     }
 
 
@@ -54,11 +70,38 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     }
 
 
+    // 수락 버튼 클릭 이벤트
+    private void OnClickAcceptButton()
+    {
+        onAcceptEvent?.Invoke();
+        onAcceptEvent = null;
+        Hide();
+    }
+
+
+    // 수락버튼에 이벤트 추가
+    public void SetAcceptButtonEvent(Action action)
+    {
+        onAcceptEvent += action;
+        acceptButton.GetComponentInChildren<Text>().text = "퀘스트 수락";
+    }
+
+
     // 대화창의 NPC 이름 변경
     public void SetNameText(string name)
     {
         nameText.text = name;
     }
+
+
+    // 대화 종료후의 이벤트 추가
+    public void SetEndEvent(Action action)
+    {
+        onEndDialogue += action;
+    }
+
+
+
 
 
     // 출력해야할 대사 설정
@@ -110,7 +153,11 @@ public class DialogueUIController : SceneUI, IPointerDownHandler
     {
         currentIndex = -1;
         onEndDialogue?.Invoke();
+        onEndDialogue = null;
 
+        // 퀘스트가 있을때만
+        // 근데 이걸 판단하는게 여기서 해야될까....?????
+        acceptButton.gameObject.SetActive(true);
         closeButton.gameObject.SetActive(true);
     }
 

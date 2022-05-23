@@ -9,13 +9,13 @@ public class UIManager : IManager
     private GameObject rootCanvas;
 
     // 팝업도 생성할 수 있어야함......
-
     public DialogueUIController DialogueController { get; private set; }
     public InputUIController InputController { get; private set; }
     public QuestUIController QuestUIController { get; private set; }
+    public InventoryUIController InventoryUIController { get; private set; }
 
 
-    public void Init()
+    public void Initialize()
     {
         MakeRoot();
         MakeCanvas();
@@ -36,11 +36,9 @@ public class UIManager : IManager
     // 프리팹 Canvas 생성
     private void MakeCanvas()
     {
-        InputController = Managers.Instance.ResourceManager.Instantiate<InputUIController>(ResourceFolderPath.InputCanvas, rootCanvas.transform);
-        Managers.Instance.ResourceManager.Instantiate<Canvas>(ResourceFolderPath.InventoryCanvas, rootCanvas.transform);
-
-        DialogueController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourceFolderPath.DialogueCanvas, rootCanvas.transform);
-        QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourceFolderPath.QuestCanvas, rootCanvas.transform);
-    }    
-
+        InputController = Managers.Instance.ResourceManager.Instantiate<InputUIController>(ResourcePath.InputCanvas, rootCanvas.transform);
+        DialogueController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourcePath.DialogueCanvas, rootCanvas.transform);
+        QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourcePath.QuestCanvas, rootCanvas.transform);
+        InventoryUIController = Managers.Instance.ResourceManager.Instantiate<InventoryUIController>(ResourcePath.InventoryCanvas, rootCanvas.transform);
+    }
 }

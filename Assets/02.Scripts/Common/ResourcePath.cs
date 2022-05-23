@@ -1,4 +1,4 @@
-public static class ResourceFolderPath
+public static class ResourcePath
 {
     //@ UI/Cavnas
     public static readonly string InputCanvas = "UI/Canvas/InputCanvas";
@@ -8,4 +8,7 @@ public static class ResourceFolderPath
 
     //@ UI/QUest
     public static readonly string QuestListButton = "UI/Quest/QuestListButton";
+
+    //
+    public static readonly string SlotRow = "UI/SlotRow";
 }

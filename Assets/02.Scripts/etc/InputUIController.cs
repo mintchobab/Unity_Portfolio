@@ -12,6 +12,9 @@ public class InputUIController : SceneUI
     [SerializeField]
     private Button questButton;
 
+    [SerializeField]
+    private Button inventoryButton;
+
     private event Action onInteract;
 
 
@@ -21,10 +24,12 @@ public class InputUIController : SceneUI
         Show();
     }
 
+
     private void Start()
     {
         dialogueButton.onClick.AddListener(OnClickInteractButton);
         questButton.onClick.AddListener(OnClickQuestButton);
+        inventoryButton.onClick.AddListener(OnClickInventoryButton);
     }
 
 
@@ -54,6 +59,11 @@ public class InputUIController : SceneUI
     private void OnClickQuestButton()
     {
         Managers.Instance.UIManager.QuestUIController.Show();
+    }
+
+    private void OnClickInventoryButton()
+    {
+        Managers.Instance.UIManager.InventoryUIController.Show();
     }
 
 

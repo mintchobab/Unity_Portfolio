@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ResourceManager : IManager
 {
-    public void Init() { }
+    public void Initialize() { }
 
     public T Load<T>(string path) where T : Object
     {

@@ -14,7 +14,7 @@ public class JsonManager : IManager
     private readonly string QuestPath = "Json/JsonQuestData";
 
 
-    public void Init()
+    public void Initialize()
     {
         string json;
 

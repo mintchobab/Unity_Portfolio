@@ -8,7 +8,7 @@ public class StringManager : IManager
     private static int localizeIndex = 0;
 
 
-    public void Init()
+    public void Initialize()
     {
         jsonString = Managers.Instance.JsonManager.jsonString;
     }
@@ -20,10 +20,22 @@ public class StringManager : IManager
         return jsonString.stringNpcNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
     }
 
+    public static string GetLocalizedQuestName(string nameKey)
+    {
+        return jsonString.stringQuestNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+    }
+
+    public static string GetLocalizedQuestDescription(string nameKey)
+    {
+        return jsonString.stringQuestDescriptions.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+    }
+
     public static string GetLocalizedQuestDialogue(string nameKey)
     {
         return jsonString.stringQuestDialogues.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
     }
+
+
 
     //public static string GetLocalizedDialogue(string key)
     //{

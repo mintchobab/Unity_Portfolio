@@ -36,8 +36,6 @@ public class InventorySystem : Singleton<InventorySystem>
 
     private Canvas canvas;
 
-    private const string PATH_SLOT_ROW = "UI/SlotRow";
-
     private bool isActive;
 
 
@@ -96,7 +94,7 @@ public class InventorySystem : Singleton<InventorySystem>
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject slotRow = Instantiate(Resources.Load<GameObject>(PATH_SLOT_ROW));
+            GameObject slotRow = Instantiate(Resources.Load<GameObject>(ResourcePath.SlotRow));
             slotRow.transform.SetParent(scrollContent);
             slotRow.transform.localScale = Vector3.one;
 

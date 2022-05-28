@@ -2,87 +2,93 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInteractionController : MonoBehaviour
+namespace lsy 
 {
-    private InputUIController inputController;
-
-    private Coroutine checkInteractTarget;
-
-    private List<InteractBase> interacts = new List<InteractBase>();
-    // private InteractBase currentInteract;
-
-
-    private void Start()
+    public class PlayerInteractionController : MonoBehaviour
     {
-        inputController = Managers.Instance.UIManager.InputController;
-    }
+        private InputUIController inputController;
+
+        private Coroutine checkInteractTarget;
+
+        private List<InteractBase> interacts = new List<InteractBase>();
+        // private InteractBase currentInteract;
 
 
-    // 겹치는 경우도 있겠다.....
-    private void OnTriggerEnter(Collider other)
-    {
-        InteractBase interact = other.GetComponent<InteractBase>();
-
-        if (interact != null)
+        private void Start()
         {
-            interacts.Add(interact);
-
-            if (checkInteractTarget != null)
-                StopCoroutine(checkInteractTarget);
-
-            checkInteractTarget = StartCoroutine(CheckInteractTarget());
+            inputController = Managers.Instance.UIManager.InputController;
         }
-    }
 
 
-    private void OnTriggerExit(Collider other)
-    {
-        InteractBase interact = other.GetComponent<InteractBase>();
-
-        if (interact != null)
+        // 겹치는 경우도 있겠다.....
+        private void OnTriggerEnter(Collider other)
         {
-            interacts.Remove(interact);
+            InteractBase interact = other.GetComponent<InteractBase>();
 
-            if (interacts.Count == 0)
+            if (interact != null)
             {
+                interacts.Add(interact);
+
                 if (checkInteractTarget != null)
                     StopCoroutine(checkInteractTarget);
 
-                //inputController.HideDialogueButton();
+                checkInteractTarget = StartCoroutine(CheckInteractTarget());
             }
         }
-    }
 
 
-    // 가장 가까운 타겟을 정하기
-    private IEnumerator CheckInteractTarget()
-    {
-        InteractBase prevInteract = null;
-        InteractBase currentInteract = null;
-        float minDist = 1000f;
-
-        while (true)
+        private void OnTriggerExit(Collider other)
         {
-            if (interacts.Count == 0)
-                yield break;
+            InteractBase interact = other.GetComponent<InteractBase>();
 
-            for (int i = 0; i < interacts.Count; i++)
+            if (interact != null)
             {
-                float dist = (transform.position - interacts[i].transform.position).sqrMagnitude;
+                interacts.Remove(interact);
 
-                if (dist < minDist)
+                if (interacts.Count == 0)
                 {
-                    minDist = dist;
-                    currentInteract = interacts[i];
+                    if (checkInteractTarget != null)
+                        StopCoroutine(checkInteractTarget);
+
+                    inputController.ResetInteractButton();
                 }
             }
+        }
 
-            if (prevInteract != currentInteract)
-                inputController.SetInteractButton(currentInteract);
 
-            prevInteract = currentInteract;
+        // 가장 가까운 타겟을 정하기
+        private IEnumerator CheckInteractTarget()
+        {
+            InteractBase prevInteract = null;
+            InteractBase currentInteract = null;
+            float minDist = 1000f;
 
-            yield return new WaitForSeconds(0.2f);
+            while (true)
+            {
+                if (interacts.Count <= 0)
+                {
+                    yield break;
+                }
+
+                for (int i = 0; i < interacts.Count; i++)
+                {
+                    float dist = (transform.position - interacts[i].transform.position).sqrMagnitude;
+
+                    if (dist < minDist)
+                    {
+                        minDist = dist;
+                        currentInteract = interacts[i];
+                    }
+                }
+
+                if (prevInteract != currentInteract)
+                    inputController.SetInteractButton(currentInteract);
+
+                prevInteract = currentInteract;
+
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
 }
+

@@ -1,0 +1,22 @@
+{
+  "consumables": [
+    {
+      "id": 0,
+      "itemType": "Consumable",
+      "name": "Item_Name_HpPotion",
+      "uniqueName" : "HpPotion",
+      "description": "Item_Description_HpPotion",
+      "maxCount": 10
+    }
+  ],
+  "materials": [
+    {
+      "id": 0,
+      "itemType": "Material",
+      "name": "물약",
+      "uniqueName": "HpPotion",
+      "description": "아이템 요약",
+      "maxCount": 10
+    }
+  ]
+}

@@ -96,6 +96,20 @@
       "key": "Quest_Dialogue_7",
       "values": [ "7번 퀘스트 대사입니다.", "This is Quest Dialouge 7" ]
     }
+  ],
+
+  "stringItemNames": [
+    {
+      "key": "Item_Name_HpPotion",
+      "values": [ "체력 물약", "Hp Potion" ]
+    }
+  ],
+
+  "stringItemDescriptions": [
+    {
+      "key": "Item_Description_HpPotion",
+      "values": [ "체력을 회복시켜줍니다.", "Restore Health Point" ]
+    }
   ]
 
 }

@@ -9,6 +9,8 @@ public class JsonString
     public List<StringKeyvalues> stringQuestNames;
     public List<StringKeyvalues> stringQuestDescriptions;
     public List<StringKeyvalues> stringQuestDialogues;
+    public List<StringKeyvalues> stringItemNames;
+    public List<StringKeyvalues> stringItemDescriptions;
 }
 
 

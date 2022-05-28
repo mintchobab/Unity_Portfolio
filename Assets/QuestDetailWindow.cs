@@ -4,25 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class QuestDetailWindow : MonoBehaviour
+namespace lsy
 {
-    [SerializeField]
-    private Text questName;
-
-    [SerializeField]
-    private Text questContents;
-
-    [SerializeField]
-    private Text questTask;
-
-    [SerializeField]
-    private Text questReward;
-
-
-    public void SetQuest(Quest quest)
+    public class QuestDetailWindow : MonoBehaviour
     {
-        questName.text = StringManager.GetLocalizedQuestName(quest.questName);
-        questContents.text = StringManager.GetLocalizedQuestDescription(quest.description);
-    }
+        [SerializeField]
+        private Text questName;
 
+        [SerializeField]
+        private Text questContents;
+
+        [SerializeField]
+        private Text questTask;
+
+        [SerializeField]
+        private Text questReward;
+
+
+        public void SetQuest(Quest quest)
+        {
+            questName.text = StringManager.GetLocalizedQuestName(quest.questName);
+            questContents.text = StringManager.GetLocalizedQuestDescription(quest.description);
+        }
+    }
 }

@@ -3,46 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestTabPage : MonoBehaviour
+namespace lsy
 {
-    [field: SerializeField]
-    public QuestTabType TabType { get; private set; }
-
-
-    private List<QuestListButton> buttonList = new List<QuestListButton>();
-
-
-
-    public void AddQuestButton(Quest quest, Action<Quest> action = null)
+    public class QuestTabPage : MonoBehaviour
     {
-        QuestListButton questButton = Managers.Instance.ResourceManager.Instantiate<QuestListButton>(ResourcePath.QuestListButton, transform);
-        questButton.SetQuest(quest);
-        questButton.AddButtonEvent(action);
-
-        buttonList.Add(questButton);
-    }
+        [field: SerializeField]
+        public QuestTabType TabType { get; private set; }
 
 
-    public void AddQuestButton(List<Quest> questList, Action<Quest> action = null)
-    {
-        for (int i = 0; i < questList.Count; i++)
+        private List<QuestListButton> buttonList = new List<QuestListButton>();
+
+
+
+        public void AddQuestButton(Quest quest, Action<Quest> action = null)
         {
             QuestListButton questButton = Managers.Instance.ResourceManager.Instantiate<QuestListButton>(ResourcePath.QuestListButton, transform);
-            questButton.SetQuest(questList[i]);
+            questButton.SetQuest(quest);
             questButton.AddButtonEvent(action);
 
             buttonList.Add(questButton);
         }
-    }
 
-    public void RemoveQuestButton(Quest quest)
-    {
-        for (int i = 0; i < buttonList.Count; i++)
+
+        public void AddQuestButton(List<Quest> questList, Action<Quest> action = null)
         {
-            if (buttonList[i].CurrentQuest == quest)
+            for (int i = 0; i < questList.Count; i++)
             {
-                buttonList.RemoveAt(i);
-                break;
+                QuestListButton questButton = Managers.Instance.ResourceManager.Instantiate<QuestListButton>(ResourcePath.QuestListButton, transform);
+                questButton.SetQuest(questList[i]);
+                questButton.AddButtonEvent(action);
+
+                buttonList.Add(questButton);
+            }
+        }
+
+        public void RemoveQuestButton(Quest quest)
+        {
+            for (int i = 0; i < buttonList.Count; i++)
+            {
+                if (buttonList[i].CurrentQuest == quest)
+                {
+                    buttonList.RemoveAt(i);
+                    break;
+                }
             }
         }
     }

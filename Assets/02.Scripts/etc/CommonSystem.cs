@@ -5,21 +5,21 @@ using UnityEngine.EventSystems;
 
 public class CommonSystem : MonoBehaviour, IPointerClickHandler
 {
-    public static ItemSlot SelectedSlot = null;
+    //public static ItemSlot SelectedSlot = null;
 
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ClearSelectedSlot();
+        //ClearSelectedSlot();
     }
 
 
     public static void ClearSelectedSlot()
     {
-        if (SelectedSlot != null)
-        {
-            SelectedSlot.CancelClicked();
-            SelectedSlot = null;
-        }
+        //if (SelectedSlot != null)
+        //{
+        //    SelectedSlot.CancelClicked();
+        //    SelectedSlot = null;
+        //}
     }
 }

@@ -1,99 +1,92 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour
+namespace lsy
 {
-    [SerializeField]
-    private SlotType slotType;
-
-    [field: SerializeField]
-    public Image SlotImage { get; private set; }
-
-    [SerializeField]
-    protected Sprite emptySprite;
-
-    [SerializeField]
-    protected GameObject selectedObj;
-
-    [field: SerializeField]
-    public Text ItemCountText { get; private set; }
-
-    protected Button button;
-
-    protected bool isClicked;
-    public bool IsEmpty = true;
-
-
-    protected void Awake()
+    public class ItemSlot : MonoBehaviour
     {
-        button = GetComponentInChildren<Button>();
-        button.onClick.AddListener(() => ClickedSlot());
-    }
+        [SerializeField]
+        private SlotType slotType;
+
+        [field: SerializeField]
+        public Image SlotImage { get; private set; }
+
+        [SerializeField]
+        protected Sprite emptySprite;
+
+        [SerializeField]
+        protected GameObject selectedOutlineObj;
+
+        [field: SerializeField]
+        public Text ItemCountText { get; private set; }
+
+        protected Button button;
+
+        [SerializeField]
+        protected InventoryUIController uiController;
 
 
-    protected void ClickedSlot()
-    {
-        if (IsEmpty)
-            return;
+        protected bool isClicked;
+        protected bool isEmpty = true;
 
-        ItemSlot selectedSlot = CommonSystem.SelectedSlot;
 
-        if (selectedSlot != null && this != selectedSlot)
+        protected void Awake()
         {
-            selectedSlot.CancelClicked();
+            button = GetComponentInChildren<Button>();           
+            button.onClick.AddListener(OnClickButton);
         }
 
-        if (!isClicked)
-            ClickedOnce();
-        else
-            ClickedDouble();
-    }
 
-    protected void ClickedOnce()
-    {
-        isClicked = true;
-        selectedObj.SetActive(true);
-
-        CommonSystem.SelectedSlot = this;
-    }
-
-    protected virtual void ClickedDouble()
-    {
-        isClicked = false;
-        selectedObj.SetActive(false);
-
-        InventorySystem.Instance.ClickedInventorySlot(this);
-    }
+        public void Initialize(InventoryUIController uiController)
+        {
+            this.uiController = uiController;
+        }
 
 
-    public void CancelClicked()
-    {
-        isClicked = false;
-        selectedObj.SetActive(false);
-    }
+        private void OnClickButton()
+        {
+            uiController.ClickedItemSlot(this);
+        }
+
+        // 아웃라인 이미지 활성화
+        public void ActivateOutline()
+        {
+            selectedOutlineObj.SetActive(true);
+        }
 
 
-    public virtual void UpdateSlotImage(Item item)
-    {
-        IsEmpty = item.CurrentCount > 0 ? false : true;
+        // 아웃라인 이미지 비활성화
+        public void DeactivateOutline()
+        {
+            selectedOutlineObj.SetActive(false);
+        }
 
-        SlotImage.sprite = item.ItemData.Image;
-    }
 
-    public virtual void UpdateSlotCount(Item item)
-    {
-        IsEmpty = item.CurrentCount > 0 ? false : true;
+        // 슬롯의 이미지 변경
+        public virtual void UpdateSlotImage(Sprite sprite)
+        {
+            if (SlotImage.sprite.Equals(sprite))
+                return;
 
-        if (item.ItemData.ItemType != ItemType.Consumerable)
-            return;
+            isEmpty = false;
 
-        ItemCountText.text = item.CurrentCount.ToString();
-    }
+            SlotImage.sprite = sprite;
+        }
 
-    public virtual void ClearSlot()
-    {
-        IsEmpty = true;
-        SlotImage.sprite = emptySprite;
-        ItemCountText.text = string.Empty;
+
+        // 슬롯의 아이템 개수 변경
+        public virtual void UpdateSlotCount(int count)
+        {
+            ItemCountText.text = count.ToString();
+        }
+
+
+        // 슬롯 비우기
+        public virtual void ClearSlot()
+        {
+            isEmpty = true;
+            SlotImage.sprite = emptySprite;
+            ItemCountText.text = string.Empty;
+        }
     }
 }

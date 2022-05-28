@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipSlot : ItemSlot
+public class EquipSlot : MonoBehaviour
 {
-    [field: SerializeField]
-    public EquipmentType EquipmentType { get; private set; }
+    //    [field: SerializeField]
+    //    public EquipmentType EquipmentType { get; private set; }
 
-    protected override void ClickedDouble()
-    {
-        isClicked = false;
-        selectedObj.SetActive(false);
+    //    protected override void ClickedDouble()
+    //    {
+    //        isClicked = false;
+    //        selectedOutlineObj.SetActive(false);
 
-        EquipmentSystem.Instance.UnequipItem(this);
-    }
+    //        //EquipmentSystem.Instance.UnequipItem(this);
+    //    }
 
-    public override void ClearSlot()
-    {
-        IsEmpty = true;
-        SlotImage.sprite = emptySprite;
-    }
+    //    public override void ClearSlot()
+    //    {
+    //        //IsEmpty = true;
+    //        SlotImage.sprite = emptySprite;
+    //    }
 }

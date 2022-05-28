@@ -41,65 +41,65 @@ public class PlayerEquipment : MonoBehaviour
     }
 
 
-    public void Equip(Item item)
-    {
-        EquipmentType equipmentType = (item.ItemData as EquipmentData).EquipmentType;
+    //public void Equip(Item item)
+    //{
+    //    EquipmentType equipmentType = (item.ItemData as EquipmentData).EquipmentType;
 
-        if (equipmentType == EquipmentType.Armor)
-        {
-            EquipArmor(item);
-            return;
-        }
+    //    if (equipmentType == EquipmentType.Armor)
+    //    {
+    //        EquipArmor(item);
+    //        return;
+    //    }
 
-        // 아이템 프리팹 생성
-        GameObject obj = Instantiate(Resources.Load<GameObject>($"Equipment/{item.ItemData.Name}"));
-        obj.gameObject.name = item.ItemData.Name;
+    //    // 아이템 프리팹 생성
+    //    GameObject obj = Instantiate(Resources.Load<GameObject>($"Equipment/{item.ItemData.Name}"));
+    //    obj.gameObject.name = item.ItemData.Name;
 
-        // 프리팹 위치 지정        
-        obj.transform.parent = equipmentDic[equipmentType];
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
+    //    // 프리팹 위치 지정        
+    //    obj.transform.parent = equipmentDic[equipmentType];
+    //    obj.transform.localPosition = Vector3.zero;
+    //    obj.transform.localRotation = Quaternion.identity;
 
-        if (equipmentType == EquipmentType.Helmet)
-            hair.gameObject.SetActive(false);
-    }
-
-
-    public void UnEquip(EquipmentType equipmentType)
-    {
-        if (equipmentType == EquipmentType.Armor)
-        {
-            UnEquipArmor(equipmentType);
-            return;
-        }
-
-        Transform child = equipmentDic[equipmentType].GetChild(0);
-
-        if (child)
-        {
-            Destroy(child.gameObject);
-        }
-
-        if (equipmentType == EquipmentType.Helmet)
-            hair.gameObject.SetActive(true);
-    }
+    //    if (equipmentType == EquipmentType.Helmet)
+    //        hair.gameObject.SetActive(false);
+    //}
 
 
-    private void EquipArmor(Item item)
-    {
-        if (item.ItemData.Name.Equals("Armor Leather"))
-        {
-            UpdateMeshRenderer(armorLeather);
-        }
-        else if (item.ItemData.Name.Equals("Armor Silver"))
-        {
-            UpdateMeshRenderer(armorSilver);
-        }
-        else if (item.ItemData.Name.Equals("Armor Gold"))
-        {
-            UpdateMeshRenderer(armorGold);
-        }
-    }
+    //public void UnEquip(EquipmentType equipmentType)
+    //{
+    //    if (equipmentType == EquipmentType.Armor)
+    //    {
+    //        UnEquipArmor(equipmentType);
+    //        return;
+    //    }
+
+    //    Transform child = equipmentDic[equipmentType].GetChild(0);
+
+    //    if (child)
+    //    {
+    //        Destroy(child.gameObject);
+    //    }
+
+    //    if (equipmentType == EquipmentType.Helmet)
+    //        hair.gameObject.SetActive(true);
+    //}
+
+
+    //private void EquipArmor(Item item)
+    //{
+    //    if (item.ItemData.Name.Equals("Armor Leather"))
+    //    {
+    //        UpdateMeshRenderer(armorLeather);
+    //    }
+    //    else if (item.ItemData.Name.Equals("Armor Silver"))
+    //    {
+    //        UpdateMeshRenderer(armorSilver);
+    //    }
+    //    else if (item.ItemData.Name.Equals("Armor Gold"))
+    //    {
+    //        UpdateMeshRenderer(armorGold);
+    //    }
+    //}
 
 
     private void UnEquipArmor(EquipmentType equipmentType)

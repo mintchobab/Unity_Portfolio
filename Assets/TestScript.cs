@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestScript : MonoBehaviour
+
+namespace lsy
 {
-    // Update is called once per frame
-    void Update()
+    public class TestScript : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        void Update()
         {
-            Debug.LogWarning("Count : " + Managers.Instance.QuestManager.ProgressingList.Count);
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Managers.Instance.InventoryManager.AddCountableItem(0, 3);
+            }
         }
     }
 }

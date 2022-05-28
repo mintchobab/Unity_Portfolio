@@ -375,9 +375,9 @@ MonoBehaviour:
   slotType: 0
   <SlotImage>k__BackingField: {fileID: 317283441263695625}
   emptySprite: {fileID: 21300000, guid: 69bf4e17f1e8e7142891f389cba85af6, type: 3}
-  selectedObj: {fileID: 972264384500421348}
+  selectedOutlineObj: {fileID: 972264384500421348}
   <ItemCountText>k__BackingField: {fileID: 692526211232158078}
-  isEmpty: 1
+  uiController: {fileID: 0}
 --- !u!1 &2573152929680184840
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
             testRot = new Vector3(0f, mouseDragDist, 0f);
             prevPos = newPos;
             yield return null;
-        }        
+        }
     }
 
 
@@ -81,7 +81,7 @@ public class CameraController : MonoBehaviour
         direction = Quaternion.Euler(testRot) * direction;
         direction.Normalize();
 
-        transform.position = player.transform.position - direction * distance;
+        transform.position = (player.transform.position + new Vector3(0f, 0.8f, 0f)) - direction * distance;
         transform.rotation = Quaternion.LookRotation(direction);
     }
 }

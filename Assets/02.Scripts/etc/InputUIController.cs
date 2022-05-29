@@ -18,7 +18,6 @@ namespace lsy
         [SerializeField]
         private Button inventoryButton;
 
-
         [SerializeField]
         private Sprite defaultSprite;
 
@@ -28,6 +27,7 @@ namespace lsy
 
 
         private event Action onInteract;
+
 
 
         protected override void Awake()
@@ -76,6 +76,7 @@ namespace lsy
         private void OnClickInventoryButton()
         {
             Managers.Instance.UIManager.InventoryUIController.Show();
+            Hide();
         }
 
 

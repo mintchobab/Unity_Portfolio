@@ -7,7 +7,7 @@ namespace lsy
         private static JsonString jsonString;
 
         // 번호에 따라 한글, 영어 바뀜
-        private static int localizeIndex = 0;
+        private static int localizeIndex = 1;
 
 
         public void Initialize()
@@ -47,5 +47,9 @@ namespace lsy
             return jsonString.stringItemDescriptions.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
+        public static string GetLocalizedUIText(string nameKey)
+        {
+            return jsonString.stringUITexts.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+        }
     }
 }

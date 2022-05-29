@@ -4,7 +4,7 @@
       "id": 0,
       "itemType": "Consumable",
       "name": "Item_Name_HpPotion",
-      "uniqueName" : "HpPotion",
+      "uniqueName": "HpPotion",
       "description": "Item_Description_HpPotion",
       "maxCount": 10
     }

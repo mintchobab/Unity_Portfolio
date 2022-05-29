@@ -21,13 +21,14 @@ namespace lsy
         public static readonly string SlotRow = "UI/SlotRow";
 
         // Image
+        public static readonly string Empty = "Image/Empty";
         public static readonly string InteractDialogue = "Image/Icon_Dialouge";
         public static readonly string InteractAxing = "Image/Icon_Axing";
 
 
         // Item
-        public static readonly string EquipmentItem = "Item/Equipment";
-        public static readonly string ConsumableItem = "Item/Consumable";
-        public static readonly string MaterialItem = "Item/Material";
+        public static readonly string EquipmentItem = "Texture/Item/Equipment";
+        public static readonly string ConsumableItem = "Texture/Item/Consumable";
+        public static readonly string MaterialItem = "Texture/Item/Material";
     }
 }

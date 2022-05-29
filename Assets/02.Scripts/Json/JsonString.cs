@@ -11,6 +11,7 @@ public class JsonString
     public List<StringKeyvalues> stringQuestDialogues;
     public List<StringKeyvalues> stringItemNames;
     public List<StringKeyvalues> stringItemDescriptions;
+    public List<StringKeyvalues> stringUITexts;
 }
 
 

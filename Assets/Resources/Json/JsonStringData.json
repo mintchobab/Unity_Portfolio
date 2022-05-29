@@ -110,6 +110,21 @@
       "key": "Item_Description_HpPotion",
       "values": [ "체력을 회복시켜줍니다.", "Restore Health Point" ]
     }
+  ],
+
+  "stringUITexts": [
+    {
+      "key": "Text_Bag",
+      "values": [ "가방", "Bag" ]
+    },
+    {
+      "key": "Text_ItemInfo",
+      "values": [ "아이템 정보", "Item Info" ]
+    },
+    {
+      "key": "Text_Use",
+      "values": [ "사용", "Use" ]
+    }
   ]
 
 }

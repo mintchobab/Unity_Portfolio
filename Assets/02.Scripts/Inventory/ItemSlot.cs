@@ -6,28 +6,21 @@ namespace lsy
     public class ItemSlot : MonoBehaviour
     {
         [SerializeField]
-        private SlotType slotType;
-
-        [field: SerializeField]
-        public Image SlotImage { get; private set; }
+        private Image backgorundImage;
 
         [SerializeField]
-        protected Sprite emptySprite;
+        private Image slotImage;
 
         [SerializeField]
-        protected GameObject selectedOutlineObj;
+        private GameObject lockImage;
 
-        [field: SerializeField]
-        public Text ItemCountText { get; private set; }
+        [SerializeField]
+        private Text itemCountText;
+
 
         protected Button button;
-
-        [SerializeField]
         protected InventoryUIController uiController;
 
-
-        protected bool isClicked;
-        protected bool isEmpty = true;
 
 
         protected void Awake()
@@ -48,45 +41,49 @@ namespace lsy
             uiController.ClickedItemSlot(this);
         }
 
-        // 아웃라인 이미지 활성화
-        public void ActivateOutline()
-        {
-            selectedOutlineObj.SetActive(true);
-        }
-
-
-        // 아웃라인 이미지 비활성화
-        public void DeactivateOutline()
-        {
-            selectedOutlineObj.SetActive(false);
-        }
-
 
         // 슬롯의 이미지 변경
         public virtual void UpdateSlotImage(Sprite sprite)
         {
-            if (SlotImage.sprite.Equals(sprite))
+            if (slotImage.sprite.Equals(sprite))
                 return;
 
-            isEmpty = false;
-
-            SlotImage.sprite = sprite;
+            slotImage.sprite = sprite;
         }
 
 
         // 슬롯의 아이템 개수 변경
         public virtual void UpdateSlotCount(int count)
         {
-            ItemCountText.text = count.ToString();
+            itemCountText.text = count.ToString();
         }
 
 
         // 슬롯 비우기
         public virtual void ClearSlot()
         {
-            isEmpty = true;
-            SlotImage.sprite = emptySprite;
-            ItemCountText.text = string.Empty;
+            slotImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(ResourcePath.Empty);
+            itemCountText.text = string.Empty;
+        }
+
+
+        public void ActivateLock()
+        {
+            lockImage.SetActive(true);
+
+            Color newAlpha = backgorundImage.color;
+            newAlpha.a = 200 / 256f;
+            backgorundImage.color = newAlpha;
+        }
+
+
+        public void DeactivateLock()
+        {
+            lockImage.SetActive(false);
+
+            Color newAlpha = backgorundImage.color;
+            newAlpha.a = 128 / 256f;
+            backgorundImage.color = newAlpha;
         }
     }
 }

@@ -11,14 +11,19 @@ namespace lsy
     }
 
 
-    [Serializable]
-    public class CountableItem
+    public class Item
     {
         public int id;
         public string itemType;
         public string name;
         public string uniqueName;
         public string description;
+    }
+
+
+    [Serializable]
+    public class CountableItem : Item
+    {
         public int maxCount;
     }
 

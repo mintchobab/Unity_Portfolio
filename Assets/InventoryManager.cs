@@ -19,16 +19,19 @@ namespace lsy
 
         public event Action<int> onItemNewAdded;
         public event Action<int> onItemAdded;
-        public event Action<int> onItemRemoved;
+        public event Action<int> onItemUsed;
 
 
-        // 4의 배수로 올라감
-        public readonly int SlotRowCount = 4;
+        public readonly int StartSlotSize = 20;
+        public readonly int AddSlotSize = 5;
+        public readonly int MaxSlotSize = 50;
+
+        public int CurrentSlotSize { get; private set; }
 
 
         public void Initialize()
         {
-            AddInventorySlot(SlotRowCount * 4);
+            AddInventorySlot(StartSlotSize);
         }
 
 
@@ -38,6 +41,7 @@ namespace lsy
             {
                 InventoryItem inventoryItem = new InventoryItem();
                 ItemList.Add(inventoryItem);
+                CurrentSlotSize++;
             }
         }
 
@@ -85,8 +89,6 @@ namespace lsy
                 UnityEngine.Debug.Log("인벤토리 초과");
         }
 
-
-
         // InventoryItem을 새로 생성
         private InventoryItem MakeNewInventoryItem(int itemId, int count)
         {
@@ -97,6 +99,21 @@ namespace lsy
                 item = itemData,
                 count = count
             };
+        }
+
+
+        public void UseItem(int index)
+        {
+            ItemList[index].count--;
+
+            if (ItemList[index].count <= 0)
+            {
+                ItemList[index].item = null;
+            }
+
+            onItemUsed?.Invoke(index);
+
+            // ★★★ 사용효과도 추가하기 ★★★
         }
     }
 }

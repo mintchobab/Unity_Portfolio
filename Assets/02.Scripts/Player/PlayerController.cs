@@ -28,15 +28,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TestAttack();
-        }
-    }
-
-
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
@@ -52,5 +43,28 @@ public class PlayerController : MonoBehaviour
     public void TestAttack()
     {
         anim.SetTrigger("attack");
+    }
+
+
+
+
+    // 나무베기 테스트
+
+    public void StartChop()
+    {
+        anim.SetTrigger("chop");
+        StartCoroutine(ChopWood());
+    }
+
+    // 테스트 3초
+    private IEnumerator ChopWood()
+    {
+        yield return new WaitForSeconds(3.0f);
+        EndChop();
+    }
+
+    private void EndChop()
+    {
+        anim.SetTrigger("isFinishChop");
     }
 }

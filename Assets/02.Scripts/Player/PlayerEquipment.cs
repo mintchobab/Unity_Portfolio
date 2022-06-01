@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerEquipment : MonoBehaviour
 {
     [SerializeField]
-    private Dictionary<EquipmentType, Transform> equipmentDic = new Dictionary<EquipmentType, Transform>();
+    private Dictionary<EquipType, Transform> equipmentDic = new Dictionary<EquipType, Transform>();
 
     [SerializeField]
     private GameObject hair;
@@ -102,7 +102,7 @@ public class PlayerEquipment : MonoBehaviour
     //}
 
 
-    private void UnEquipArmor(EquipmentType equipmentType)
+    private void UnEquipArmor(EquipType equipmentType)
     {
 
     }

@@ -13,6 +13,7 @@ namespace lsy
         private QuestManager questManager = new QuestManager();
         private ItemManager itemManager = new ItemManager();
         private InventoryManager inventoryManager = new InventoryManager();
+        private EquipInventoryManager equipInventoryManager = new EquipInventoryManager();
 
         public JsonManager JsonManager { get => jsonManager; }
         public StringManager StringManager { get => stringManager; }
@@ -21,6 +22,7 @@ namespace lsy
         public QuestManager QuestManager { get => questManager; }
         public ItemManager ItemManager { get => itemManager; }
         public InventoryManager InventoryManager { get => inventoryManager; }
+        public EquipInventoryManager EquipInventoryManager { get => equipInventoryManager; }
 
 
         public override void Init()
@@ -34,6 +36,7 @@ namespace lsy
             QuestManager.Initialize();
             ItemManager.Initialize();
             InventoryManager.Initialize();
+            EquipInventoryManager.Initialize();
         }
     }
 }

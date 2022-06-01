@@ -3,85 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CameraController : MonoBehaviour
+namespace lsy
 {
-    [SerializeField]
-    private float distance;
-
-    private Transform player;
-    private Quaternion originRotation;
-
-    private Coroutine rotateCamera;
-
-    private Vector3 prevPos;
-    private Vector3 testRot;
-
-    private float mouseDragDist;
-
-
-
-
-    private void Awake()
+    public class CameraController : MonoBehaviour
     {
-        player = GameObject.FindWithTag("Player").transform;
-        originRotation = transform.rotation;
-    }
+        [SerializeField]
+        private float distance;
 
+        private Transform player;
+        private Quaternion originRotation;
 
-    private void Update()
-    {
-        // 테스트용...
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        private InputUIController inputUIController => Managers.Instance.UIManager.InputController;
+
+        private void Awake()
         {
-            if (rotateCamera != null)
-                StopCoroutine(rotateCamera);
-
-            rotateCamera = StartCoroutine(RotateCamera());
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            if (rotateCamera != null)
-                StopCoroutine(rotateCamera);
+            player = GameObject.FindWithTag("Player").transform;
+            originRotation = transform.rotation;
         }
 
-        Zoom();
-    }
 
-
-    private IEnumerator RotateCamera()
-    {
-        prevPos = Input.mousePosition;
-
-        while (true)
+        void LateUpdate()
         {
-            Vector3 newPos = Input.mousePosition;
-            Vector3 dist = newPos - prevPos;
+            Vector3 direction = originRotation * Vector3.forward;
+            direction = Quaternion.Euler(inputUIController.TestRot) * direction;
+            direction.Normalize();
 
-            mouseDragDist += dist.x;
-
-            testRot = new Vector3(0f, mouseDragDist, 0f);
-            prevPos = newPos;
-            yield return null;
+            transform.position = (player.transform.position + new Vector3(0f, 0.8f, 0f)) - direction * distance;
+            transform.rotation = Quaternion.LookRotation(direction);
         }
-    }
 
 
-    private void Zoom()
-    {
-        distance -= Input.mouseScrollDelta.y;
-        distance = Mathf.Clamp(distance, 7f, 12f);
-    }
-
-
-
-
-    void LateUpdate()
-    {
-        Vector3 direction = originRotation * Vector3.forward;
-        direction = Quaternion.Euler(testRot) * direction;
-        direction.Normalize();
-
-        transform.position = (player.transform.position + new Vector3(0f, 0.8f, 0f)) - direction * distance;
-        transform.rotation = Quaternion.LookRotation(direction);
+        private void Zoom()
+        {
+            distance -= Input.mouseScrollDelta.y;
+            distance = Mathf.Clamp(distance, 7f, 12f);
+        }
     }
 }
+
+

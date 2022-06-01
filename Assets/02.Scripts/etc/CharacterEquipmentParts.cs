@@ -5,5 +5,5 @@ using UnityEngine;
 public class CharacterEquipmentParts : MonoBehaviour
 {
     [field: SerializeField]
-    public EquipmentType EquipmentType { get; private set; }
+    public EquipType EquipmentType { get; private set; }
 }

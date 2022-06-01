@@ -16,6 +16,7 @@ namespace lsy
         public InputUIController InputController { get; private set; }
         public QuestUIController QuestUIController { get; private set; }
         public InventoryUIController InventoryUIController { get; private set; }
+        public EquipUIController EquipUIController { get; private set; }
 
 
         public void Initialize()
@@ -43,6 +44,7 @@ namespace lsy
             DialogueController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourcePath.DialogueCanvas, rootCanvas.transform);
             QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourcePath.QuestCanvas, rootCanvas.transform);
             InventoryUIController = Managers.Instance.ResourceManager.Instantiate<InventoryUIController>(ResourcePath.InventoryCanvas, rootCanvas.transform);
+            EquipUIController = Managers.Instance.ResourceManager.Instantiate<EquipUIController>(ResourcePath.EquipInventoryCanvas, rootCanvas.transform);
         }
-    }
-}
+
+    }}

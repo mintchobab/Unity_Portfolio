@@ -6,17 +6,18 @@ namespace lsy
     [Serializable]
     public class JsonItem
     {
+        public List<EquipItem> equips;
         public List<CountableItem> consumables;
         public List<CountableItem> etcs;
     }
 
 
-    public class Item
+    public abstract class Item
     {
         public int id;
         public string itemType;
         public string name;
-        public string uniqueName;
+        public string _resourceName;
         public string description;
     }
 
@@ -25,6 +26,15 @@ namespace lsy
     public class CountableItem : Item
     {
         public int maxCount;
+    }
+
+    [Serializable]
+    public class EquipItem : Item
+    {
+        public string _parts;
+        public int power;
+        public int healthPoint;
+        public int manaPoint;
     }
 
 }

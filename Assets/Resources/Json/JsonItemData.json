@@ -1,20 +1,145 @@
 {
-  "consumables": [
+  "equips": [
     {
       "id": 0,
+      "itemType": "Equipment",
+      "name": "Item_Name_WoodenSword",
+      "_resourceName": "WoodenSword",
+      "description": "Item_Description_WoodenSword",
+      "_parts": "Weapon",
+      "power": 10,
+      "healthPoint": 0,
+      "manaPoint": 0
+    },
+    {
+      "id": 1,
+      "itemType": "Equipment",
+      "name": "Item_Name_IronSword",
+      "_resourceName": "IronSword",
+      "description": "Item_Description_IronSword",
+      "_parts": "Weapon",
+      "power": 20,
+      "healthPoint": 0,
+      "manaPoint": 0
+    },
+
+    {
+      "id": 10,
+      "itemType": "Equipment",
+      "name": "Item_Name_WoodenShield",
+      "_resourceName": "WoodenShield",
+      "description": "Item_Description_WoodenShield",
+      "_parts": "Shield",
+      "power": 0,
+      "healthPoint": 50,
+      "manaPoint": 0
+    },
+    {
+      "id": 11,
+      "itemType": "Equipment",
+      "name": "Item_Name_IronShield",
+      "_resourceName": "IronShield",
+      "description": "Item_Description_IronShield",
+      "_parts": "Shield",
+      "power": 0,
+      "healthPoint": 100,
+      "manaPoint": 0
+    },
+
+    {
+      "id": 20,
+      "itemType": "Equipment",
+      "name": "Item_Name_LeatherHelmet",
+      "_resourceName": "LeatherHelmet",
+      "description": "Item_Description_LeatherHelmet",
+      "_parts": "Helmet",
+      "power": 0,
+      "healthPoint": 10,
+      "manaPoint": 0
+    },
+    {
+      "id": 21,
+      "itemType": "Equipment",
+      "name": "Item_Name_IronHelmet",
+      "_resourceName": "IronHelmet",
+      "description": "Item_Description_IronHelmet",
+      "_parts": "Helmet",
+      "power": 0,
+      "healthPoint": 20,
+      "manaPoint": 0
+    },
+
+    {
+      "id": 30,
+      "itemType": "Equipment",
+      "name": "Item_Name_LeatherArmor",
+      "_resourceName": "LeatherArmor",
+      "description": "Item_Description_LeatherArmor",
+      "_parts": "Armor",
+      "power": 0,
+      "healthPoint": 30,
+      "manaPoint": 0
+    },
+    {
+      "id": 31,
+      "itemType": "Equipment",
+      "name": "Item_Name_IronArmor",
+      "_resourceName": "IronArmor",
+      "description": "Item_Description_IronArmor",
+      "_parts": "Armor",
+      "power": 10,
+      "healthPoint": 40,
+      "manaPoint": 20
+    },
+
+    {
+      "id": 40,
+      "itemType": "Equipment",
+      "name": "Item_Name_LeatherShoes",
+      "_resourceName": "LeatherShoes",
+      "description": "Item_Description_LeatherShoes",
+      "_parts": "Shoes",
+      "power": 0,
+      "healthPoint": 0,
+      "manaPoint": 50
+    },
+    {
+      "id": 41,
+      "itemType": "Equipment",
+      "name": "Item_Name_IronShoes",
+      "_resourceName": "IronShoes",
+      "description": "Item_Description_IronShoes",
+      "_parts": "Shoes",
+      "power": 0,
+      "healthPoint": 0,
+      "manaPoint": 100
+    }
+  ],
+
+
+
+
+  "consumables": [
+    {
+      "id": 100,
       "itemType": "Consumable",
       "name": "Item_Name_HpPotion",
-      "uniqueName": "HpPotion",
+      "_resourceName": "HpPotion",
       "description": "Item_Description_HpPotion",
       "maxCount": 10
     }
   ],
+
+
+
+
+
   "materials": [
     {
-      "id": 0,
+      "id": 200,
       "itemType": "Material",
       "name": "물약",
-      "uniqueName": "HpPotion",
+      "_resourceName": "HpPotion",
       "description": "아이템 요약",
       "maxCount": 10
     }

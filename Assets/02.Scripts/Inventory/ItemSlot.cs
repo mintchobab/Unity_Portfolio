@@ -12,14 +12,22 @@ namespace lsy
         private Image slotImage;
 
         [SerializeField]
-        private GameObject lockImage;
+        private Text itemNameText;
 
         [SerializeField]
         private Text itemCountText;
 
+        [SerializeField]
+        private GameObject lockImage;
 
         protected Button button;
-        protected InventoryUIController uiController;
+        protected IInventoryUIController uiController;
+
+
+
+        public Sprite MyItemSprite { get; private set; }
+        public string MyItemName { get; private set; }
+        public string MyItemCount { get; private set; }
 
 
 
@@ -27,10 +35,14 @@ namespace lsy
         {
             button = GetComponentInChildren<Button>();           
             button.onClick.AddListener(OnClickButton);
+
+            MyItemSprite = slotImage.sprite;
+            MyItemName = itemNameText.text;
+            MyItemCount = itemCountText.text;
         }
 
 
-        public void Initialize(InventoryUIController uiController)
+        public void Initialize(IInventoryUIController uiController)
         {
             this.uiController = uiController;
         }
@@ -43,19 +55,29 @@ namespace lsy
 
 
         // 슬롯의 이미지 변경
-        public virtual void UpdateSlotImage(Sprite sprite)
+        public void UpdateSlotImage(Sprite sprite)
         {
             if (slotImage.sprite.Equals(sprite))
                 return;
 
             slotImage.sprite = sprite;
+            MyItemSprite = sprite;
+        }
+
+
+        // 슬롯의 아이템 이름 변경
+        public virtual void UpdateItemName(string name)
+        {
+            itemNameText.text = name;
+            MyItemName = name;
         }
 
 
         // 슬롯의 아이템 개수 변경
-        public virtual void UpdateSlotCount(int count)
+        public void UpdateSlotCount(int count)
         {
             itemCountText.text = count.ToString();
+            MyItemCount = count.ToString();
         }
 
 
@@ -63,6 +85,7 @@ namespace lsy
         public virtual void ClearSlot()
         {
             slotImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(ResourcePath.Empty);
+            itemNameText.text = string.Empty;
             itemCountText.text = string.Empty;
         }
 

@@ -23,15 +23,21 @@ namespace lsy
             base.Awake();
             SetNPCData();
 
-            dialogueController = Managers.Instance.UIManager.DialogueController;
+            dialogueController = Managers.Instance.UIManager.DialogueUIController;
         }
-
 
         public override void Interact()
         {
             //dialogueController.SetNameText(StringManager.GetLocalizedNPCName(npc.name));
             ////dialogueController.SetCurrentDialogues(npc.dialogues[0]);
             //dialogueController.Show();
+        }
+
+
+        protected override void SetInteractData()
+        {
+            //InteractType = InteractType.Dialogue;
+            //buttonIconPath = ResourcePath.IconDialogue;
         }
 
 
@@ -50,9 +56,5 @@ namespace lsy
         }
 
 
-        protected override void SetButtonImage()
-        {
-            buttonImage = Managers.Instance.ResourceManager.Load<Sprite>(ResourcePath.InteractDialogue);
-        }
     }
 }

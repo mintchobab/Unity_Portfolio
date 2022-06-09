@@ -10,9 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private Transform testBody;
 
     private Camera cam;
-    private NavMeshAgent navAgent;
     private Animator animator;
     private Joystick joystick;
+    private Rigidbody rigid;
 
     private bool isMoving = false;
 
@@ -20,15 +20,15 @@ public class PlayerMovement : MonoBehaviour
 
     private float rotSpeed = 10f;
 
-
+    private Vector3 moveDirection;
 
     private bool canMoving = false;
 
 
     private void Awake()
     {
-        navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        rigid = GetComponent<Rigidbody>();
         joystick = FindObjectOfType<Joystick>();
     }
 
@@ -36,15 +36,12 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
-        navAgent.updateRotation = false;
 
         canMoving = true;
 
-        joystick.onStickMove += OnStickMove;
-        joystick.onEndStickMove += OnEndStickMove;
+        joystick.StickMoving += OnStickMove;
+        joystick.StickMoveEnd += OnEndStickMove;
     }
-
-
     
     private void OnStickMove(Vector2 stickVector)
     {
@@ -55,15 +52,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // 이동
-        Vector3 direction = cam.transform.TransformDirection(stickVector);
-        direction.y = 0f;
-        direction.Normalize();
-        transform.position += direction * 5f * Time.deltaTime;
+        moveDirection = cam.transform.TransformDirection(stickVector);
+        moveDirection.y = 0f;
+        moveDirection.Normalize();
+        
+        //transform.position += moveDirection * 5f * Time.deltaTime;
 
         // 회전
-        if (direction != Vector3.zero)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+        if (moveDirection != Vector3.zero)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotSpeed * Time.deltaTime);
     }
+
+
+    private void FixedUpdate()
+    {
+        rigid.MovePosition(transform.position + moveDirection * 5f * Time.deltaTime);
+    }
+
 
     private void OnEndStickMove()
     {
@@ -71,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isMoving = false;
             animator.SetBool(MOVE_HASH, false);
+            moveDirection = Vector3.zero;
         }
     }
 }

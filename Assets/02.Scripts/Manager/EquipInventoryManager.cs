@@ -15,12 +15,12 @@ namespace lsy
     {
         public List<EquipInventoryItem> ItemList { get; private set; } = new List<EquipInventoryItem>();
 
-        public event Action<int> onItemAdded;
+        public event Action<int> ItemAdded;
         //public event Action<int> onItemRemoved;
-        public event Action<int, int> onItemExchanged;
-        public event Action<int, int> onItemMovedTo;
-        public event Action<EquipType, EquipItem> onItemEquiped;
-        public event Action<EquipType, EquipItem> onItemUnEquiped;
+        public event Action<int, int> ItemExchanged;
+        public event Action<int, int> ItemMovedTo;
+        public event Action<EquipType, EquipItem> ItemEquiped;
+        public event Action<EquipType, EquipItem> ItemUnEquiped;
 
         public readonly int StartSlotSize = 28;
 
@@ -73,7 +73,7 @@ namespace lsy
                 if (ItemList[i].item == null)
                 {
                     ItemList[i] = inventoryItem;
-                    onItemAdded?.Invoke(i);
+                    ItemAdded?.Invoke(i);
                     currentItemCount++;
                     break;
                 }
@@ -87,7 +87,7 @@ namespace lsy
                 {
                     PushList(i);
                     ItemList[i] = inventoryItem;
-                    onItemAdded?.Invoke(i);
+                    ItemAdded?.Invoke(i);
                     currentItemCount++;
                     break;
                 }
@@ -106,13 +106,13 @@ namespace lsy
                 if (ItemList[i + 1].item == null)
                 {
                     ItemList[i] = ItemList[i + 1];
-                    onItemMovedTo(i + 1, i);
+                    ItemMovedTo(i + 1, i);
                     break;
                 }
                 else
                 {
                     ItemList[i] = ItemList[i + 1];
-                    onItemMovedTo(i + 1, i);
+                    ItemMovedTo(i + 1, i);
                 }
             }
 
@@ -145,7 +145,7 @@ namespace lsy
             }
 
             // 장착됐을때의 효과?? 스텟 변경같은거 여기에
-            onItemEquiped?.Invoke(type, item);
+            ItemEquiped?.Invoke(type, item);
         }
 
 
@@ -157,7 +157,7 @@ namespace lsy
 
             AddEquipItem(item.id);
 
-            onItemUnEquiped?.Invoke(type, item);
+            ItemUnEquiped?.Invoke(type, item);
         }
 
 
@@ -180,7 +180,7 @@ namespace lsy
             for (int i = lastIndex; i > startIndex; i--)
             {
                 ItemList[i] = ItemList[i - 1];
-                onItemExchanged?.Invoke(i - 1, i);
+                ItemExchanged?.Invoke(i - 1, i);
             }
         }
 

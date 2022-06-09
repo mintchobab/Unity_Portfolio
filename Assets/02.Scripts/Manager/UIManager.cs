@@ -12,11 +12,12 @@ namespace lsy
         private GameObject rootCanvas;
 
         // 팝업도 생성할 수 있어야함......
-        public DialogueUIController DialogueController { get; private set; }
-        public InputUIController InputController { get; private set; }
+        public DialogueUIController DialogueUIController { get; private set; }
+        public InputUIController InputUIController { get; private set; }
         public QuestUIController QuestUIController { get; private set; }
         public InventoryUIController InventoryUIController { get; private set; }
         public EquipUIController EquipUIController { get; private set; }
+        public BillboardUIController BillboardUIController { get; private set; }
 
 
         public void Initialize()
@@ -40,11 +41,12 @@ namespace lsy
         // 프리팹 Canvas 생성
         private void MakeCanvas()
         {
-            InputController = Managers.Instance.ResourceManager.Instantiate<InputUIController>(ResourcePath.InputCanvas, rootCanvas.transform);
-            DialogueController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourcePath.DialogueCanvas, rootCanvas.transform);
+            InputUIController = Managers.Instance.ResourceManager.Instantiate<InputUIController>(ResourcePath.InputCanvas, rootCanvas.transform);
+            DialogueUIController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourcePath.DialogueCanvas, rootCanvas.transform);
             QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourcePath.QuestCanvas, rootCanvas.transform);
             InventoryUIController = Managers.Instance.ResourceManager.Instantiate<InventoryUIController>(ResourcePath.InventoryCanvas, rootCanvas.transform);
             EquipUIController = Managers.Instance.ResourceManager.Instantiate<EquipUIController>(ResourcePath.EquipInventoryCanvas, rootCanvas.transform);
+            BillboardUIController = Managers.Instance.ResourceManager.Instantiate<BillboardUIController>(ResourcePath.BillboardCanvas, rootCanvas.transform);
         }
 
     }}

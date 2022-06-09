@@ -4,22 +4,49 @@ using UnityEngine;
 
 namespace lsy
 {
-    public abstract class InteractBase : MonoBehaviour
+    public struct InteractData
     {
-        [field: SerializeField]
         public InteractType InteractType;
 
-        protected Sprite buttonImage;
+        public int StartHash;
+        public int EndHash;
+        public float InteractTime;
+        public float InteractDistance;
+        public string ButtonIconPath;
+    }
 
 
-        public abstract void Interact();
-        protected abstract void SetButtonImage();
+    public abstract class InteractBase : MonoBehaviour
+    {
+        [SerializeField]
+        protected string interactObjNameKey;
+
+        protected PlayerController playerController;
+        protected InteractData interactData;
+
+
+        protected BillboardUIController billboardUIController => Managers.Instance.UIManager.BillboardUIController;
 
 
         protected virtual void Awake()
         {
-            SetButtonImage();
+            playerController = FindObjectOfType<PlayerController>();
+            SetInteractData();
         }
 
+
+        public Sprite LoadButtonImage()
+        {
+            return Managers.Instance.ResourceManager.Load<Sprite>(interactData.ButtonIconPath);
+        }
+
+
+        public virtual void Interact()
+        {
+            playerController.StartInteract(interactData, transform);
+        }
+
+
+        protected abstract void SetInteractData();
     }
 }

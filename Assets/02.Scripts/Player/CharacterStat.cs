@@ -4,8 +4,8 @@ using UnityEditor;
 
 public class CharacterStat : MonoBehaviour
 {
-    [SerializeField]
-    protected StatData statData;
+    //[SerializeField]
+    //protected StatData statData;
 
     protected Dictionary<StatType, Stat> stats = new Dictionary<StatType, Stat>();
 
@@ -17,11 +17,11 @@ public class CharacterStat : MonoBehaviour
 
     protected void SetStat()
     {
-        stats.Add(StatType.Hp, new Stat("Hp", "Hp입니다.", statData.Hp));
-        stats.Add(StatType.Mp, new Stat("Mp", "Mp입니다.", statData.Mp));
-        stats.Add(StatType.Damage, new Stat("Damage", "Damage 입니다.", statData.Damage));
-        stats.Add(StatType.Armor, new Stat("Armor", "Armor 입니다.", statData.Armor));
-        stats.Add(StatType.MoveSpeed, new Stat("MoveSpeed", "Move Speed 입니다.", statData.MoveSpeed));
+        //stats.Add(StatType.Hp, new Stat("Hp", "Hp입니다.", statData.Hp));
+        //stats.Add(StatType.Mp, new Stat("Mp", "Mp입니다.", statData.Mp));
+        //stats.Add(StatType.Damage, new Stat("Damage", "Damage 입니다.", statData.Damage));
+        //stats.Add(StatType.Armor, new Stat("Armor", "Armor 입니다.", statData.Armor));
+        //stats.Add(StatType.MoveSpeed, new Stat("MoveSpeed", "Move Speed 입니다.", statData.MoveSpeed));
     }
 
 

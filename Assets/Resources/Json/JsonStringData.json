@@ -189,7 +189,7 @@
     },
 
     {
-      "key": "Item_Description_LeahterShoes",
+      "key": "Item_Description_LeatherShoes",
       "values": [ "가죽으로 만들어진 신발입니다.", "This is Leather Shoes" ]
     },
     {
@@ -222,7 +222,7 @@
     },
     {
       "key": "Text_UnEquip",
-      "values": [ "해제", "Un Equip" ]
+      "values": [ "해제", "UnEquip" ]
     },
     {
       "key": "Text_Power",
@@ -236,6 +236,19 @@
       "key": "Text_ManaPoint",
       "values": [ "마나", "Mp" ]
     }
+  ],
+
+  "stringInteract": [
+    {
+      "key": "Interact_Ore",
+      "values": [ "광석", "Ore" ]
+    },
+    {
+      "key": "Interact_Gather",
+      "values": [ "수집", "Gather" ]
+    }
   ]
+
+
 
 }

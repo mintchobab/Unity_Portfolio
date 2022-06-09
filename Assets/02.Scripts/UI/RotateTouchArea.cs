@@ -1,18 +1,50 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class RotateTouchArea : MonoBehaviour
+namespace lsy
 {
-    // Start is called before the first frame update
-    void Start()
+    public class RotateTouchArea : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private Vector3 prevPos;
+        private float mouseDragDist;        
+        private float mouseSensitivity = 0.25f;
+
+        private Coroutine rotateCamera;
+        private InputUIController inputUIController => Managers.Instance.UIManager.InputUIController;
+
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (rotateCamera != null)
+                StopCoroutine(rotateCamera);
+
+            rotateCamera = StartCoroutine(RotateCamera());
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (rotateCamera != null)
+                StopCoroutine(rotateCamera);            
+        }
+
+
+        private IEnumerator RotateCamera()
+        {
+            prevPos = Input.mousePosition;
+
+            while (true)
+            {
+                Vector3 newPos = Input.mousePosition;
+                Vector3 dist = newPos - prevPos;
+
+                mouseDragDist += dist.x * mouseSensitivity;
+
+                inputUIController.SetTouchVector(new Vector3(0f, mouseDragDist, 0f));
+                prevPos = newPos;
+                yield return null;
+            }
+        }
     }
 }

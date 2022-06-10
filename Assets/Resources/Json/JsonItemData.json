@@ -117,9 +117,7 @@
   ],
 
 
-
-
-  "consumables": [
+  "countables": [
     {
       "id": 100,
       "itemType": "Consumable",
@@ -127,21 +125,15 @@
       "_resourceName": "HpPotion",
       "description": "Item_Description_HpPotion",
       "maxCount": 10
-    }
-  ],
-
-
-
-
-
-  "materials": [
+    },
     {
       "id": 200,
       "itemType": "Material",
-      "name": "물약",
-      "_resourceName": "HpPotion",
-      "description": "아이템 요약",
+      "name": "Item_Name_Crystal",
+      "_resourceName": "Crystal",
+      "description": "Item_Description_Crystal",
       "maxCount": 10
     }
   ]
+
 }

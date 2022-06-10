@@ -34,7 +34,9 @@ namespace lsy
         {
             currentSlotIndex = slotIndex;
 
-            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{ResourcePath.ConsumableItem}/{item._resourceName}");
+            string path = ResourcePath.GetItemSpritePathToTypeString(item.itemType);
+
+            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{item._resourceName}");   
             itemName.text = StringManager.GetLocalizedItemName(item.name);
             itemDescription.text = StringManager.GetLocalizedItemDescription(item.description);
 

@@ -12,19 +12,14 @@ namespace lsy
 
 
         // 로드해주는 역할
-        public CountableItem GetConsumableItem(int itemId)
-        {
-            return jsonItem.consumables.Find(x => x.id == itemId);
-        }
-
         public EquipItem GetEquipItem(int itemId)
         {
             return jsonItem.equips.Find(x => x.id == itemId);
         }
 
-        public CountableItem GetEtcItem(int itemId)
+        public CountableItem GetCountableItem(int itemId)
         {
-            return jsonItem.etcs.Find(x => x.id == itemId);
+            return jsonItem.countables.Find(x => x.id == itemId);
         }
     }
 }

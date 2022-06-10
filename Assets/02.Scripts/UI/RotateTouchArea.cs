@@ -6,7 +6,6 @@ namespace lsy
 {
     public class RotateTouchArea : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-
         private Vector3 prevPos;
         private float mouseDragDist;        
         private float mouseSensitivity = 0.25f;
@@ -20,7 +19,7 @@ namespace lsy
             if (rotateCamera != null)
                 StopCoroutine(rotateCamera);
 
-            rotateCamera = StartCoroutine(RotateCamera());
+            rotateCamera = StartCoroutine(ChangeTouchVector());
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -30,7 +29,7 @@ namespace lsy
         }
 
 
-        private IEnumerator RotateCamera()
+        private IEnumerator ChangeTouchVector()
         {
             prevPos = Input.mousePosition;
 

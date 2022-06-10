@@ -34,13 +34,6 @@ namespace lsy
         private int currentSlotIndex;
 
 
-        private void Awake()
-        {
-            equipButton.onClick.AddListener(OnClickEquipButton);
-        }
-
-
-
         public void Show(EquipItem item, bool isInventory, int slotIndex = -1)
         {
             if (slotIndex != -1)

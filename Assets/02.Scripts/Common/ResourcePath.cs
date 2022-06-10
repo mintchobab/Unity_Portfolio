@@ -6,6 +6,7 @@ namespace lsy
 
         // UI/Cavnas
         public static readonly string InputCanvas = "Load/Prefab/UI/Canvas/InputCanvas";
+        public static readonly string SystemCanvas = "Load/Prefab/UI/Canvas/SystemCanvas";
         public static readonly string DialogueCanvas = "Load/Prefab/UI/Canvas/DialogueCanvas";
         public static readonly string QuestCanvas = "Load/Prefab/UI/Canvas/QuestCanvas";
         public static readonly string InventoryCanvas = "Load/Prefab/UI/Canvas/InventoryCanvas";
@@ -38,6 +39,14 @@ namespace lsy
         // Tool
         public static readonly string Pickax = "Load/Prefab/Tool/Pickax";
 
+        // Equip
+        public static readonly string Equip = "Load/Prefab/Equip";
+
+        //public static readonly string WoodenSword = "Load/Prefab/Equip/WoodenSword";
+        //public static readonly string IronSword = "Load/Prefab/Equip/IronSword";
+        //public static readonly string WoodenShield = "Load/Prefab/Equip/WoodenShield";
+        //public static readonly string IronShield = "Load/Prefab/Equip/IronShield";
+
 
         #endregion
 
@@ -63,13 +72,52 @@ namespace lsy
         #endregion
 
 
-
-
-
         public static readonly string SlotRow = "UI/SlotRow";
 
         
+        public static string GetItemSpritePathToType(ItemType itemType)
+        {
+            string path = string.Empty;
 
+            switch (itemType)
+            {
+                case ItemType.Equipment:
+                    path = EquipItem;
+                    break;
+
+                case ItemType.Consumable:
+                    path = ConsumableItem;
+                    break;
+
+                case ItemType.Material:
+                    path = MaterialItem;
+                    break;
+            }
+
+            return path;
+        }
+
+        public static string GetItemSpritePathToTypeString(string itemType)
+        {
+            string path = string.Empty;
+
+            switch (itemType) 
+            {
+                case nameof(ItemType.Equipment):
+                    path = EquipItem;
+                    break;
+
+                case nameof(ItemType.Consumable):
+                    path = ConsumableItem;
+                    break;
+
+                case nameof(ItemType.Material):
+                    path = MaterialItem;
+                    break;
+            }
+
+            return path;
+        }
 
 
     }

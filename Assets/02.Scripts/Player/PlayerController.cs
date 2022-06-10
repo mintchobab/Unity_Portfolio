@@ -1,17 +1,18 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace lsy
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Singleton<PlayerController>
     {
+        [field: SerializeField]
+        public Transform PlayerLookPosition { get; private set; }
+
         private Rigidbody rigid;
         private Animator anim;
         private Camera cam;
         private Joystick joystick;
-        private PlayerEquipController equipController;
+        public PlayerEquipController EquipController { get; private set; }
         private PlayerInteractChecker interactChecker;
         
 
@@ -34,10 +35,11 @@ namespace lsy
 
 
 
-        private void Awake()
+
+        public override void Init()
         {
             rigid = GetComponent<Rigidbody>();
-            equipController = GetComponent<PlayerEquipController>();
+            EquipController = GetComponent<PlayerEquipController>();
             anim = GetComponentInChildren<Animator>();
             interactChecker = GetComponentInChildren<PlayerInteractChecker>();
             joystick = Managers.Instance.UIManager.InputUIController.GetComponentInChildren<Joystick>();
@@ -48,6 +50,7 @@ namespace lsy
             joystick.StickMoving += OnStickMoving;
             joystick.StickMoveEnd += OnStickMoveEnd;
         }
+
 
 
         private void FixedUpdate()
@@ -123,19 +126,19 @@ namespace lsy
 
 
         // 상호작용 시작
-        public void StartInteract(InteractData interactData, Transform interactObj)
+        public void StartInteract(InteractBase interactBase, Transform interactObj)
         {
             isCompleted = false;
             canMoving = false;
 
-            anim.SetTrigger(interactData.StartHash);
-            equipController.MakeTool(interactData.InteractType, false);
+            anim.SetTrigger(interactBase.InteractData.StartHash);
+            EquipController.MakeTool(interactBase.InteractData.InteractType, false);
 
             // UI 생성
             currentGauge = Managers.Instance.ResourceManager.Instantiate<InteractGauge>(ResourcePath.InteractGauge, billboardController.transform);
             billboardController.AddTarget(currentGauge.gameObject, interactObj, new Vector3(0f, 1f, 0f));
 
-            currentGauge.Successed += InteractSuccessed;
+            currentGauge.Successed += () => InteractSuccessed(interactBase, interactObj.position);
             currentGauge.Failed += InteractFailed;
 
             // 작업별로 시간 다르게하기????????????????????????????
@@ -151,7 +154,7 @@ namespace lsy
             if (interacting != null)
                 StopCoroutine(interacting);
 
-            interacting = StartCoroutine(Interacting(interactData, interactObj));
+            interacting = StartCoroutine(Interacting(interactBase.InteractData, interactObj));
         }
 
 
@@ -165,7 +168,7 @@ namespace lsy
 
             Vector3 startPos = transform.position;
             Vector3 posistion = target.position + ((transform.position - target.position).normalized * interactData.InteractDistance);
-            posistion.y = 0f;
+            posistion.y = transform.position.y;
 
             Vector3 lookVector = target.position - transform.position;
             lookVector.y = 0f;
@@ -183,9 +186,13 @@ namespace lsy
 
 
         // 상호작용 성공
-        private void InteractSuccessed()
+        private void InteractSuccessed(InteractBase interactBase, Vector3 targetPosition)
         {
             anim.SetTrigger(hashSuccessInteract);
+
+            // 아이템 획득
+            Managers.Instance.InventoryManager.AddCountableItem(interactBase.InteractData.ItemId, 1);
+            Managers.Instance.UIManager.SystemUIController.GetItem(interactBase, targetPosition);
             InteractCompleted();
         }
 
@@ -211,7 +218,7 @@ namespace lsy
 
             anim.SetTrigger(hashEndInteract);
 
-            equipController.DestoryCurrentTool();
+            EquipController.DestoryCurrentTool();
             interactChecker.StartCheckInteractTarget();
 
             if (currentGauge != null)
@@ -227,8 +234,6 @@ namespace lsy
         private void InteractCompleted()
         {
             isCompleted = true;
-
-            equipController.DestoryCurrentTool();            
 
             billboardController.RemoveTarget(currentGauge.gameObject);
             Destroy(currentGauge.gameObject);
@@ -247,12 +252,15 @@ namespace lsy
         {
             yield return new WaitForSeconds(3f);
 
+            EquipController.DestoryCurrentTool();
+
             interactChecker.DisableIsChecking();
             interactChecker.StartCheckInteractTarget();
 
             anim.SetTrigger(hashEndInteract);
             canMoving = true;
         }
+
 
         #endregion
     }

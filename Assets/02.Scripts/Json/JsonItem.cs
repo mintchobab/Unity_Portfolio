@@ -7,8 +7,7 @@ namespace lsy
     public class JsonItem
     {
         public List<EquipItem> equips;
-        public List<CountableItem> consumables;
-        public List<CountableItem> etcs;
+        public List<CountableItem> countables;
     }
 
 

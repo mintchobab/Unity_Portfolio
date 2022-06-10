@@ -89,7 +89,7 @@ namespace lsy
         // InventoryItem을 새로 생성
         private InventoryItem MakeNewInventoryItem(int itemId, int count)
         {
-            CountableItem itemData = Managers.Instance.ItemManager.GetConsumableItem(itemId);
+            CountableItem itemData = Managers.Instance.ItemManager.GetCountableItem(itemId);
 
             return new InventoryItem()
             {

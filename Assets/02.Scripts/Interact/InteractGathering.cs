@@ -8,7 +8,7 @@ namespace lsy
     {
         protected override void SetInteractData()
         {
-            interactData = new InteractData()
+            InteractData = new InteractData()
             {
                 InteractType = InteractType.Gathering,
 

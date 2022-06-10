@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace lsy
@@ -8,13 +6,16 @@ namespace lsy
     {
         protected override void SetInteractData()
         {
-            interactData = new InteractData()
+            InteractData = new InteractData()
             {
                 InteractType = InteractType.Pickaxing,
 
-                StartHash = Animator.StringToHash("pickaxing"),
-                EndHash = Animator.StringToHash("endPickaxing"),
+                ItemType = ItemType.Material,
+                ItemId = 200,
 
+                StartHash = Animator.StringToHash("pickaxing"),
+                EndHash = Animator.StringToHash("endPickaxing"),                
+                
                 InteractTime = 3f,
                 InteractDistance = 1.2f,
 

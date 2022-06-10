@@ -8,8 +8,11 @@ namespace lsy
     {
         public InteractType InteractType;
 
+        public ItemType ItemType;
+        public int ItemId;
+
         public int StartHash;
-        public int EndHash;
+        public int EndHash;        
         public float InteractTime;
         public float InteractDistance;
         public string ButtonIconPath;
@@ -18,11 +21,10 @@ namespace lsy
 
     public abstract class InteractBase : MonoBehaviour
     {
-        [SerializeField]
-        protected string interactObjNameKey;
+        [field: SerializeField]
+        public string InteractObjResourceName { get; protected set; }
 
-        protected PlayerController playerController;
-        protected InteractData interactData;
+        public InteractData InteractData { get; protected set; }
 
 
         protected BillboardUIController billboardUIController => Managers.Instance.UIManager.BillboardUIController;
@@ -30,20 +32,19 @@ namespace lsy
 
         protected virtual void Awake()
         {
-            playerController = FindObjectOfType<PlayerController>();
             SetInteractData();
         }
 
 
         public Sprite LoadButtonImage()
         {
-            return Managers.Instance.ResourceManager.Load<Sprite>(interactData.ButtonIconPath);
+            return Managers.Instance.ResourceManager.Load<Sprite>(InteractData.ButtonIconPath);
         }
 
 
         public virtual void Interact()
         {
-            playerController.StartInteract(interactData, transform);
+            PlayerController.Instance.StartInteract(this, transform);
         }
 
 

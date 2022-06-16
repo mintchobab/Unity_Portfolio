@@ -91,7 +91,7 @@ namespace lsy
         private void QuestButtonClicked()
         {
             Managers.Instance.UIManager.QuestUIController.Show();
-            Hide();
+            //Hide();
         }
 
 

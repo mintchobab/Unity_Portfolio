@@ -30,7 +30,7 @@ namespace lsy
         private int hashEndInteract = Animator.StringToHash("endInteract");
 
 
-        private BillboardUIController billboardController => Managers.Instance.UIManager.BillboardUIController;
+        //private WorldUIController billboardController => Managers.Instance.UIManager.WorldUIController;
         private InputUIController inputUIController => Managers.Instance.UIManager.InputUIController;
 
 
@@ -118,7 +118,7 @@ namespace lsy
 
         #region Interact
 
-        private InteractGauge currentGauge;
+        private WorldUIInteractGaugeCanvas currentGauge;
         private Coroutine interacting;
         private Coroutine endInteractAnimation;
 
@@ -135,8 +135,8 @@ namespace lsy
             EquipController.MakeTool(interactBase.InteractData.InteractType, false);
 
             // UI »ý¼º
-            currentGauge = Managers.Instance.ResourceManager.Instantiate<InteractGauge>(ResourcePath.InteractGauge, billboardController.transform);
-            billboardController.AddTarget(currentGauge.gameObject, interactObj, new Vector3(0f, 1f, 0f));
+            if (!currentGauge)
+                currentGauge = Managers.Instance.ResourceManager.Instantiate<WorldUIInteractGaugeCanvas>(ResourcePath.WorldInteractGaugeCanvas, transform);
 
             currentGauge.Successed += () => InteractSuccessed(interactBase, interactObj.position);
             currentGauge.Failed += InteractFailed;
@@ -166,19 +166,15 @@ namespace lsy
             float time = 0f;
             float timeToMove = 0.1f;
 
-            Vector3 startPos = transform.position;
-            Vector3 posistion = target.position + ((transform.position - target.position).normalized * interactData.InteractDistance);
-            posistion.y = transform.position.y;
-
-            Vector3 lookVector = target.position - transform.position;
-            lookVector.y = 0f;
-
-            transform.rotation = Quaternion.LookRotation(lookVector);
+            //Vector3 startPos = transform.position;
+            //Vector3 posistion = target.position + ((transform.position - target.position).normalized * interactData.InteractDistance);
+            //posistion.y = transform.position.y;
 
             while (time < 1)
             {
                 time += Time.deltaTime / timeToMove;
-                transform.position = Vector3.Lerp(startPos, posistion, time);
+                //transform.position = Vector3.Lerp(startPos, posistion, time);
+                currentGauge.transform.position = target.position;
                 yield return null;
             }
         }
@@ -223,7 +219,7 @@ namespace lsy
 
             if (currentGauge != null)
             {
-                billboardController.RemoveTarget(currentGauge.gameObject);
+                //billboardController.RemoveTarget(currentGauge.gameObject);
                 Destroy(currentGauge.gameObject);
                 currentGauge = null;
             }
@@ -235,7 +231,7 @@ namespace lsy
         {
             isCompleted = true;
 
-            billboardController.RemoveTarget(currentGauge.gameObject);
+            //billboardController.RemoveTarget(currentGauge.gameObject);
             Destroy(currentGauge.gameObject);
             currentGauge = null;
 

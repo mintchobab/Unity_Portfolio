@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Mask
   - SeeThrough
-  - 
+  - WorldUI
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: WorldUI
+    uniqueID: 1885032759
     locked: 0

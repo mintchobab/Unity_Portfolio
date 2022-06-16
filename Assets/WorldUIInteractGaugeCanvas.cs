@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace lsy
 {
-    public class InteractGauge : MonoBehaviour
+    public class WorldUIInteractGaugeCanvas : MonoBehaviour
     {
         [SerializeField]
         private Slider timeSlider;
@@ -27,6 +27,8 @@ namespace lsy
         public event Action Failed;
         public event Action Successed;
 
+        private Canvas canvas;
+
         private bool isSuccess;
         private bool isFail;
 
@@ -41,6 +43,7 @@ namespace lsy
 
         private void Awake()
         {
+            canvas = GetComponent<Canvas>();
             ColorUtility.TryParseHtmlString(failColorString, out failColor);
             ColorUtility.TryParseHtmlString(successColorString, out successColor);
         }
@@ -51,11 +54,25 @@ namespace lsy
             StopAllCoroutines();
         }
 
+        public void Show()
+        {
+            canvas.enabled = true;
+        }
+
+        public void Hide()
+        {
+            canvas.enabled = false;
+        }
+
 
         public void StartProcess(float successChance, float processTime, float limitTime)
         {
             isSuccess = false;
             isFail = false;
+
+            // 초기화 하는것도 있어야함
+
+            Show();
 
             StartCoroutine(InteractGaugeProcess(successChance, processTime));
             StartCoroutine(TimeGaugeProcess(limitTime));

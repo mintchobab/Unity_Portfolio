@@ -9,7 +9,7 @@ namespace lsy
         [SerializeField]
         private float hpBarHeight;
 
-        private BillboardUIController billboardController => Managers.Instance.UIManager.BillboardUIController;
+        //private WorldUIController billboardController => Managers.Instance.UIManager.WorldUIController;
         private HpBar hpBar;
 
 

@@ -27,9 +27,6 @@ namespace lsy
         public InteractData InteractData { get; protected set; }
 
 
-        protected BillboardUIController billboardUIController => Managers.Instance.UIManager.BillboardUIController;
-
-
         protected virtual void Awake()
         {
             SetInteractData();

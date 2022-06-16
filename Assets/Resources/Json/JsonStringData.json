@@ -247,14 +247,14 @@
     }
   ],
 
-  "stringInteract": [
+  "stringCollection": [
     {
-      "key": "Interact_Ore",
+      "key": "Collection_Ore",
       "values": [ "광석", "Ore" ]
     },
     {
-      "key": "Interact_Gather",
-      "values": [ "수집", "Gather" ]
+      "key": "Collection_Gather",
+      "values": [ "수집??", "Gather" ]
     }
   ]
 

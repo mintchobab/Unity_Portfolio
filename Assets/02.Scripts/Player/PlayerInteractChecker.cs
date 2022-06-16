@@ -9,20 +9,21 @@ namespace lsy
         [SerializeField]
         private List<InteractBase> interacts = new List<InteractBase>();
 
+        private WorldUIInteractCircleCanvas interactCircleCanvas;
         private Coroutine checkInteractTarget;
-        private InputUIController inputController;
-        private InteractCircle interactCircle;
-        private BillboardUIController billboardUIController => Managers.Instance.UIManager.BillboardUIController;
-
 
         private bool isChecking;
 
+        private InputUIController inputController => Managers.Instance.UIManager.InputUIController;
 
-        private void Start()
+
+
+        private void Awake()
         {
-            inputController = Managers.Instance.UIManager.InputUIController;
-            interactCircle = Managers.Instance.ResourceManager.Instantiate<InteractCircle>(ResourcePath.InteractCircle, billboardUIController.transform);
-            interactCircle.Hide();
+            interactCircleCanvas =
+                Managers.Instance.ResourceManager.Instantiate<WorldUIInteractCircleCanvas>(ResourcePath.WorldInteractCircleCanvas, transform);
+
+            interactCircleCanvas.Initialize(transform);
         }
 
 
@@ -56,8 +57,7 @@ namespace lsy
 
                     // 기본 버튼으로 변경
                     inputController.SetBasicInteractButton();
-
-                    interactCircle.Hide();
+                    interactCircleCanvas.Hide();
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace lsy
 
             if (checkInteractTarget != null)
                 StopCoroutine(checkInteractTarget);
-            
+
             checkInteractTarget = StartCoroutine(CheckInteractTarget());
         }
 
@@ -117,8 +117,7 @@ namespace lsy
                 {
                     inputController.SetInteractButton(currentInteract);
 
-                    // 서클의 위치 변경 해야됨~```````````````````
-                    interactCircle.Show(currentInteract.transform);                    
+                    interactCircleCanvas.Show(currentInteract.transform, Vector3.zero);
                 }
 
                 prevInteract = currentInteract;

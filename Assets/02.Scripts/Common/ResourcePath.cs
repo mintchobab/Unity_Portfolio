@@ -11,15 +11,26 @@ namespace lsy
         public static readonly string QuestCanvas = "Load/Prefab/UI/Canvas/QuestCanvas";
         public static readonly string InventoryCanvas = "Load/Prefab/UI/Canvas/InventoryCanvas";
         public static readonly string EquipInventoryCanvas = "Load/Prefab/UI/Canvas/EquipInventoryCanvas";
-        public static readonly string BillboardCanvas = "Load/Prefab/UI/Canvas/BillboardCanvas";
+        //public static readonly string WorldCanvas = "Load/Prefab/UI/Canvas/WorldCanvas"; // => 이거 지워야함ㅁㅁㅁㅁㅁㅁㅁ
 
         // UI/Quest
         public static readonly string QuestListButton = "Load/Prefab/UI/Quest/QuestListButton";
 
+        // WorldSpace UI
+        public static readonly string WorldNameCanvas = "Load/Prefab/UI/World/WorldNameCanvas";
+        public static readonly string WorldInteractCircleCanvas = "Load/Prefab/UI/World/WorldInteractCircleCanvas";
+        public static readonly string WorldInteractGaugeCanvas = "Load/Prefab/UI/World/WorldInteractGaugeCanvas";
+
+
+        /*
         // UI/Billboard
-        public static readonly string HpBar = "Load/Prefab/UI/Billboard/HpBar";
-        public static readonly string InteractGauge = "Load/Prefab/UI/Billboard/InteractGauge";
-        public static readonly string InteractCircle = "Load/Prefab/UI/Billboard/InteractCircle";
+        public static readonly string HpBar = "Load/Prefab/UI/WolrdUI/HpBar";
+        public static readonly string InteractGauge = "Load/Prefab/UI/WolrdUI/InteractGauge";
+        public static readonly string InteractCircle = "Load/Prefab/UI/WolrdUI/InteractCircle";
+        public static readonly string NameText = "Load/Prefab/UI/WolrdUI/NameText";
+        */
+
+
 
         // Image
         public static readonly string Empty = "Load/Texture/Empty";
@@ -41,6 +52,8 @@ namespace lsy
 
         // Equip
         public static readonly string Equip = "Load/Prefab/Equip";
+
+
 
         //public static readonly string WoodenSword = "Load/Prefab/Equip/WoodenSword";
         //public static readonly string IronSword = "Load/Prefab/Equip/IronSword";

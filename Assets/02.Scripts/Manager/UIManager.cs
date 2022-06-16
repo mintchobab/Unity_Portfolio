@@ -18,7 +18,7 @@ namespace lsy
         public QuestUIController QuestUIController { get; private set; }
         public InventoryUIController InventoryUIController { get; private set; }
         public EquipUIController EquipUIController { get; private set; }
-        public BillboardUIController BillboardUIController { get; private set; }
+        //public WorldUIController WorldUIController { get; private set; }
 
 
         public void Initialize()
@@ -48,7 +48,7 @@ namespace lsy
             QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourcePath.QuestCanvas, rootCanvas.transform);
             InventoryUIController = Managers.Instance.ResourceManager.Instantiate<InventoryUIController>(ResourcePath.InventoryCanvas, rootCanvas.transform);
             EquipUIController = Managers.Instance.ResourceManager.Instantiate<EquipUIController>(ResourcePath.EquipInventoryCanvas, rootCanvas.transform);
-            BillboardUIController = Managers.Instance.ResourceManager.Instantiate<BillboardUIController>(ResourcePath.BillboardCanvas, rootCanvas.transform);
+            //WorldUIController = Managers.Instance.ResourceManager.Instantiate<WorldUIController>(ResourcePath.WorldCanvas, rootCanvas.transform);
         }
 
     }}

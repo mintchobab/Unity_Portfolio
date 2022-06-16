@@ -52,9 +52,9 @@ namespace lsy
             return jsonString.stringUITexts.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
-        public static string GetLocalizedInteract(string nameKey)
+        public static string GetLocalizedCollection(string nameKey)
         {
-            return jsonString.stringInteract.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+            return jsonString.stringCollection.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
     }
 }

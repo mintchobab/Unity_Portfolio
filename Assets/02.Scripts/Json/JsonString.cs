@@ -15,7 +15,7 @@ public class JsonString
     public List<StringKeyvalues> stringItemDescriptions;
 
     public List<StringKeyvalues> stringUITexts;
-    public List<StringKeyvalues> stringInteract;
+    public List<StringKeyvalues> stringCollection;
 }
 
 

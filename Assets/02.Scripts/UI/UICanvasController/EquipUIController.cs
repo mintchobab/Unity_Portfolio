@@ -73,8 +73,8 @@ namespace lsy
             // 카메라 줌 시작
             // 플레이어를 따라가기
             CameraController.Instance.LookPlayer();
-
         }
+
 
         public override void Hide()
         {

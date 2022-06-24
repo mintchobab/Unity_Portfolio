@@ -22,11 +22,11 @@ namespace lsy
 
         // 아이템 획득 했을 때 인벤토리 창으로 들어가기
         // 아이템의 생성 위치, 아이템 아이콘 필요
-        public void GetItem(InteractBase interactBase, Vector3 targetPostion)
+        public void GetItem(InteractCollection interactCollection, Vector3 targetPostion)
         {
-            string path = ResourcePath.GetItemSpritePathToType(interactBase.InteractData.ItemType);
+            string path = ResourcePath.GetItemSpritePathToType(interactCollection.MyCollectionData.itemType);
 
-            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{interactBase.InteractObjResourceName}");
+            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{interactCollection.InteractObjResourceName}");
             StartCoroutine(MoveItemImage(targetPostion));
         }
 

@@ -84,7 +84,7 @@ namespace lsy
 
 
         // 아이템이 새롭게 추가될 때
-        private void OnItemAdded(int itemIndex)
+        private void OnItemAdded(int itemId, int itemIndex)
         {
             InventoryItem inventoryItem = inventoryManager.ItemList[itemIndex];
 
@@ -99,7 +99,7 @@ namespace lsy
 
 
         // 기존 아이템의 개수가 달라질 때
-        private void OnItemChanged(int itemIndex)
+        private void OnItemChanged(int itemId, int itemIndex)
         {
             // 아이템 개수 변경
             InventoryItem inventoryItem = inventoryManager.ItemList[itemIndex];
@@ -108,7 +108,7 @@ namespace lsy
 
 
         // 아이템이 사용될 때
-        private void OnItemUsed(int itemIndex)
+        private void OnItemUsed(int itemId, int itemIndex)
         {
             InventoryItem inventoryItem = inventoryManager.ItemList[itemIndex];
 

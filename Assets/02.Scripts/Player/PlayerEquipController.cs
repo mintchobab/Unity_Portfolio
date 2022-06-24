@@ -68,6 +68,8 @@ namespace lsy
             currentWeapon = weapon;
         }
 
+
+        // 무기 해제
         public void UnEquipWeapon()
         {
             Destroy(currentWeapon);
@@ -91,18 +93,23 @@ namespace lsy
         }
 
 
+        // 방패 해제
         public void UnEquipShield()
         {
             Destroy(currentShield);
             currentShield = null;
         }
 
+
+        // 현재 장착 무기 활성화
         private void ShowCurrentEquip()
         {
             currentWeapon?.SetActive(true);
             currentShield?.SetActive(true);
         }
 
+
+        // 현재 장착 무기 비활성화
         private void HideCurrentEquip()
         {
             currentWeapon?.SetActive(false);
@@ -115,13 +122,13 @@ namespace lsy
         #region 도구
 
         // 도구 생성
-        public void MakeTool(InteractType interactType, bool isLeft)
+        public void MakeTool(InteractCollectionType collectionType, bool isLeft)
         {
             Transform parent = isLeft ? leftHand : rightHand;
 
-            switch (interactType)
+            switch (collectionType)
             {
-                case InteractType.Pickaxing:
+                case InteractCollectionType.Mining:
                     currentTool = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.Pickax, parent);
                     //currentTool.transform.localPosition = new Vector3(0, 0, 0);
                     //currentTool.transform.localRotation = Quaternion.identity;

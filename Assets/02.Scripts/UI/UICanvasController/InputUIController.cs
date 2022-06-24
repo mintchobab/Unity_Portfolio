@@ -10,9 +10,6 @@ namespace lsy
         [SerializeField]
         private Button interactButton;
 
-        [SerializeField]
-        private Button questButton;
-
         [field: SerializeField]
         public Button InventoryButton { get; private set; }
 
@@ -24,7 +21,7 @@ namespace lsy
         private Sprite dialogueSprite;
 
 
-        private event Action Interacting;
+        private event Action onInteracting;
 
 
         public Vector3 TouchRotateVector { get; private set; }
@@ -41,7 +38,6 @@ namespace lsy
 
         private void Start()
         {
-            questButton.onClick.AddListener(QuestButtonClicked);
             InventoryButton.onClick.AddListener(InventoryButtonClicked);
             equipButton.onClick.AddListener(EquipButtonClicked);
         }
@@ -68,7 +64,7 @@ namespace lsy
         {
             interactButton.image.sprite = stopButtonSprite;
 
-            Interacting = null;
+            onInteracting = null;
 
             interactButton.onClick.RemoveAllListeners();
             interactButton.onClick.AddListener(() => Stop?.Invoke());
@@ -78,20 +74,12 @@ namespace lsy
         // 상호작용 실행 버튼으로 교체
         public void SetInteractButton(InteractBase interact)
         {
-            interactButton.image.sprite =  interact.LoadButtonImage();
+            interactButton.image.sprite = interact.LoadButtonImage();
 
-            Interacting = interact.Interact;
+            onInteracting = interact.Interact;
 
             interactButton.onClick.RemoveAllListeners();
-            interactButton.onClick.AddListener(() => Interacting?.Invoke());
-        }
-
-
-        // 퀘스트 버튼 클릭
-        private void QuestButtonClicked()
-        {
-            Managers.Instance.UIManager.QuestUIController.Show();
-            //Hide();
+            interactButton.onClick.AddListener(() => onInteracting?.Invoke());
         }
 
 

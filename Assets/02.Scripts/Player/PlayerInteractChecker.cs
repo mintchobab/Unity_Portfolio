@@ -117,7 +117,12 @@ namespace lsy
                 {
                     inputController.SetInteractButton(currentInteract);
 
-                    interactCircleCanvas.Show(currentInteract.transform, Vector3.zero);
+                    // 만약 피봇의 위치를 바꿔야 한다면 여기서 하기
+
+                    if (currentInteract is InteractTargetable)
+                        interactCircleCanvas.Show(currentInteract.transform, Vector3.zero);
+                    else
+                        interactCircleCanvas.Hide();
                 }
 
                 prevInteract = currentInteract;

@@ -16,10 +16,10 @@ namespace lsy
     {
         public List<InventoryItem> ItemList { get; private set; } = new List<InventoryItem>();
 
-        public event Action<int> onItemAdded;
-        public event Action<int> onItemChanged;
-        public event Action<int> onItemUsed;
-
+        // int : itemId, int : itemListIndex
+        public event Action<int, int> onItemAdded;
+        public event Action<int, int> onItemChanged;
+        public event Action<int, int> onItemUsed;
 
         public readonly int StartSlotSize = 20;
         public readonly int AddSlotSize = 5;
@@ -59,7 +59,7 @@ namespace lsy
                 if (ItemList[i].item == null)
                 {
                     ItemList[i] = MakeNewInventoryItem(itemId, count);
-                    onItemAdded?.Invoke(i);
+                    onItemAdded?.Invoke(itemId, i);
                     return;
                 }                    
 
@@ -71,12 +71,12 @@ namespace lsy
                     {
                         ItemList[i].count = ItemList[i].item.maxCount;
                         count = currentCount - ItemList[i].item.maxCount;
-                        onItemChanged?.Invoke(i);
+                        onItemChanged?.Invoke(itemId, i);
                     }
                     else
                     {
                         ItemList[i].count = currentCount;
-                        onItemChanged?.Invoke(i);
+                        onItemChanged?.Invoke(itemId, i);
                         return;
                     }
                 }
@@ -103,14 +103,31 @@ namespace lsy
         {
             ItemList[index].count--;
 
+            // ★★★ 사용효과도 추가하기 ★★★
+            onItemUsed?.Invoke(ItemList[index].item.id, index);
+
+
             if (ItemList[index].count <= 0)
-            {
                 ItemList[index].item = null;
+        }
+
+
+        public int FindItemCount(int itemId)
+        {
+            int count = 0;
+
+            foreach(InventoryItem item in ItemList)
+            {
+                if (item.item == null)
+                    continue;
+
+                if (item.item.id == itemId)
+                {
+                    count += item.count;
+                }
             }
 
-            onItemUsed?.Invoke(index);
-
-            // ★★★ 사용효과도 추가하기 ★★★
+            return count;
         }
     }
 }

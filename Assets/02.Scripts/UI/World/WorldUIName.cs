@@ -8,7 +8,7 @@ namespace lsy
     public class WorldUIName : MonoBehaviour, IWorldUI
     {
         [SerializeField]
-        private bool isNPC;
+        private NameType nameType;
 
         [SerializeField]
         private string nameKey;
@@ -21,10 +21,37 @@ namespace lsy
 
         private void Awake()
         {
-            nameCanvas = Managers.Instance.ResourceManager.Instantiate<WorldUINameCanvas>(ResourcePath.WorldNameCanvas, transform);
+            nameCanvas = Managers.Instance.ResourceManager.Instantiate<WorldUINameCanvas>(ResourcePath.WorldNameCanvas);
 
-            string name = isNPC ? StringManager.GetLocalizedNPCName(nameKey) : StringManager.GetLocalizedCollection(nameKey);
-            nameCanvas.Initialize(name);
+            string name = string.Empty;
+            string colorString = string.Empty;            
+
+            switch (nameType)
+            {
+                case NameType.Player:
+                    break;
+
+                case NameType.Npc:
+                    name = StringManager.GetLocalizedNPCName(nameKey);
+                    colorString = ValueData.npcNameColorString;
+                    break;
+
+                case NameType.Monster:
+                    break;
+
+                case NameType.Collection:
+                    name = StringManager.GetLocalizedItemName(nameKey);
+                    colorString = ValueData.collectionNameColorString;
+                    break;
+            }
+
+            ColorUtility.TryParseHtmlString(colorString, out Color color);
+
+            nameCanvas.SetName(name);
+            nameCanvas.SetNameColor(color);
+            nameCanvas.SetParent(transform);
+            nameCanvas.SetLocalPosition(LocalPosition);
+            nameCanvas.Hide();
         }
 
 

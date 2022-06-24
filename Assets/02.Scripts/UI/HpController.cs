@@ -10,7 +10,7 @@ namespace lsy
         private float hpBarHeight;
 
         //private WorldUIController billboardController => Managers.Instance.UIManager.WorldUIController;
-        private HpBar hpBar;
+        //private HpBar hpBar;
 
 
         private void Start()
@@ -33,8 +33,8 @@ namespace lsy
         public void ChangeHpUI(int currentHp, int maxHp)
         {
             // 일단은 World만 바꾸도록 하자
-            float value = currentHp / (float)maxHp;
-            hpBar.ChangeHpBar(value);
+            //float value = currentHp / (float)maxHp;
+            //hpBar.ChangeHpBar(value);
         }
     }
 }

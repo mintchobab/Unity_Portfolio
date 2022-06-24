@@ -17,7 +17,7 @@ namespace lsy
         public string itemType;
         public string name;
         public string _resourceName;
-        public string description;
+        public string explanation;
     }
 
 

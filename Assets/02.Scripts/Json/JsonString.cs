@@ -5,17 +5,18 @@ using System.Collections.Generic;
 public class JsonString
 {
     public List<StringKeyvalues> stringNpcNames;
-    public List<StringKeyvalues> stringDialogues;
+    public List<StringKeyvalues> stringNpcDialogues;
 
     public List<StringKeyvalues> stringQuestNames;
-    public List<StringKeyvalues> stringQuestDescriptions;
+    public List<StringKeyvalues> stringQuestGoals;
+    public List<StringKeyvalues> stringQuestContents;
     public List<StringKeyvalues> stringQuestDialogues;
 
     public List<StringKeyvalues> stringItemNames;
-    public List<StringKeyvalues> stringItemDescriptions;
+    public List<StringKeyvalues> stringItemExplanations;
 
     public List<StringKeyvalues> stringUITexts;
-    public List<StringKeyvalues> stringCollection;
+    //public List<StringKeyvalues> stringCollection;
 }
 
 

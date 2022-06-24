@@ -7,6 +7,11 @@ namespace lsy
 {
     public class TestScript : MonoBehaviour
     {
+        private void Start()
+        {
+            Managers.Instance.QuestManager.SetQuestToNPC(2000, 1000);
+        }
+
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.W))

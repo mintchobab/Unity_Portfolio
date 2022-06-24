@@ -7,7 +7,7 @@ namespace lsy
         private static JsonString jsonString;
 
         // 번호에 따라 한글, 영어 바뀜
-        private static int localizeIndex = 1;
+        private static int localizeIndex = 0;
 
 
         public void Initialize()
@@ -22,14 +22,24 @@ namespace lsy
             return jsonString.stringNpcNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
+        public static string GetLocalizedNpcDialogue(string nameKey)
+        {
+            return jsonString.stringNpcDialogues.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+        }
+
         public static string GetLocalizedQuestName(string nameKey)
         {
             return jsonString.stringQuestNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
-        public static string GetLocalizedQuestDescription(string nameKey)
+        public static string GetLocalizedQuestGoal(string nameKey)
         {
-            return jsonString.stringQuestDescriptions.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+            return jsonString.stringQuestGoals.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+        }
+
+        public static string GetLocalizedQuestContent(string nameKey)
+        {
+            return jsonString.stringQuestContents.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
         public static string GetLocalizedQuestDialogue(string nameKey)
@@ -42,9 +52,9 @@ namespace lsy
             return jsonString.stringItemNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
-        public static string GetLocalizedItemDescription(string nameKey)
+        public static string GetLocalizedItemExplanation(string nameKey)
         {
-            return jsonString.stringItemDescriptions.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+            return jsonString.stringItemExplanations.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
         public static string GetLocalizedUIText(string nameKey)
@@ -52,9 +62,9 @@ namespace lsy
             return jsonString.stringUITexts.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
-        public static string GetLocalizedCollection(string nameKey)
-        {
-            return jsonString.stringCollection.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
-        }
+        //public static string GetLocalizedCollection(string nameKey)
+        //{
+        //    return jsonString.stringCollection.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+        //}
     }
 }

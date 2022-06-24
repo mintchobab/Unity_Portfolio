@@ -30,10 +30,7 @@ namespace lsy
         private int hashEndInteract = Animator.StringToHash("endInteract");
 
 
-        //private WorldUIController billboardController => Managers.Instance.UIManager.WorldUIController;
         private InputUIController inputUIController => Managers.Instance.UIManager.InputUIController;
-
-
 
 
         public override void Init()
@@ -118,31 +115,46 @@ namespace lsy
 
         #region Interact
 
-        private WorldUIInteractGaugeCanvas currentGauge;
+        private WorldUIInteractGaugeCanvas gaugeCanvas;
         private Coroutine interacting;
         private Coroutine endInteractAnimation;
 
         private bool isCompleted;
 
 
-        // 상호작용 시작
-        public void StartInteract(InteractBase interactBase, Transform interactObj)
+
+        // Base를 형변환해서 어떤거냐에 따라 다르게 하기
+        public void CheckInteract(InteractBase interactBase, Transform interactObj)
+        {
+            if (interactBase is InteractCollection)
+            {
+                StartInteractCollection((InteractCollection)interactBase, interactObj);
+            }
+            else if (interactBase is InteractNPC)
+            {
+
+            }
+        }
+
+
+
+        private void StartInteractCollection(InteractCollection interactCollection, Transform interactObj)
         {
             isCompleted = false;
             canMoving = false;
 
-            anim.SetTrigger(interactBase.InteractData.StartHash);
-            EquipController.MakeTool(interactBase.InteractData.InteractType, false);
+            anim.SetTrigger(interactCollection.MyCollectionData.AnimationHash);
+            EquipController.MakeTool(interactCollection.CollectionType, false);
 
-            // UI 생성
-            if (!currentGauge)
-                currentGauge = Managers.Instance.ResourceManager.Instantiate<WorldUIInteractGaugeCanvas>(ResourcePath.WorldInteractGaugeCanvas, transform);
+            if (!gaugeCanvas)
+                gaugeCanvas = Managers.Instance.ResourceManager.Instantiate<WorldUIInteractGaugeCanvas>(ResourcePath.WorldInteractGaugeCanvas);
 
-            currentGauge.Successed += () => InteractSuccessed(interactBase, interactObj.position);
-            currentGauge.Failed += InteractFailed;
+            gaugeCanvas.transform.position = interactObj.position + interactCollection.MyCollectionData.gaugePosition;
+            gaugeCanvas.Successed += () => CollectingSuccessed(interactCollection, interactObj.position);
+            gaugeCanvas.Failed += InteractFailed;
 
             // 작업별로 시간 다르게하기????????????????????????????
-            currentGauge.StartProcess(0.8f, 5f, 8f);
+            gaugeCanvas.StartProcess(0.8f, 5f, 8f);
 
             // 버튼 이미지 변경
             inputUIController.SetStopInteractButton(StopInteracting);
@@ -154,43 +166,49 @@ namespace lsy
             if (interacting != null)
                 StopCoroutine(interacting);
 
-            interacting = StartCoroutine(Interacting(interactBase.InteractData, interactObj));
+            interacting = StartCoroutine(Interacting(interactCollection.MyCollectionData, interactObj));
         }
 
 
 
-        // 상호작용 동작 (애니메이션 + 자리이동 + 오브젝트 바라보기)
-        private IEnumerator Interacting(InteractData interactData, Transform target)
+
+
+        // 상호작용 동작 (플레이어 애니메이션 + 자리이동 + 오브젝트 바라보기)
+        private IEnumerator Interacting(CollectionData collectinData, Transform target)
         {
             //  이동 & 회전
             float time = 0f;
             float timeToMove = 0.1f;
 
-            //Vector3 startPos = transform.position;
-            //Vector3 posistion = target.position + ((transform.position - target.position).normalized * interactData.InteractDistance);
-            //posistion.y = transform.position.y;
+            Vector3 direction = (transform.position - target.position).normalized;
+            Vector3 startPos = transform.position;
+            Vector3 targetPos = target.position + direction * collectinData.InteractDistance;
+
+            targetPos.y = transform.position.y;
+            direction = Quaternion.Euler(0f, 180, 0f) * direction;
+            direction.y = 0;
 
             while (time < 1)
             {
                 time += Time.deltaTime / timeToMove;
-                //transform.position = Vector3.Lerp(startPos, posistion, time);
-                currentGauge.transform.position = target.position;
+                transform.position = Vector3.Lerp(startPos, targetPos, time);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), time);
                 yield return null;
             }
-        }
-        
+        }        
 
 
         // 상호작용 성공
-        private void InteractSuccessed(InteractBase interactBase, Vector3 targetPosition)
+        private void CollectingSuccessed(InteractCollection interactCollection, Vector3 targetPosition)
         {
             anim.SetTrigger(hashSuccessInteract);
 
             // 아이템 획득
-            Managers.Instance.InventoryManager.AddCountableItem(interactBase.InteractData.ItemId, 1);
-            Managers.Instance.UIManager.SystemUIController.GetItem(interactBase, targetPosition);
+            Managers.Instance.InventoryManager.AddCountableItem(interactCollection.ItemId, 1);
+            Managers.Instance.UIManager.SystemUIController.GetItem(interactCollection, targetPosition);
             InteractCompleted();
         }
+
 
 
         // 상호작용 실패
@@ -217,11 +235,11 @@ namespace lsy
             EquipController.DestoryCurrentTool();
             interactChecker.StartCheckInteractTarget();
 
-            if (currentGauge != null)
+            if (gaugeCanvas != null)
             {
                 //billboardController.RemoveTarget(currentGauge.gameObject);
-                Destroy(currentGauge.gameObject);
-                currentGauge = null;
+                Destroy(gaugeCanvas.gameObject);
+                gaugeCanvas = null;
             }
         }
 
@@ -232,8 +250,8 @@ namespace lsy
             isCompleted = true;
 
             //billboardController.RemoveTarget(currentGauge.gameObject);
-            Destroy(currentGauge.gameObject);
-            currentGauge = null;
+            Destroy(gaugeCanvas.gameObject);
+            gaugeCanvas = null;
 
             if (endInteractAnimation != null)
                 StopCoroutine(endInteractAnimation);
@@ -243,10 +261,9 @@ namespace lsy
 
         
         // 상호작용 결과 애니메이션 종료
-
         private IEnumerator EndInteractAnimation()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(ValueData.AfterInteractDelayTime);
 
             EquipController.DestoryCurrentTool();
 

@@ -1,12 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceManager : IManager
 {
     public void Initialize() { }
 
+
+    private Dictionary<string, Object> resourceCache = new Dictionary<string, Object>();
+
     public T Load<T>(string path) where T : Object
     {
-        return Resources.Load<T>(path);
+        if (!resourceCache.ContainsKey(path))
+            resourceCache[path] = Resources.Load<T>(path);
+
+        return (T)resourceCache[path];
     }
 
 

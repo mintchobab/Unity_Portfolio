@@ -5,179 +5,195 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DialogueUIController : SceneUI, IPointerDownHandler
+namespace lsy
 {
-    [SerializeField]
-    private Text nameText;
-
-    [SerializeField]
-    private Text dialogueText;
-
-    [SerializeField]
-    private Button acceptButton;
-
-    [SerializeField]
-    private Button closeButton;
-
-
-    public event Action onEndDialogue;
-    public event Action onAcceptEvent;
-
-
-    private Coroutine typing;
-    private Coroutine showNextDialogue;
-
-    private List<string> currentDialogues;
-
-    private bool isTyping;
-
-    private int currentIndex;
-    private int lastIndex;
-    private float typingSpeed = 0.15f;
-
-
-    protected override void Awake()
+    public class DialogueUIController : SceneUI, IPointerDownHandler
     {
-        base.Awake();
-        Hide();
+        [SerializeField]
+        private Text nameText;
 
-        acceptButton.onClick.AddListener(OnClickAcceptButton);
-        closeButton.onClick.AddListener(() => Hide());
-    }
+        [SerializeField]
+        private Text dialogueText;
 
+        [SerializeField]
+        private Button acceptButton;
 
-    public override void Hide()
-    {
-        base.Hide();
-        acceptButton.gameObject.SetActive(false);
-        closeButton.gameObject.SetActive(false);
-    }
+        [SerializeField]
+        private Button closeButton;
 
 
-    // 캔버스 활성화
-    public override void Show()
-    {
-        base.Show();
+        public event Action onDialogueEnded;
+        public event Action onDialougeClosed;
+        public event Action onAcceptButtonClicked;
 
-        ShowNextDialogue();
-    }
+        private Coroutine typing;
+        private Coroutine showNextDialogue;
 
+        private List<string> currentDialogues;
 
-    // 대화창 or 화면 클릭시 실행
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        ShowNextDialogue();
-    }
+        private bool isTyping;
+        private bool isQuestDialogue;
 
-
-    // 수락 버튼 클릭 이벤트
-    private void OnClickAcceptButton()
-    {
-        onAcceptEvent?.Invoke();
-        onAcceptEvent = null;
-        Hide();
-    }
+        private int currentIndex;
+        private int lastIndex;
+        private float typingSpeed = 0.15f;
 
 
-    // 수락버튼에 이벤트 추가
-    public void SetAcceptButtonEvent(Action action)
-    {
-        onAcceptEvent += action;
-        acceptButton.GetComponentInChildren<Text>().text = "퀘스트 수락";
-    }
-
-
-    // 대화창의 NPC 이름 변경
-    public void SetNameText(string name)
-    {
-        nameText.text = name;
-    }
-
-
-    // 대화 종료후의 이벤트 추가
-    public void SetEndEvent(Action action)
-    {
-        onEndDialogue += action;
-    }
-
-
-
-
-
-    // 출력해야할 대사 설정
-    public void SetCurrentDialogues(List<string> dialogues)
-    {
-        currentDialogues = dialogues;
-
-        currentIndex = 0;
-        lastIndex = currentDialogues.Count - 1;
-
-        closeButton.gameObject.SetActive(false);
-    }
-
-
-    // 다음 문장 출력
-    private void ShowNextDialogue()
-    {
-        if (currentDialogues == null || currentIndex == -1)
-            return;
-
-        // 대사가 출력중일 때
-        if (isTyping)
+        protected override void Awake()
         {
-            StopCoroutine(typing);
-            isTyping = false;
-            dialogueText.text = currentDialogues[currentIndex];
-            currentIndex++;
+            base.Awake();
+            Hide();
 
-            if (currentIndex > lastIndex)
+            acceptButton.onClick.AddListener(OnClickAcceptButton);
+            closeButton.onClick.AddListener(() => Hide());
+
+            acceptButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_Accept");
+            closeButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_Close");
+        }
+
+
+        public override void Hide()
+        {
+            base.Hide();
+            acceptButton.gameObject.SetActive(false);
+            closeButton.gameObject.SetActive(false);
+
+            onDialougeClosed?.Invoke();
+            onDialougeClosed = null;
+        }
+
+
+        // 캔버스 활성화
+        public override void Show()
+        {
+            base.Show();
+            ShowNextDialogue();
+        }
+
+
+
+        // 대화창 or 화면 클릭시 실행
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (currentDialogues == null)
+                return;
+
+            if (currentIndex == -1)
             {
-                AfterLastDialouge();
+                if (isQuestDialogue)
+                {
+                    return;
+                }
+                else
+                {
+                    Hide();
+                    return;
+                }                
+            }
+
+            ShowNextDialogue();
+        }
+
+
+        // 수락 버튼 클릭 이벤트
+        private void OnClickAcceptButton()
+        {
+            onAcceptButtonClicked?.Invoke();
+            Hide();
+        }
+
+
+        // 수락버튼에 이벤트 추가
+        public void SetAcceptButtonEvent(Action action)
+        {
+            onAcceptButtonClicked = action;
+        }
+
+
+
+        public void SetInitializeInfo(bool isQuest, string name, List<string> dialouges)
+        {
+            nameText.text = name;
+            isQuestDialogue = isQuest;
+            SetCurrentDialogues(dialouges);
+        }
+
+
+        // 출력해야할 대사 설정
+        private void SetCurrentDialogues(List<string> dialogues)
+        {
+            currentDialogues = dialogues;
+
+            currentIndex = 0;
+            lastIndex = currentDialogues.Count - 1;
+
+            closeButton.gameObject.SetActive(false);
+        }
+
+
+
+        // 다음 문장 출력
+        private void ShowNextDialogue()
+        {
+            // 대사가 출력중일 때
+            if (isTyping)
+            {
+                StopCoroutine(typing);
+                isTyping = false;
+                dialogueText.text = currentDialogues[currentIndex];
+                currentIndex++;
+
+                if (currentIndex > lastIndex)
+                {
+                    AfterLastDialouge();
+                }
+            }
+            else
+            {
+                if (typing != null)
+                    StopCoroutine(typing);
+
+                if (currentIndex != lastIndex)
+                    typing = StartCoroutine(Typing(currentDialogues[currentIndex], () => currentIndex++));
+                else
+                    typing = StartCoroutine(Typing(currentDialogues[currentIndex], AfterLastDialouge));
             }
         }
-        else
+
+
+        // 마지막 대사 출력 이후 실행
+        private void AfterLastDialouge()
         {
-            if (typing != null)
-                StopCoroutine(typing);
+            currentIndex = -1;
+            onDialogueEnded?.Invoke();
+            onDialogueEnded = null;
 
-            if (currentIndex != lastIndex)
-                typing = StartCoroutine(Typing(currentDialogues[currentIndex], () => currentIndex++));
-            else
-                typing = StartCoroutine(Typing(currentDialogues[currentIndex], AfterLastDialouge));
-        }
-    }
-
-
-    // 마지막 대사 출력 이후 실행
-    private void AfterLastDialouge()
-    {
-        currentIndex = -1;
-        onEndDialogue?.Invoke();
-        onEndDialogue = null;
-
-        // 퀘스트가 있을때만
-        // 근데 이걸 판단하는게 여기서 해야될까....?????
-        acceptButton.gameObject.SetActive(true);
-        closeButton.gameObject.SetActive(true);
-    }
-
-
-
-    // 대사 타이핑 효과
-    public IEnumerator Typing(string str, Action afterTyping = null)
-    {
-        isTyping = true;
-
-        for (int i = 0; i < str.Length; i++)
-        {
-            dialogueText.text = str.Substring(0, i + 1);
-            yield return new WaitForSeconds(typingSpeed);
+            // 퀘스트가 있을때만
+            if (isQuestDialogue)
+            {
+                acceptButton.gameObject.SetActive(true);
+                closeButton.gameObject.SetActive(true);
+            }
         }
 
-        isTyping = false;
-        afterTyping?.Invoke();
 
-        yield return null;
+
+        // 대사 타이핑 효과
+        public IEnumerator Typing(string str, Action afterTyping = null)
+        {
+            isTyping = true;
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                dialogueText.text = str.Substring(0, i + 1);
+                yield return new WaitForSeconds(typingSpeed);
+            }
+
+            isTyping = false;
+            afterTyping?.Invoke();
+
+            yield return null;
+        }
+
     }
-
 }

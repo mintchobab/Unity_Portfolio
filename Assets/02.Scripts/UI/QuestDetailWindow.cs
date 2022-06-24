@@ -24,7 +24,7 @@ namespace lsy
         public void SetQuest(Quest quest)
         {
             questName.text = StringManager.GetLocalizedQuestName(quest.questName);
-            questContents.text = StringManager.GetLocalizedQuestDescription(quest.description);
+            questContents.text = StringManager.GetLocalizedQuestContent(quest.content);
         }
     }
 }

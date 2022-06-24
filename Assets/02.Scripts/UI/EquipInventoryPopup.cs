@@ -41,7 +41,7 @@ namespace lsy
 
             itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{ResourcePath.EquipItem}/{item._resourceName}");
             itemName.text = StringManager.GetLocalizedItemName(item.name);
-            itemDescription.text = StringManager.GetLocalizedItemDescription(item.description);
+            itemDescription.text = StringManager.GetLocalizedItemExplanation(item.explanation);
 
             powerText.text = item.power.ToString();
             hpText.text = item.healthPoint.ToString();

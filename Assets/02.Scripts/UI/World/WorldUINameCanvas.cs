@@ -10,27 +10,17 @@ namespace lsy
         [SerializeField]
         private Text nameText;
 
-        [SerializeField]
-        private Color nameColor;
-
         private Canvas canvas;
         private Camera cam;
+        private RectTransform rect;
 
         private void Awake()
         {
             cam = Camera.main;
 
+            rect = GetComponent<RectTransform>();
             canvas = GetComponent<Canvas>();
             canvas.worldCamera = cam;
-            
-            nameText.color = nameColor;
-        }
-
-
-        public void Initialize(string name)
-        {
-            nameText.text = name;
-            Hide();
         }
 
         public void Show()
@@ -42,5 +32,30 @@ namespace lsy
         {
             canvas.enabled = false;
         }
+
+
+        public void SetName(string name)
+        {
+            nameText.text = name;
+        }
+
+
+        public void SetNameColor(Color nameColor)
+        {
+            nameText.color = nameColor;
+        }
+
+
+        public void SetParent(Transform parent)
+        {
+            rect.SetParent(parent);
+        }
+
+
+        public void SetLocalPosition(Vector3 localPosition)
+        {
+            transform.localPosition = localPosition;
+        }
+
     }
 }

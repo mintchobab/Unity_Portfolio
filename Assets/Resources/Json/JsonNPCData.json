@@ -3,11 +3,42 @@
   [
     {
       "id": 1000,
-      "name": "NPC_Malcom"
+      "name": "NPC_Rona",
+      "dialogues": [
+        "Dialogue_Rona_1",
+        "Dialogue_Rona_2",
+        "Dialogue_Rona_3"
+      ]
     },
     {
       "id": 1001,
-      "name": "NPC_Demian"
+      "name": "NPC_Dunkun",
+      "dialogues": [
+        "Dialogue_Dunkun_1",
+        "Dialogue_Dunkun_2",
+        "Dialogue_Dunkun_3",
+        "Dialogue_Dunkun_4"
+      ]
+    },
+    {
+      "id": 1002,
+      "name": "NPC_Malcom",
+      "dialogues": [
+        "Dialogue_Malcom_1",
+        "Dialogue_Malcom_2",
+        "Dialogue_Malcom_3",
+        "Dialogue_Malcom_4"
+      ]
+    },
+    {
+      "id": 1003,
+      "name": "NPC_Deian",
+      "dialogues": [
+        "Dialogue_Deian_1",
+        "Dialogue_Deian_2",
+        "Dialogue_Deian_3",
+        "Dialogue_Deian_4"
+      ]
     }
   ]
 }

@@ -1,125 +1,161 @@
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace lsy
 {
+    public class CurrentQuest
+    {
+        public Quest Quest { get; private set; }
+        public QuestType QuestType { get; private set; }
+
+        public bool IsCompleted { get; private set; }
+        public int CurrentCount { get; private set; }
+        public int GoalCount { get; private set; }
+
+
+        public CurrentQuest(Quest quest)
+        {
+            this.Quest = quest;
+            IsCompleted = false;
+            CurrentCount = 0;
+            GoalCount = 0;
+            SetQuestType();
+        }
+
+
+        private void SetQuestType()
+        {
+            if (Quest.task.talk.Count != 0)
+            {
+                QuestType = QuestType.Talk;
+            }
+            else if (Quest.task.collect.Count != 0)
+            {
+                QuestType = QuestType.Collect;
+                GoalCount = Quest.task.collect[1];
+
+                // 현재 아이템을 가지고 있을 수도 있어서 한번더 체크해야함
+                CurrentCount = Managers.Instance.InventoryManager.FindItemCount(Quest.task.collect[0]);
+            }
+            else
+            {
+                QuestType = QuestType.Kill;
+                CurrentCount = 0;
+                GoalCount = Quest.task.kill[1];
+            }
+        }
+
+        public void ChangeCurrentCount(int count)
+        {
+            CurrentCount = count;
+            IsCompleted = CurrentCount >= GoalCount ? true : false;
+        }
+    }
+
+
+
     public class QuestManager : IManager
     {
-        // 전체 퀘스트 리스트
+        private List<InteractNPC> npcs;
+
+        public Action onQuestChanged;
+        public Action onCurrentQuestItemCountChanged;
+
         private List<Quest> allQuestList => Managers.Instance.JsonManager.jsonQuest.quests;
-
-        // 받을 수 있는 상태의 퀘스트 ID
-        private List<int> beforeStartingIdList = new List<int>();
-
-        // 진행중인 퀘스트 ID
-        public List<Quest> ProgressingList { get; private set; } = new List<Quest>();
-
-        // 완료된 퀘스트 ID
-        public List<Quest> CompletedList { get; private set; } = new List<Quest>();
-
-        private List<InteractQuestNPC> npcs;
+        private InventoryManager inventoryManager => Managers.Instance.InventoryManager;
+        private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
 
 
-        public event Action<Quest, int> onChangeProgressingList;
-        public event Action<Quest, int> onChangeCompletedList;
+        public CurrentQuest CurrentQuest { get; private set; }
 
-
-
-
+        // 특정 타이밍에 해당 NPC한테 퀘스트를 줄 수 있는 기능이 필요
+        // 퀘스트가 완료됐을 때도 여기를 거쳐서 실행 될 수 있게하기
+        // 현재 퀘스트 하나만 나오게 하기
+        // 리스트 같은거 필요없음
         public void Initialize()
         {
-            SetNpcsInScene();
-            //SetQuestByNPC();
+            npcs = UnityEngine.Object.FindObjectsOfType<InteractNPC>().ToList();
+
+            inventoryManager.onItemAdded += OnQuestItemChanged;
+            inventoryManager.onItemChanged += OnQuestItemChanged;
+            inventoryManager.onItemUsed += OnQuestItemChanged;
+            //SetQuestToNPC();
         }
-
-
-        public void SetNpcsInScene()
-        {
-            npcs = UnityEngine.Object.FindObjectsOfType<InteractQuestNPC>().ToList();
-
-            SetQuestByNPC(2000);
-        }
-
-
-        public void AddProgressQuest(Quest quest)
-        {
-            ProgressingList.Add(quest);
-            onChangeProgressingList?.Invoke(quest, ProgressingList.Count);
-        }
-
-
-        public void RemovePrgressQuest(Quest quest)
-        {
-            if (ProgressingList.Contains(quest))
-                ProgressingList.Remove(quest);
-
-            onChangeProgressingList?.Invoke(quest, ProgressingList.Count);
-        }
-
-
-        public void AddCompletedQuest(Quest quest)
-        {
-            CompletedList.Add(quest);
-        }
-
 
 
         // NPC에게 퀘스트 부여
-        private void SetQuestByNPC(int questId)
+        public void SetQuestToNPC(int questId, int npcId)
         {
-            Quest quest = FindQuest(questId);
-            int questNpcId = quest.npcId;
+            Quest quest = allQuestList.Find(x => x.questId == questId);
 
-            foreach (InteractQuestNPC npc in npcs)
+            foreach (InteractNPC npc in npcs)
             {
-                if (npc.NPCId == questNpcId)
+                if (npc.NpcId == npcId)
                 {
-                    npc.SetCurrentQuest(quest);
+                    npc.SetQuest(quest);
                     break;
                 }
             }
         }
 
 
-        // questId로 현재 Quest를 찾음
-        public Quest FindQuest(int questId)
+        // 퀘스트를 받았을 떄 실행
+        public void TakeQuest(Quest quest)
         {
-            return allQuestList.Find(x => x.questId == questId);
+            CurrentQuest = new CurrentQuest(quest);
+            onQuestChanged?.Invoke();
         }
 
 
+        // 현재 퀘스트 완료
+        public void CompleteQuest()
+        {
+            // 보상 받기
+            List<RewardItem> rewards = CurrentQuest.Quest.reward.items;
 
-        //// ID 리스트를 진행중 Quest 리스트로 변환
-        //public List<Quest> GetProgressingQuestList()
-        //{
-        //    List<Quest> questList = new List<Quest>();
+            for (int i = 0; i < rewards.Count; i++)
+            {
+                int id = rewards[i].itemId;
+                int count = rewards[i].itemCount;
 
-        //    foreach (Quest quest in ProgressingList)
-        //    {
-        //        questList.Add(quest);
-        //    }
+                // 소모품
+                if (count > 0)
+                {
+                    inventoryManager.AddCountableItem(id, count);
+                }
+                // 장비
+                else
+                {
+                    equipInventoryManager.AddEquipItem(id);
+                }                
+            }
+            
 
-        //    return questList;
-        //}
+            // 다음 퀘스트 받기 or NPC에게 부여하기
+
+            // 현재 퀘스트 초기화
+            CurrentQuest = null;
+            onQuestChanged?.Invoke();
+        }
 
 
-        //// ID 리스트를 완료된 Quest 리스트로 변환
-        //public List<Quest> GetCompletedQuestList()
-        //{
-        //    List<Quest> questList = new List<Quest>();
+        // 퀘스트 아이템이 추가될 때 체크
+        private void OnQuestItemChanged(int itemId, int itemIndex)
+        {
+            if (CurrentQuest == null)
+                return;
 
-        //    foreach (Quest quest in CompletedList)
-        //    {
-        //        //Quest quest = FindQuest(value);
-        //        questList.Add(quest);
-        //    }
+            if (CurrentQuest.QuestType != QuestType.Collect)
+                return;
 
-        //    return questList;
-        //}
+            int questItemId = CurrentQuest.Quest.task.collect[0];
+
+            if (questItemId != itemId)
+                return;
+
+            CurrentQuest.ChangeCurrentCount(inventoryManager.FindItemCount(itemId));
+            onCurrentQuestItemCountChanged?.Invoke();
+        }
     }
 }
-
-

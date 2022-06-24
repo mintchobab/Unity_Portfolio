@@ -3,15 +3,16 @@
   [
     {
       "questId": 2000,
-      "npcId": 1000,
       "questName": "Quest_Name_1",
-      "description": "Quest_Description_1",
+      "goal": "Quest_Goal_1",
+      "content": "Quest_Content_1",
       "nextQuest": 2001,
       "startDialogues": [ "Quest_Dialogue_1", "Quest_Dialogue_2" ],
+      "progressingDialogues": [ "Quest_Dialogue_3", "Quest_Dialogue_4" ],
       "endDialogues": [ "Quest_Dialogue_5", "Quest_Dialogue_6" ],
       "task": {
         "talk": [],
-        "collect": [],
+        "collect": [200, 3],
         "kill": []
       },
       "reward": {
@@ -19,8 +20,8 @@
         "gold": 200,
         "items": [
           {
-            "id": 0,
-            "amount": 1
+            "itemId": 0,
+            "itemCount": -1
           }
         ]
       }
@@ -30,7 +31,7 @@
       "questId": 2001,
       "npcId": 1000,
       "questName": "Quest_Name_2",
-      "description": "Quest_Description_2",
+      "goal": "Quest_Description_2",
       "nextQuest": -1,
       "task": {
         "talk": [],
@@ -43,7 +44,7 @@
         "items": [
           {
             "id": 0,
-            "amount": 1
+            "count": 1
           }
         ]
       }
@@ -66,7 +67,7 @@
         "items": [
           {
             "id": 0,
-            "amount": 1
+            "count": 1
           }
         ]
       }
@@ -89,7 +90,7 @@
         "items": [
           {
             "id": 0,
-            "amount": 1
+            "count": 1
           }
         ]
       }
@@ -112,7 +113,7 @@
         "items": [
           {
             "id": 0,
-            "amount": 1
+            "count": 1
           }
         ]
       }

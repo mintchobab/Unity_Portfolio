@@ -39,8 +39,8 @@ namespace lsy
         public static readonly string IconBasic = "Load/Texture/Icon/Icon_Basic";
         public static readonly string IconStop = "Load/Texture/Icon/Icon_Stop";
         public static readonly string IconDialogue = "Load/Texture/Icon/Icon_Dialogue";
-        public static readonly string IconPickaxing = "Load/Texture/Icon/Icon_Pickaxing";
-        public static readonly string IconGathering = "Load/Texture/Icon/Icon_Gathering";
+        public static readonly string IconMining = "Load/Texture/Icon/Icon_Mining";
+        public static readonly string IconSearch = "Load/Texture/Icon/Icon_Search";
 
         // Item
         public static readonly string EquipItem = "Load/Texture/Item/Equip";

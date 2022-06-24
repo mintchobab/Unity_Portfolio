@@ -1,38 +1,98 @@
 ﻿{
   "stringNpcNames": [
     {
+      "key": "NPC_Rona",
+      "values": [ "로나", "Rona" ]
+    },
+    {
+      "key": "NPC_Dunkun",
+      "values": [ "던컨", "Dunkun" ]
+    },
+    {
       "key": "NPC_Malcom",
       "values": [ "말콤", "Malcom" ]
     },
     {
-      "key": "NPC_Demian",
-      "values": [ "데미안", "Demian" ]
+      "key": "NPC_Deian",
+      "values": [ "데이안", "Deian" ]
     }
   ],
 
-  "stringDialogues": [
+  "stringNpcDialogues": [
+    {
+      "key": "Dialogue_Rona_1",
+      "values": [ "로나의 대사 1", "Rona's Dialogue 1" ]
+    },
+    {
+      "key": "Dialogue_Rona_2",
+      "values": [ "로나의 대사 2", "Rona's Dialogue 2" ]
+    },
+    {
+      "key": "Dialogue_Rona_3",
+      "values": [ "로나의 대사 3", "Rona's Dialogue 3" ]
+    },
+    {
+      "key": "Dialogue_Rona_4",
+      "values": [ "로나의 대사 4", "Rona's Dialogue 4" ]
+    },
+
+    {
+      "key": "Dialogue_Dunkun_1",
+      "values": [ "던컨의 대사 1", "Dunkun's Dialogue 1" ]
+    },
+    {
+      "key": "Dialogue_Dunkun_2",
+      "values": [ "던컨의 대사 2", "Dunkun's Dialogue 2" ]
+    },
+    {
+      "key": "Dialogue_Dunkun_3",
+      "values": [ "던컨의 대사 3", "Dunkun's Dialogue 3" ]
+    },
+    {
+      "key": "Dialogue_Dunkun_4",
+      "values": [ "던컨의 대사 4", "Dunkun's Dialogue 4" ]
+    },
+
     {
       "key": "Dialogue_Malcom_1",
-      "values": [ "말콤의 대사 1", "Malcom's Dialogue 1" ]
+      "values": [ "말콤의 대사 1", "Dunkun's Dialogue 1" ]
     },
     {
       "key": "Dialogue_Malcom_2",
-      "values": [ "말콤의 대사 2", "Malcom's Dialogue 2" ]
+      "values": [ "말콤의 대사 2", "Dunkun's Dialogue 2" ]
     },
     {
       "key": "Dialogue_Malcom_3",
-      "values": [ "말콤의 대사 3", "Malcom's Dialogue 3" ]
+      "values": [ "말콤의 대사 3", "Dunkun's Dialogue 3" ]
     },
     {
       "key": "Dialogue_Malcom_4",
-      "values": [ "말콤의 대사 4", "Malcom's Dialogue 4" ]
+      "values": [ "말콤의 대사 4", "Dunkun's Dialogue 4" ]
+    },
+
+    {
+      "key": "Dialogue_Deian_1",
+      "values": [ "데이안의 대사 1", "Deian's Dialogue 1" ]
+    },
+    {
+      "key": "Dialogue_Deian_2",
+      "values": [ "데이안의 대사 2", "Deian's Dialogue 2" ]
+    },
+    {
+      "key": "Dialogue_Deian_3",
+      "values": [ "데이안의 대사 3", "Deian's Dialogue 3" ]
+    },
+    {
+      "key": "Dialogue_Deian_4",
+      "values": [ "데이안의 대사 4", "Deian's Dialogue 4" ]
     }
   ],
+
 
   "stringQuestNames": [
     {
       "key": "Quest_Name_1",
-      "values": [ "1번 퀘스트입니다.", "This is Quest 1" ]
+      "values": [ "로나의 심부름", "Collect Crystal" ]
     },
     {
       "key": "Quest_Name_2",
@@ -48,22 +108,43 @@
     }
   ],
 
-  "stringQuestDescriptions": [
+
+  "stringQuestGoals": [
     {
-      "key": "Quest_Description_1",
-      "values": [ "1번 퀘스트 설명입니다.", "This is Quest Description 1" ]
+      "key": "Quest_Goal_1",
+      "values": [ "루비 모으기", "Mining five crystal" ]
     },
     {
-      "key": "Quest_Description_2",
-      "values": [ "2번 퀘스트 설명입니다.", "This is Quest Description 2" ]
+      "key": "Quest_Goal_2",
+      "values": [ "2번 퀘스트 목표입니다.", "This is Quest Goal 2" ]
     },
     {
-      "key": "Quest_Description_3",
-      "values": [ "3번 퀘스트 설명입니다.", "This is Quest Description 3" ]
+      "key": "Quest_Goal_3",
+      "values": [ "3번 퀘스트 목표입니다.", "This is Quest Goal 3" ]
     },
     {
-      "key": "Quest_Description_4",
-      "values": [ "4번 퀘스트 설명입니다.", "This is Quest Description 4" ]
+      "key": "Quest_Goal_4",
+      "values": [ "4번 퀘스트 목표입니다.", "This is Quest Goal 4" ]
+    }
+  ],
+
+
+  "stringQuestContents": [
+    {
+      "key": "Quest_Content_1",
+      "values": [ "광석을 채굴해서 루비를 모아오세요", "This is Quest Content 1" ]
+    },
+    {
+      "key": "Quest_Content_2",
+      "values": [ "2번 퀘스트 설명입니다.", "This is Quest Content 2" ]
+    },
+    {
+      "key": "Quest_Content_3",
+      "values": [ "3번 퀘스트 설명입니다.", "This is Quest Content 3" ]
+    },
+    {
+      "key": "Quest_Content_4",
+      "values": [ "4번 퀘스트 설명입니다.", "This is Quest Content 4" ]
     }
   ],
 
@@ -144,75 +225,105 @@
       "values": [ "강철 신발", "Iron Shoes" ]
     },
 
-
     {
       "key": "Item_Name_HpPotion",
       "values": [ "체력 물약", "Hp Potion" ]
     },
     {
-      "key": "Item_Name_Crystal",
-      "values": [ "수정", "Crystal" ]
+      "key": "Item_Name_Ruby",
+      "values": [ "루비", "Ruby" ]
+    },
+    {
+      "key": "Item_Name_Sapphire",
+      "values": [ "사파이어", "Sapphire" ]
     }
   ],
 
-  "stringItemDescriptions": [
+  "stringItemExplanations": [
     {
-      "key": "Item_Description_WoodenSword",
+      "key": "Item_Explanation_WoodenSword",
       "values": [ "나무로 만들어진 검입니다.", "This is Wooden Sword" ]
     },
     {
-      "key": "Item_Description_IronSword",
+      "key": "Item_Explanation_IronSword",
       "values": [ "강철로 만들어진 검입니다.", "This is Iron Sword" ]
     },
 
     {
-      "key": "Item_Description_WoodenShield",
+      "key": "Item_Explanation_WoodenShield",
       "values": [ "나무로 만들어진 방패입니다.", "This is Wooden Shield" ]
     },
     {
-      "key": "Item_Description_IronShield",
+      "key": "Item_Explanation_IronShield",
       "values": [ "강철로 만들어진 방패입니다.", "This is Iron Shield" ]
     },
 
     {
-      "key": "Item_Description_LeatherHelmet",
+      "key": "Item_Explanation_LeatherHelmet",
       "values": [ "가죽으로 만들어진 투구입니다.", "This is Leather Helmet" ]
     },
     {
-      "key": "Item_Description_IronHelmet",
+      "key": "Item_Explanation_IronHelmet",
       "values": [ "강철로 만들어진 투구입니다.", "This is Iron Helmet" ]
     },
 
     {
-      "key": "Item_Description_LeatherArmor",
+      "key": "Item_Explanation_LeatherArmor",
       "values": [ "가죽으로 만들어진 갑옷입니다.", "This is Leather Armor" ]
     },
     {
-      "key": "Item_Description_IronArmor",
+      "key": "Item_Explanation_IronArmor",
       "values": [ "강철로 만들어진 갑옷입니다.", "This is Iron Armor" ]
     },
 
     {
-      "key": "Item_Description_LeatherShoes",
+      "key": "Item_Explanation_LeatherShoes",
       "values": [ "가죽으로 만들어진 신발입니다.", "This is Leather Shoes" ]
     },
     {
-      "key": "Item_Description_IronShoes",
+      "key": "Item_Explanation_IronShoes",
       "values": [ "강철로 만들어진 신발입니다.", "This is Iron Shoes" ]
     },
 
     {
-      "key": "Item_Description_HpPotion",
+      "key": "Item_Explanation_HpPotion",
       "values": [ "체력을 회복시켜줍니다.", "Restore Health Point" ]
     },
-
     {
-      "key": "Item_Description_Crystal",
-      "values": [ "빛이 나는 수정입니다.", "This is Crystal" ]
+      "key": "Item_Explanation_Ruby",
+      "values": [ "루비 광석입니다.", "This is Ruby" ]
+    },
+    {
+      "key": "Item_Explanation_Sapphire",
+      "values": [ "사파이어 광석입니다.", "This is Sapphire" ]
     }
   ],
 
   "stringUITexts": [
+    {
+      "key": "Text_Accept",
+      "values": [ "수락", "Accept" ]
+    },
+    {
+      "key": "Text_Close",
+      "values": [ "닫기", "Close" ]
+    },
+    {
+      "key": "Text_Quest",
+      "values": [ "퀘스트", "Quest" ]
+    },
+    {
+      "key": "Text_Goal",
+      "values": [ "목표", "Goal" ]
+    },
+    {
+      "key": "Text_Content",
+      "values": [ "내용", "Conetent" ]
+    },
+    {
+      "key": "Text_Reward",
+      "values": [ "보상", "Reward" ]
+    },
     {
       "key": "Text_Bag",
       "values": [ "가방", "Bag" ]
@@ -245,19 +356,5 @@
       "key": "Text_ManaPoint",
       "values": [ "마나", "Mp" ]
     }
-  ],
-
-  "stringCollection": [
-    {
-      "key": "Collection_Ore",
-      "values": [ "광석", "Ore" ]
-    },
-    {
-      "key": "Collection_Gather",
-      "values": [ "수집??", "Gather" ]
-    }
   ]
-
-
-
 }

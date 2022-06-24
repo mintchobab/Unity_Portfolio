@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace lsy
 {
     [RequireComponent(typeof(Text))]
-    public class TextLocalizer : MonoBehaviour
+    public class TextUILocalizer : MonoBehaviour
     {
         [SerializeField]
         private string textNameKey;
@@ -15,7 +15,9 @@ namespace lsy
         private void Awake()
         {
             myText = GetComponent<Text>();
-            myText.text = StringManager.GetLocalizedUIText(textNameKey);
+
+            if (!textNameKey.Equals(string.Empty))
+                myText.text = StringManager.GetLocalizedUIText(textNameKey);
         }
     }
 }

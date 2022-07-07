@@ -11,7 +11,6 @@ namespace lsy
         public static readonly string QuestCanvas = "Load/Prefab/UI/Canvas/QuestCanvas";
         public static readonly string InventoryCanvas = "Load/Prefab/UI/Canvas/InventoryCanvas";
         public static readonly string EquipInventoryCanvas = "Load/Prefab/UI/Canvas/EquipInventoryCanvas";
-        //public static readonly string WorldCanvas = "Load/Prefab/UI/Canvas/WorldCanvas"; // => 이거 지워야함ㅁㅁㅁㅁㅁㅁㅁ
 
         // UI/Quest
         public static readonly string QuestListButton = "Load/Prefab/UI/Quest/QuestListButton";
@@ -20,17 +19,6 @@ namespace lsy
         public static readonly string WorldNameCanvas = "Load/Prefab/UI/World/WorldNameCanvas";
         public static readonly string WorldInteractCircleCanvas = "Load/Prefab/UI/World/WorldInteractCircleCanvas";
         public static readonly string WorldInteractGaugeCanvas = "Load/Prefab/UI/World/WorldInteractGaugeCanvas";
-
-
-        /*
-        // UI/Billboard
-        public static readonly string HpBar = "Load/Prefab/UI/WolrdUI/HpBar";
-        public static readonly string InteractGauge = "Load/Prefab/UI/WolrdUI/InteractGauge";
-        public static readonly string InteractCircle = "Load/Prefab/UI/WolrdUI/InteractCircle";
-        public static readonly string NameText = "Load/Prefab/UI/WolrdUI/NameText";
-        */
-
-
 
         // Image
         public static readonly string Empty = "Load/Texture/Empty";
@@ -41,6 +29,8 @@ namespace lsy
         public static readonly string IconDialogue = "Load/Texture/Icon/Icon_Dialogue";
         public static readonly string IconMining = "Load/Texture/Icon/Icon_Mining";
         public static readonly string IconSearch = "Load/Texture/Icon/Icon_Search";
+        public static readonly string IconFishing = "Load/Texture/Icon/Icon_Fishing";
+        public static readonly string IconCombat = "Load/Texture/Icon/Icon_Combat";
 
         // Item
         public static readonly string EquipItem = "Load/Texture/Item/Equip";
@@ -49,17 +39,13 @@ namespace lsy
 
         // Tool
         public static readonly string Pickax = "Load/Prefab/Tool/Pickax";
+        public static readonly string FishingRod = "Load/Prefab/Tool/FishingRod";
 
         // Equip
         public static readonly string Equip = "Load/Prefab/Equip";
 
-
-
-        //public static readonly string WoodenSword = "Load/Prefab/Equip/WoodenSword";
-        //public static readonly string IronSword = "Load/Prefab/Equip/IronSword";
-        //public static readonly string WoodenShield = "Load/Prefab/Equip/WoodenShield";
-        //public static readonly string IronShield = "Load/Prefab/Equip/IronShield";
-
+        // ETC
+        public static readonly string ExclamationMark = "Load/Prefab/Etc/ExclamationMark";
 
         #endregion
 

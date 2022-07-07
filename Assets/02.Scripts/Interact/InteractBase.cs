@@ -10,7 +10,7 @@ namespace lsy
 
         public virtual void Interact()
         {
-            PlayerController.Instance.CheckInteract(this, transform);
+            //PlayerController.Instance.CheckInteract(this, transform);
         }
 
         public abstract Sprite LoadButtonImage();

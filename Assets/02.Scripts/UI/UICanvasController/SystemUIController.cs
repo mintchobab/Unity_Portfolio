@@ -26,8 +26,8 @@ namespace lsy
         {
             string path = ResourcePath.GetItemSpritePathToType(interactCollection.MyCollectionData.itemType);
 
-            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{interactCollection.InteractObjResourceName}");
-            StartCoroutine(MoveItemImage(targetPostion));
+            //itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{interactCollection.InteractObjResourceName}");
+            //StartCoroutine(MoveItemImage(targetPostion));
         }
 
 

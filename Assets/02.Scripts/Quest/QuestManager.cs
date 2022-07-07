@@ -26,11 +26,7 @@ namespace lsy
 
         private void SetQuestType()
         {
-            if (Quest.task.talk.Count != 0)
-            {
-                QuestType = QuestType.Talk;
-            }
-            else if (Quest.task.collect.Count != 0)
+            if (Quest.task.collect.Count != 0)
             {
                 QuestType = QuestType.Collect;
                 GoalCount = Quest.task.collect[1];
@@ -57,7 +53,7 @@ namespace lsy
 
     public class QuestManager : IManager
     {
-        private List<InteractNPC> npcs;
+        private List<InteractNpc> npcs;
 
         public Action onQuestChanged;
         public Action onCurrentQuestItemCountChanged;
@@ -75,7 +71,7 @@ namespace lsy
         // 리스트 같은거 필요없음
         public void Initialize()
         {
-            npcs = UnityEngine.Object.FindObjectsOfType<InteractNPC>().ToList();
+            npcs = UnityEngine.Object.FindObjectsOfType<InteractNpc>().ToList();
 
             inventoryManager.onItemAdded += OnQuestItemChanged;
             inventoryManager.onItemChanged += OnQuestItemChanged;
@@ -85,13 +81,14 @@ namespace lsy
 
 
         // NPC에게 퀘스트 부여
-        public void SetQuestToNPC(int questId, int npcId)
+        // 퀘스트가 있는 NPC에게 느낌표 띄우기
+        public void SetQuestToNPC(int questId)
         {
             Quest quest = allQuestList.Find(x => x.questId == questId);
 
-            foreach (InteractNPC npc in npcs)
+            foreach (InteractNpc npc in npcs)
             {
-                if (npc.NpcId == npcId)
+                if (npc.NpcId == quest.questNpcId)
                 {
                     npc.SetQuest(quest);
                     break;
@@ -130,9 +127,17 @@ namespace lsy
                     equipInventoryManager.AddEquipItem(id);
                 }                
             }
-            
 
-            // 다음 퀘스트 받기 or NPC에게 부여하기
+            // 현재 npc의 퀘스트 초기화
+            InteractNpc npc = npcs.Find(x => x.NpcId == CurrentQuest.Quest.questNpcId);
+            npc.ResetQuest();
+
+            // 다음 퀘스트 NPC에게 부여하기
+            if (CurrentQuest.Quest.nextQuestId > 0)
+            {
+                UnityEngine.Debug.LogWarning("asd");
+                SetQuestToNPC(CurrentQuest.Quest.nextQuestId);
+            }
 
             // 현재 퀘스트 초기화
             CurrentQuest = null;

@@ -26,6 +26,7 @@ namespace lsy
             Hide();
         }
 
+
         // 위치 변경
         public void Show(Transform target, Vector3 addedPosition)
         {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 
 [Serializable]
-public class JsonNPC
+public class JsonNpc
 {
-    public List<NPC> npcs;
+    public List<Npc> npcs;
 }
 
 
 [Serializable]
-public class NPC
+public class Npc
 {
     public int id;
     public string name;

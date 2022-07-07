@@ -124,7 +124,7 @@
       "name": "Item_Name_HpPotion",
       "_resourceName": "HpPotion",
       "explanation": "Item_Explanation_HpPotion",
-      "maxCount": 10
+      "maxCount": 99
     },
     {
       "id": 200,
@@ -132,7 +132,7 @@
       "name": "Item_Name_Ruby",
       "_resourceName": "Ruby",
       "explanation": "Item_Explanation_Ruby",
-      "maxCount": 10
+      "maxCount": 99
     },
     {
       "id": 201,
@@ -140,7 +140,23 @@
       "name": "Item_Name_Sapphire",
       "_resourceName": "Sapphire",
       "explanation": "Item_Explanation_Sapphire",
-      "maxCount": 10
+      "maxCount": 99
+    },
+    {
+      "id": 202,
+      "itemType": "Material",
+      "name": "Item_Name_Fish",
+      "_resourceName": "Fish",
+      "explanation": "Item_Explanation_Fish",
+      "maxCount": 99
+    },
+    {
+      "id": 203,
+      "itemType": "Material",
+      "name": "Item_Name_Mushroom",
+      "_resourceName": "Mushroom",
+      "explanation": "Item_Explanation_Mushroom",
+      "maxCount": 99
     }
   ]
 

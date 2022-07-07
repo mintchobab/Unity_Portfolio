@@ -13,10 +13,11 @@ public class JsonQuest
 public class Quest
 {
     public int questId;
+    public int questNpcId;
     public string questName;
     public string goal;
     public string content;
-    public int nextQuest;
+    public int nextQuestId;
     public List<string> startDialogues;
     public List<string> progressingDialogues;
     public List<string> endDialogues;
@@ -28,7 +29,6 @@ public class Quest
 [Serializable]
 public class Task
 {
-    public List<int> talk;
     public List<int> collect;
     public List<int> kill;
 }

@@ -14,42 +14,27 @@ namespace lsy
         private GameObject currentWeapon;
         private GameObject currentShield;
 
+        private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
+
 
         #region 장비
 
-        public void Equip(EquipType equipType, EquipItem equipItem)
+        //public void Equip(EquipType equipType, EquipItem equipItem)
+        public void Equip()
         {
-            switch (equipType)
-            {
-                case EquipType.Weapon:
-                    EquipWeapon(equipItem);
-                    break;
+            // 무기랑 장비를 매니저에서 어떤건지 찾아오기
+            EquipItem weapon = equipInventoryManager.EquipedItemDic[EquipType.Weapon];
+            EquipItem shield = equipInventoryManager.EquipedItemDic[EquipType.Shield];
 
-                case EquipType.Shield:
-                    EquipShield(equipItem);
-                    break;
-
-                default:
-                    return;
-            }
+            EquipWeapon(weapon);
+            EquipShield(shield);
         }
 
 
-        public void UnEquip(EquipType equipType)
+        public void UnEquip()
         {
-            switch (equipType)
-            {
-                case EquipType.Weapon:
-                    UnEquipWeapon();
-                    break;
-
-                case EquipType.Shield:
-                    UnEquipShield();
-                    break;
-
-                default:
-                    return;
-            }
+            UnEquipWeapon();
+            UnEquipShield();
         }
 
 
@@ -122,16 +107,16 @@ namespace lsy
         #region 도구
 
         // 도구 생성
-        public void MakeTool(InteractCollectionType collectionType, bool isLeft)
+        public void MakeTool(InteractCollectionType collectionType)
         {
-            Transform parent = isLeft ? leftHand : rightHand;
-
             switch (collectionType)
             {
                 case InteractCollectionType.Mining:
-                    currentTool = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.Pickax, parent);
-                    //currentTool.transform.localPosition = new Vector3(0, 0, 0);
-                    //currentTool.transform.localRotation = Quaternion.identity;
+                    currentTool = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.Pickax, rightHand);
+                    break;
+
+                case InteractCollectionType.Fishing:
+                    currentTool = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.FishingRod, leftHand);
                     break;
             }
 

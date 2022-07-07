@@ -17,6 +17,9 @@ namespace lsy
         public static readonly float SearchTime = 3f;
         public static readonly float SearchDistance = 1f;
 
+        public static readonly float FishingTime = 3f;
+        public static readonly float FishingDistance = 1f;
+
         public static readonly float AfterInteractDelayTime = 3f;
 
 

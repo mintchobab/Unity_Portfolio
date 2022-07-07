@@ -16,7 +16,7 @@ namespace lsy
     }
 
 
-    public class InteractCollection : InteractTargetable
+    public class InteractCollection : MonoBehaviour, IInteractable, ITargetable
     {
         [field: SerializeField]
         public InteractCollectionType CollectionType { get; private set; }
@@ -33,10 +33,27 @@ namespace lsy
         }
 
 
-        public override Sprite LoadButtonImage()
+        public void Interact()
+        {
+            PlayerController.Instance.CheckInteract(this, transform);
+        }
+
+
+        public Sprite LoadButtonImage()
         {
             return Managers.Instance.ResourceManager.Load<Sprite>(MyCollectionData.ButtonIconPath);
         }
+
+        public Transform GetTransform()
+        {
+            return transform;
+        }
+
+
+        //public override Sprite LoadButtonImage()
+        //{
+        //    return Managers.Instance.ResourceManager.Load<Sprite>(MyCollectionData.ButtonIconPath);
+        //}
 
 
         private void SetCollectionData()
@@ -49,6 +66,10 @@ namespace lsy
 
                 case InteractCollectionType.Search:
                     MyCollectionData = GetSearchData();
+                    break;
+
+                case InteractCollectionType.Fishing:
+                    MyCollectionData = GetFisingData();
                     break;
             }
         }
@@ -81,6 +102,20 @@ namespace lsy
 
             return collectionData;
         }
+
+
+        private CollectionData GetFisingData()
+        {
+            CollectionData collectionData = new CollectionData();
+            collectionData.AnimationHash = Animator.StringToHash("fishing");
+            collectionData.InteractTime = ValueData.FishingTime;
+            collectionData.InteractDistance = ValueData.FishingDistance;
+            collectionData.ButtonIconPath = ResourcePath.IconFishing;
+            collectionData.gaugePosition = new Vector3(0f, 1f, 0f);
+            collectionData.itemType = ItemType.Material;
+            return collectionData;
+        }
+
 
     }
 }

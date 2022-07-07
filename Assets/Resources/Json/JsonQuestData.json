@@ -3,16 +3,16 @@
   [
     {
       "questId": 2000,
+      "questNpcId": 1000,
       "questName": "Quest_Name_1",
       "goal": "Quest_Goal_1",
       "content": "Quest_Content_1",
-      "nextQuest": 2001,
+      "nextQuestId": 2001,
       "startDialogues": [ "Quest_Dialogue_1", "Quest_Dialogue_2" ],
-      "progressingDialogues": [ "Quest_Dialogue_3", "Quest_Dialogue_4" ],
-      "endDialogues": [ "Quest_Dialogue_5", "Quest_Dialogue_6" ],
+      "progressingDialogues": [ "Quest_Dialogue_2"],
+      "endDialogues": [ "Quest_Dialogue_3", "Quest_Dialogue_4" ],
       "task": {
-        "talk": [],
-        "collect": [200, 3],
+        "collect": [200, 1],
         "kill": []
       },
       "reward": {
@@ -29,94 +29,28 @@
 
     {
       "questId": 2001,
-      "npcId": 1000,
+      "questNpcId": 1001,
       "questName": "Quest_Name_2",
-      "goal": "Quest_Description_2",
-      "nextQuest": -1,
+      "goal": "Quest_Goal_2",
+      "content": "Quest_Content_2",
+      "nextQuestId": -1,
+      "startDialogues": [ "Quest_Dialogue_5", "Quest_Dialogue_6" ],
+      "progressingDialogues": [ "Quest_Dialogue_6" ],
+      "endDialogues": [ "Quest_Dialogue_7", "Quest_Dialogue_8" ],
       "task": {
-        "talk": [],
-        "collect": [],
+        "collect": [201, 1],
         "kill": []
       },
       "reward": {
-        "exp": 100,
-        "gold": 200,
+        "exp": 200,
+        "gold": 400,
         "items": [
           {
-            "id": 0,
-            "count": 1
+            "itemId": 100,
+            "itemCount": 3
           }
         ]
       }
-    },
-
-    {
-      "questId": 2002,
-      "npcId": 1000,
-      "questName": "Quest_Name_2",
-      "description": "Quest_Description_2",
-      "nextQuest": -1,
-      "task": {
-        "talk": [],
-        "collect": [],
-        "kill": []
-      },
-      "reward": {
-        "exp": 100,
-        "gold": 200,
-        "items": [
-          {
-            "id": 0,
-            "count": 1
-          }
-        ]
-      }
-    },
-
-    {
-      "questId": 2003,
-      "npcId": 1000,
-      "questName": "Quest_Name_2",
-      "description": "Quest_Description_2",
-      "nextQuest": -1,
-      "task": {
-        "talk": [],
-        "collect": [],
-        "kill": []
-      },
-      "reward": {
-        "exp": 100,
-        "gold": 200,
-        "items": [
-          {
-            "id": 0,
-            "count": 1
-          }
-        ]
-      }
-    },
-
-    {
-      "questId": 2004,
-      "npcId": 1000,
-      "questName": "Quest_Name_2",
-      "description": "Quest_Description_2",
-      "nextQuest": -1,
-      "task": {
-        "talk": [],
-        "collect": [],
-        "kill": []
-      },
-      "reward": {
-        "exp": 100,
-        "gold": 200,
-        "items": [
-          {
-            "id": 0,
-            "count": 1
-          }
-        ]
-      }
-    }
+    }    
   ]
 }

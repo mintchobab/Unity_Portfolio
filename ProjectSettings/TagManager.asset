@@ -12,12 +12,12 @@ TagManager:
   - 
   - Water
   - UI
-  - Mask
-  - SeeThrough
+  - Player
+  - 
   - WorldUI
   - 
-  - 
-  - 
+  - Monster
+  - NonAttackMonster
   - 
   - 
   - 

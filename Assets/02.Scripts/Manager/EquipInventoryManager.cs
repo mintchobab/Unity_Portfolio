@@ -143,7 +143,7 @@ namespace lsy
             }
 
             // 실제 아이템 장착
-            PlayerController.Instance.EquipController.Equip(type, item);
+            //PlayerController.Instance.EquipController.Equip(type, item);
 
             // 장착됐을때의 효과?? 스텟 변경같은거 여기에
             ItemEquiped?.Invoke(type, item);
@@ -160,7 +160,7 @@ namespace lsy
 
             ItemUnEquiped?.Invoke(type, item);
 
-            PlayerController.Instance.EquipController.UnEquip(type);
+            //PlayerController.Instance.EquipController.UnEquip(type);
         }
 
 

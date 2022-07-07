@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 namespace lsy
 {
-    // 여기서 오브젝트를 생성하기
-
     public class WorldUIName : MonoBehaviour, IWorldUI
     {
         [SerializeField]
@@ -16,12 +14,12 @@ namespace lsy
         [field: SerializeField]
         public Vector3 LocalPosition { get; private set; }
 
-        private WorldUINameCanvas nameCanvas;
+        public WorldUINameCanvas NameCanvas { get; private set; }
 
 
         private void Awake()
         {
-            nameCanvas = Managers.Instance.ResourceManager.Instantiate<WorldUINameCanvas>(ResourcePath.WorldNameCanvas);
+            NameCanvas = Managers.Instance.ResourceManager.Instantiate<WorldUINameCanvas>(ResourcePath.WorldNameCanvas);
 
             string name = string.Empty;
             string colorString = string.Empty;            
@@ -47,23 +45,23 @@ namespace lsy
 
             ColorUtility.TryParseHtmlString(colorString, out Color color);
 
-            nameCanvas.SetName(name);
-            nameCanvas.SetNameColor(color);
-            nameCanvas.SetParent(transform);
-            nameCanvas.SetLocalPosition(LocalPosition);
-            nameCanvas.Hide();
+            NameCanvas.SetName(name);
+            NameCanvas.SetNameColor(color);
+            NameCanvas.SetParent(transform);
+            NameCanvas.SetLocalPosition(LocalPosition);
+            NameCanvas.Hide();
         }
 
 
         public void Show()
         {
-            nameCanvas.Show();
+            NameCanvas.Show();
         }
 
 
         public void Hide()
         {
-            nameCanvas.Hide();
+            NameCanvas.Hide();
         }
     }
 }

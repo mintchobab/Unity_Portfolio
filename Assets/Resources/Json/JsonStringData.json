@@ -92,11 +92,11 @@
   "stringQuestNames": [
     {
       "key": "Quest_Name_1",
-      "values": [ "로나의 심부름", "Collect Crystal" ]
+      "values": [ "로나의 심부름", "Rona's Errand" ]
     },
     {
       "key": "Quest_Name_2",
-      "values": [ "2번 퀘스트입니다.", "This is Quest 2" ]
+      "values": [ "던컨의 심부름", "Dunkun's Errand" ]
     },
     {
       "key": "Quest_Name_3",
@@ -112,11 +112,11 @@
   "stringQuestGoals": [
     {
       "key": "Quest_Goal_1",
-      "values": [ "루비 모으기", "Mining five crystal" ]
+      "values": [ "루비 모으기", "Collect Ruby" ]
     },
     {
       "key": "Quest_Goal_2",
-      "values": [ "2번 퀘스트 목표입니다.", "This is Quest Goal 2" ]
+      "values": [ "사파이어 모으기", "Collect Sapphire" ]
     },
     {
       "key": "Quest_Goal_3",
@@ -132,11 +132,11 @@
   "stringQuestContents": [
     {
       "key": "Quest_Content_1",
-      "values": [ "광석을 채굴해서 루비를 모아오세요", "This is Quest Content 1" ]
+      "values": [ "광석을 캐서 루비를 모아오세요", "This is Quest Content 1" ]
     },
     {
       "key": "Quest_Content_2",
-      "values": [ "2번 퀘스트 설명입니다.", "This is Quest Content 2" ]
+      "values": [ "광석을 캐서 사파이어를 모아오세요", "This is Quest Content 2" ]
     },
     {
       "key": "Quest_Content_3",
@@ -151,31 +151,35 @@
   "stringQuestDialogues": [
     {
       "key": "Quest_Dialogue_1",
-      "values": [ "1번 퀘스트 대사입니다.", "This is Quest Dialouge 1" ]
+      "values": [ "루비가 갖고 싶어요", "This is Quest Dialouge 1" ]
     },
     {
       "key": "Quest_Dialogue_2",
-      "values": [ "2번 퀘스트 대사입니다.", "This is Quest Dialouge 2" ]
+      "values": [ "광석을 캐서 루비를 모아주세요", "This is Quest Dialouge 2" ]
     },
     {
       "key": "Quest_Dialogue_3",
-      "values": [ "3번 퀘스트 대사입니다.", "This is Quest Dialouge 3" ]
+      "values": [ "고마워요", "This is Quest Dialouge 3" ]
     },
     {
       "key": "Quest_Dialogue_4",
-      "values": [ "4번 퀘스트 대사입니다.", "This is Quest Dialouge 4" ]
+      "values": [ "던컨에게 가보세요", "This is Quest Dialouge 4" ]
     },
     {
       "key": "Quest_Dialogue_5",
-      "values": [ "5번 퀘스트 대사입니다.", "This is Quest Dialouge 5" ]
+      "values": [ "사파이어가 갖고 싶어요", "This is Quest Dialouge 5" ]
     },
     {
       "key": "Quest_Dialogue_6",
-      "values": [ "6번 퀘스트 대사입니다.", "This is Quest Dialouge 6" ]
+      "values": [ "광석을 캐서 사파이어를 모아주세요", "This is Quest Dialouge 6" ]
     },
     {
       "key": "Quest_Dialogue_7",
-      "values": [ "7번 퀘스트 대사입니다.", "This is Quest Dialouge 7" ]
+      "values": [ "고마워요", "This is Quest Dialouge 7" ]
+    },
+    {
+      "key": "Quest_Dialogue_8",
+      "values": [ "고맙습니다. 퀘스트 완료", "This is Quest Dialouge 7" ]
     }
   ],
 
@@ -236,66 +240,82 @@
     {
       "key": "Item_Name_Sapphire",
       "values": [ "사파이어", "Sapphire" ]
+    },
+    {
+      "key": "Item_Name_Fish",
+      "values": [ "물고기", "Fish" ]
+    },
+    {
+      "key": "Item_Name_Mushroom",
+      "values": [ "버섯", "Mushroom" ]
     }
   ],
 
   "stringItemExplanations": [
     {
       "key": "Item_Explanation_WoodenSword",
-      "values": [ "나무로 만들어진 검입니다.", "This is Wooden Sword" ]
+      "values": [ "나무로 만들어진 검입니다", "This is Wooden Sword" ]
     },
     {
       "key": "Item_Explanation_IronSword",
-      "values": [ "강철로 만들어진 검입니다.", "This is Iron Sword" ]
+      "values": [ "강철로 만들어진 검입니다", "This is Iron Sword" ]
     },
 
     {
       "key": "Item_Explanation_WoodenShield",
-      "values": [ "나무로 만들어진 방패입니다.", "This is Wooden Shield" ]
+      "values": [ "나무로 만들어진 방패입니다", "This is Wooden Shield" ]
     },
     {
       "key": "Item_Explanation_IronShield",
-      "values": [ "강철로 만들어진 방패입니다.", "This is Iron Shield" ]
+      "values": [ "강철로 만들어진 방패입니다", "This is Iron Shield" ]
     },
 
     {
       "key": "Item_Explanation_LeatherHelmet",
-      "values": [ "가죽으로 만들어진 투구입니다.", "This is Leather Helmet" ]
+      "values": [ "가죽으로 만들어진 투구입니다", "This is Leather Helmet" ]
     },
     {
       "key": "Item_Explanation_IronHelmet",
-      "values": [ "강철로 만들어진 투구입니다.", "This is Iron Helmet" ]
+      "values": [ "강철로 만들어진 투구입니다", "This is Iron Helmet" ]
     },
 
     {
       "key": "Item_Explanation_LeatherArmor",
-      "values": [ "가죽으로 만들어진 갑옷입니다.", "This is Leather Armor" ]
+      "values": [ "가죽으로 만들어진 갑옷입니다", "This is Leather Armor" ]
     },
     {
       "key": "Item_Explanation_IronArmor",
-      "values": [ "강철로 만들어진 갑옷입니다.", "This is Iron Armor" ]
+      "values": [ "강철로 만들어진 갑옷입니다", "This is Iron Armor" ]
     },
 
     {
       "key": "Item_Explanation_LeatherShoes",
-      "values": [ "가죽으로 만들어진 신발입니다.", "This is Leather Shoes" ]
+      "values": [ "가죽으로 만들어진 신발입니다", "This is Leather Shoes" ]
     },
     {
       "key": "Item_Explanation_IronShoes",
-      "values": [ "강철로 만들어진 신발입니다.", "This is Iron Shoes" ]
+      "values": [ "강철로 만들어진 신발입니다", "This is Iron Shoes" ]
     },
 
     {
       "key": "Item_Explanation_HpPotion",
-      "values": [ "체력을 회복시켜줍니다.", "Restore Health Point" ]
+      "values": [ "체력을 회복시켜줍니다", "Restore Health Point" ]
     },
     {
       "key": "Item_Explanation_Ruby",
-      "values": [ "루비 광석입니다.", "This is Ruby" ]
+      "values": [ "루비 광석입니다", "This is Ruby" ]
     },
     {
       "key": "Item_Explanation_Sapphire",
-      "values": [ "사파이어 광석입니다.", "This is Sapphire" ]
+      "values": [ "사파이어 광석입니다", "This is Sapphire" ]
+    },
+    {
+      "key": "Item_Explanation_Fish",
+      "values": [ "평범한 물고기입니다", "This is Fish" ]
+    },
+    {
+      "key": "Item_Explanation_Mushroom",
+      "values": [ "버섯입니다", "This is Mushroom" ]
     }
   ],
 

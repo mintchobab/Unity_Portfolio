@@ -57,6 +57,7 @@ namespace lsy
         }
 
 
+        // 퀘스트 아이템의 개수가 변할 때
         private void OnCurrentQuestItemCountChanged()
         {
             int currentCount = questManager.CurrentQuest.CurrentCount;

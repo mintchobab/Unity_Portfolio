@@ -9,7 +9,7 @@ namespace lsy
     {
         private void Start()
         {
-            Managers.Instance.QuestManager.SetQuestToNPC(2000, 1000);
+            Managers.Instance.QuestManager.SetQuestToNPC(2000);
         }
 
         void Update()
@@ -18,8 +18,6 @@ namespace lsy
             {
                 Managers.Instance.InventoryManager.AddCountableItem(100, 3);
             }
-
-
             // 아이템 생성 1
             else if (Input.GetKeyDown(KeyCode.Z))
             {

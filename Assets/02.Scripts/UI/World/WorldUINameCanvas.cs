@@ -23,6 +23,7 @@ namespace lsy
             canvas.worldCamera = cam;
         }
 
+
         public void Show()
         {
             canvas.enabled = true;

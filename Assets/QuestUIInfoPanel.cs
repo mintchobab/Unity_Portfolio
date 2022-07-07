@@ -104,12 +104,7 @@ namespace lsy
         // 퀘스트 목표 텍스트 변경
         private void SetQuestGoalText(Quest quest)
         {
-            string str = string.Empty;
-
-            if (questManager.CurrentQuest.QuestType == QuestType.Talk)
-                str = StringManager.GetLocalizedQuestGoal(quest.goal);
-            else
-                str = StringManager.GetLocalizedQuestGoal(quest.goal) + 
+            string str = StringManager.GetLocalizedQuestGoal(quest.goal) +
                     $" ({questManager.CurrentQuest.CurrentCount}/{questManager.CurrentQuest.GoalCount})";
 
             outsideQuestGoal.text = str;
@@ -120,7 +115,7 @@ namespace lsy
         // 퀘스트 보상 텍스트 변경
         private void SetQuestRewardText(Quest quest)
         {
-            string resultStr = $"Exp : {quest.reward.exp}\nGold : {quest.reward.gold}";
+            string resultStr = $"{quest.reward.exp} exp\n{quest.reward.gold} gold";
 
             for (int i = 0; i < quest.reward.items.Count; i++)
             {

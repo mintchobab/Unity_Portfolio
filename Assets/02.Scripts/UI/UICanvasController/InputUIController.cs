@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +17,14 @@ namespace lsy
         [SerializeField]
         private Button equipButton;
 
+        //[SerializeField]
+        //private GameObject
+
+        [SerializeField]
+        private CombatButtonController combatButtonController;
+
         private Sprite basicButtonSprite;
         private Sprite stopButtonSprite;
-        private Sprite dialogueSprite;
 
 
         private event Action onInteracting;
@@ -30,7 +36,7 @@ namespace lsy
         protected override void Awake()
         {
             base.Awake();
-            
+
             LoadSprite();
             Show();
         }
@@ -60,26 +66,35 @@ namespace lsy
 
 
         // 상호작용 정지 버튼으로 교체
-        public void SetStopInteractButton(Action Stop)
+        public void SetStopInteractButton(Action stopInteract)
         {
             interactButton.image.sprite = stopButtonSprite;
 
             onInteracting = null;
 
             interactButton.onClick.RemoveAllListeners();
-            interactButton.onClick.AddListener(() => Stop?.Invoke());
+            interactButton.onClick.AddListener(() => stopInteract?.Invoke());
         }
 
 
         // 상호작용 실행 버튼으로 교체
-        public void SetInteractButton(InteractBase interact)
+        public void SetInteractButton(IInteractable interactable)
         {
-            interactButton.image.sprite = interact.LoadButtonImage();
+            interactButton.image.sprite = interactable.LoadButtonImage();
 
-            onInteracting = interact.Interact;
+            onInteracting = interactable.Interact;
 
             interactButton.onClick.RemoveAllListeners();
             interactButton.onClick.AddListener(() => onInteracting?.Invoke());
+        }
+
+
+        public void SetCombatReadyButton(Action action)
+        {
+            interactButton.image.sprite = Managers.Instance.ResourceManager.Load<Sprite>(ResourcePath.IconCombat);
+
+            interactButton.onClick.RemoveAllListeners();
+            interactButton.onClick.AddListener(action.Invoke);
         }
 
 
@@ -103,6 +118,15 @@ namespace lsy
         public void SetTouchVector(Vector3 vec)
         {
             TouchRotateVector = vec;
+        }
+
+
+        public void ChangeSkill(List<SkillData> skillDatas)
+        {
+            if (combatButtonController == null)
+                Debug.LogWarning("여기");
+
+            combatButtonController.ChangeSkillButton(skillDatas);
         }
 
     }

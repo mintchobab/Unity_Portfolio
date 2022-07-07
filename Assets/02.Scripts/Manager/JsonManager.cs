@@ -7,7 +7,7 @@ namespace lsy
     [Serializable]
     public class JsonManager : IManager
     {
-        public JsonNPC jsonNPC;
+        public JsonNpc jsonNPC;
         public JsonString jsonString;
         public JsonQuest jsonQuest;
         public JsonItem jsonItem;
@@ -23,7 +23,7 @@ namespace lsy
 
             // Load NPC
             json = Resources.Load<TextAsset>(ResourcePath.NPCData).ToString();
-            jsonNPC = JsonConvert.DeserializeObject<JsonNPC>(json);
+            jsonNPC = JsonConvert.DeserializeObject<JsonNpc>(json);
 
             // Load Quest
             json = Resources.Load<TextAsset>(ResourcePath.QuestData).ToString();

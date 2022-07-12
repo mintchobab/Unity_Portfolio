@@ -26,7 +26,7 @@ namespace lsy
         }
 
 
-        void FixedUpdate()
+        void LateUpdate()
         {
             if (isFollowing)
             {

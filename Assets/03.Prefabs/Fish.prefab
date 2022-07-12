@@ -646,7 +646,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2673931125839947499}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.55
   m_Height: 2.24
@@ -664,7 +664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427c7227a8f5829458b23932fbe3213f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InteractObjResourceName>k__BackingField: Fish
   <CollectionType>k__BackingField: 2
   <ItemId>k__BackingField: 202
 --- !u!114 &199411987429327537

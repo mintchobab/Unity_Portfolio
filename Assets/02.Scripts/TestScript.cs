@@ -7,13 +7,16 @@ namespace lsy
 {
     public class TestScript : MonoBehaviour
     {
-        private void Start()
-        {
-            Managers.Instance.QuestManager.SetQuestToNPC(2000);
-        }
-
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                PlayerCombatController combatController = FindObjectOfType<PlayerCombatController>();
+
+                combatController.StartCombat();
+            }
+
+
             if (Input.GetKeyDown(KeyCode.W))
             {
                 Managers.Instance.InventoryManager.AddCountableItem(100, 3);

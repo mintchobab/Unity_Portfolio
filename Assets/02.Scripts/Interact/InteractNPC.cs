@@ -22,11 +22,9 @@ namespace lsy
             NpcName = StringManager.GetLocalizedNPCName(Npc.name);
         }
 
-
-
         public void Interact()
         {
-            PlayerController.Instance.CheckInteract(this, transform);
+            PlayerController.Instance.StartInteract(this, transform);
         }
 
 
@@ -38,6 +36,11 @@ namespace lsy
         public Transform GetTransform()
         {
             return transform;
+        }
+
+        public float GetInteractDistance()
+        {
+            return ValueData.NpcDistance;
         }
 
 
@@ -55,8 +58,6 @@ namespace lsy
         {
             MyQuest = null;
         }
-
-
 
         private void SetNPCData()
         {
@@ -80,7 +81,5 @@ namespace lsy
                 exclamationMark = null;
             }
         }
-
-
     }
 }

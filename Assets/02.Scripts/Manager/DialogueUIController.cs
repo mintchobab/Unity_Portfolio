@@ -52,24 +52,23 @@ namespace lsy
         }
 
 
-        public override void Hide()
+        // 캔버스 활성화
+        public override void Show(Action onShow = null)
         {
-            base.Hide();
+            base.Show(onShow);
+            ShowNextDialogue();
+        }
+
+
+        public override void Hide(Action onHide = null)
+        {
+            base.Hide(onHide);
             acceptButton.gameObject.SetActive(false);
             closeButton.gameObject.SetActive(false);
 
             onDialougeClosed?.Invoke();
             onDialougeClosed = null;
         }
-
-
-        // 캔버스 활성화
-        public override void Show()
-        {
-            base.Show();
-            ShowNextDialogue();
-        }
-
 
 
         // 대화창 or 화면 클릭시 실행

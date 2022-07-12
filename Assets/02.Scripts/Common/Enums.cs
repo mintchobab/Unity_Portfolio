@@ -6,5 +6,4 @@ public enum QuestType { Collect, Kill }
 public enum InteractCollectionType { Mining, Search, Fishing }
 
 
-
 public enum QuestTabType { Progress, Complete }

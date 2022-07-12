@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace lsy
 {
@@ -9,28 +10,35 @@ namespace lsy
         [field: SerializeField]
         public Transform PlayerLookPosition { get; private set; }
 
-        private Rigidbody rigid;
-        private Animator anim;
+        [SerializeField]
+        private GameObject model;
+
         private Camera cam;
+        private Animator anim;
+        private Rigidbody rigid;
         private Joystick joystick;
         private InteractChecker interactChecker;
-        private RaycastHit slopeHit;
+        private NavMeshAgent navMeshAgent;
 
+        private Coroutine autoMove;
+
+        private RaycastHit slopeHit;
         private Vector3 moveDirection;
 
         private bool canMoving = true;
         private bool isMoving;
+        private bool isAutoMoving;
 
         private int currentHp;
         private float rotSpeed = 10f;
 
-        private int hashIsStickMove = Animator.StringToHash("isStickMove");
+        private int hashSpeed = Animator.StringToHash("speed");
         private int hashSuccessInteract = Animator.StringToHash("successInteract");
         private int hashFailInteract = Animator.StringToHash("failInteract");
-        private int hashEndInteract = Animator.StringToHash("endInteract");
+        private int hashEndInteract = Animator.StringToHash("endInteract");        
 
 
-        public PlayerEquipController EquipController { get; private set; }
+        public EquipController EquipController { get; private set; }
         private QuestManager questManager => Managers.Instance.QuestManager;
         private InputUIController inputUIController => Managers.Instance.UIManager.InputUIController;
         private DialogueUIController dialogueController => Managers.Instance.UIManager.DialogueUIController;
@@ -39,13 +47,15 @@ namespace lsy
 
         public override void Init()
         {
+            cam = Camera.main;
+
             rigid = GetComponent<Rigidbody>();
-            EquipController = GetComponent<PlayerEquipController>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            EquipController = GetComponent<EquipController>();
             anim = GetComponentInChildren<Animator>();
             interactChecker = GetComponentInChildren<InteractChecker>();
-            joystick = Managers.Instance.UIManager.InputUIController.GetComponentInChildren<Joystick>();
 
-            cam = Camera.main;
+            joystick = Managers.Instance.UIManager.InputUIController.GetComponentInChildren<Joystick>();
 
             joystick.StickMoveStart += OnStickMoveStart;
             joystick.StickMoving += OnStickMoving;
@@ -87,9 +97,8 @@ namespace lsy
 
         private void OnStickMoveStart()
         {
-            anim.SetBool(hashIsStickMove, true);
+            //anim.SetBool(hashIsRun, true);
         }
-
 
 
         private void OnStickMoving(Vector2 stickVector)
@@ -102,6 +111,8 @@ namespace lsy
                 isMoving = true;
                 //anim.SetBool(hashIsMove, true);
             }
+
+            anim.SetFloat(hashSpeed, 1);
 
             // 이동
             moveDirection = cam.transform.TransformDirection(stickVector);
@@ -116,12 +127,12 @@ namespace lsy
 
         private void OnStickMoveEnd()
         {
-            anim.SetBool(hashIsStickMove, false);
+            //anim.SetBool(hashIsRun, false);
+            anim.SetFloat(hashSpeed, 0f);
 
             if (isMoving)
             {
                 isMoving = false;
-                //anim.SetBool(hashIsMove, false);
                 moveDirection = Vector3.zero;
             }
         }
@@ -147,9 +158,62 @@ namespace lsy
 
 
 
+
+
+        private IEnumerator AutoMove(Vector3 targetPosition, float targetDistance)
+        {
+            isMoving = false;
+            isAutoMoving = true;
+
+            navMeshAgent.enabled = true;
+            navMeshAgent.SetDestination(targetPosition);
+
+            anim.SetFloat(hashSpeed, 1f);
+            //anim.SetBool(hashIsRun, true);
+
+            float distance = Vector3.Distance(transform.position, targetPosition);
+
+            while (distance > targetDistance)
+            {
+                // 중간에 멈췄을 때
+                if (isMoving)
+                {
+                    isAutoMoving = false;
+                    navMeshAgent.enabled = false;
+                    yield break;
+                }
+
+                distance = Vector3.Distance(transform.position, targetPosition);
+                yield return null;
+            }
+
+            navMeshAgent.enabled = false;
+            //anim.SetBool(hashIsRun, false);
+            anim.SetFloat(hashSpeed, 0f);
+        }
+
+
+        // 캐릭터 모델 보이게 하기
+        private void ShowModel()
+        {
+            model.SetActive(true);
+        }
+
+
+        // 캐릭터 모델 감추기
+        private void HideModel()
+        {
+            model.SetActive(false);
+        }
+
+        
+
+
+
         #region Interact
 
         private WorldUIInteractGaugeCanvas gaugeCanvas;
+        private Coroutine moveToInteractable;
         private Coroutine interactingCollection;
         private Coroutine endCollectingAnimation;
 
@@ -158,9 +222,30 @@ namespace lsy
 
 
 
-        // Base를 형변환해서 어떤거냐에 따라 다르게 하기
-        public void CheckInteract(IInteractable interactable, Transform interactObj)
+        public void StartInteract(IInteractable interactable, Transform interactObj)
         {
+            if (moveToInteractable != null)
+                StopCoroutine(moveToInteractable);
+
+            moveToInteractable = StartCoroutine(MoveToInteractable(interactable, interactObj));
+        }
+
+
+        // 거리체크해서 자동 이동
+        // 이동 입력이 있으면 취소하기
+        // 자동이동 기능이 필요하네..................
+        private IEnumerator MoveToInteractable(IInteractable interactable, Transform interactObj)
+        {
+            yield return StartCoroutine(AutoMove(interactObj.position, interactable.GetInteractDistance()));
+
+            if (!isAutoMoving)
+            {
+                yield break;
+            }
+
+            isAutoMoving = false;
+
+            // 확인
             if (interactable is InteractCollection)
             {
                 StartInteractCollection((InteractCollection)interactable, interactObj);
@@ -181,6 +266,7 @@ namespace lsy
 
             CameraController.Instance.LookTarget(targetPos, targetRot);
             dialogueController.onDialougeClosed += CameraController.Instance.RestoreCamera;
+            dialogueController.onDialougeClosed += ShowModel;
 
             if (interactNpc.MyQuest == null)
             {
@@ -203,7 +289,7 @@ namespace lsy
             }
 
             dialogueController.SetInitializeInfo(false, interactNpc.NpcName, dialogues);
-            dialogueController.Show();
+            dialogueController.Show(HideModel);
         }
 
 
@@ -253,8 +339,7 @@ namespace lsy
             });
 
             dialogueController.SetInitializeInfo(true, interactNpc.NpcName, resultDialogues);
-            dialogueController.Show();
-
+            dialogueController.Show(HideModel);
         }
 
 
@@ -272,7 +357,7 @@ namespace lsy
             }
 
             dialogueController.SetInitializeInfo(false, interactNpc.NpcName, resultDialogues);
-            dialogueController.Show();
+            dialogueController.Show(HideModel);
         }
 
 
@@ -290,7 +375,7 @@ namespace lsy
             }
 
             dialogueController.SetInitializeInfo(false, interactNpc.NpcName, resultDialogues);
-            dialogueController.Show();
+            dialogueController.Show(HideModel);
 
             // 이거 어디서 할지 생각해보기
             isQuestProgressing = false;
@@ -300,6 +385,7 @@ namespace lsy
 
 
         // 수집물과 상호작용
+        // 자동이동 추가하기.....
         private void StartInteractCollection(InteractCollection interactCollection, Transform interactObj)
         {
             isCompleted = false;
@@ -391,7 +477,7 @@ namespace lsy
             anim.SetTrigger(hashEndInteract);
 
             EquipController.DestoryCurrentTool();
-            interactChecker.RestartChecking();
+            interactChecker.RestartFindInteractable();
 
             if (gaugeCanvas != null)
             {
@@ -423,7 +509,7 @@ namespace lsy
 
             EquipController.DestoryCurrentTool();
 
-            interactChecker.RestartChecking();
+            interactChecker.RestartFindInteractable();
 
             anim.SetTrigger(hashEndInteract);
             canMoving = true;

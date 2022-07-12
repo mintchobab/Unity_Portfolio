@@ -7,19 +7,19 @@ namespace lsy
 {
     public class InteractChecker : MonoBehaviour
     {
-        private List<IInteractable> interacts = new List<IInteractable>();
-        private List<MonsterBT> monsterList = new List<MonsterBT>();
-
-
+        [SerializeField]
         private TargetCircleController circleController;
+
+        private List<IInteractable> interactList = new List<IInteractable>();
+
         private MonsterChecker monsterChecker;
         private Collider coll;
         
-        private Coroutine checkInteractable;
-        private Coroutine checkMonster;
+        private Coroutine findNearestInteractable;
 
-        private bool isProcessing;
-        private bool isCheckingMonster;
+        private bool isRunningFindInteractable;
+
+        private float checkTime = 0.2f;
 
 
         private InputUIController inputController => Managers.Instance.UIManager.InputUIController;
@@ -29,74 +29,57 @@ namespace lsy
         private void Awake()
         {
             coll = GetComponent<Collider>();
-            circleController = GetComponent<TargetCircleController>();
         }
-
 
         private void OnEnable()
         {
-            isProcessing = false;
-
-            coll.enabled = false;
-            coll.enabled = true;
+            isRunningFindInteractable = false;
         }
-
 
         private void OnDisable()
         {
-            interacts.Clear();
-            monsterChecker.enabled = true;
+            if (coll)
+                coll.enabled = false;
+
+            StopAllCoroutines();
+            interactList.Clear();
         }
-
-
-        public void RestartChecking()
-        {
-            isProcessing = false;
-            StartCheckInteractable();
-        }
-
-
-
-        public void ChangeFindInteract()
-        {
-            isCheckingMonster = false;
-        }
-
-        public void ChangeFindMonster()
-        {
-            isCheckingMonster = true;
-        }
-
-
 
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!isCheckingMonster)
-            {
-                EnterInteract(other);
-            }
-            else
-            {
-                EnterMonster(other);
-            }
+            EnterInteract(other);
         }
-
 
 
         private void OnTriggerExit(Collider other)
         {
-            if (!isCheckingMonster)
-            {
-                ExitInteract(other);
-            }
-            else
-            {
-                ExitMonster(other);
-            }
+            ExitInteract(other);
         }
 
 
+        // Interactable 체크 정지
+        private void StopFindInteractable()
+        {
+            interactList.Clear();
+
+            isRunningFindInteractable = false;
+
+            if (findNearestInteractable != null)
+                StopCoroutine(findNearestInteractable);
+        }
+
+
+        // Ineteractable 체크 다시 시작
+        public void RestartFindInteractable()
+        {
+            StopFindInteractable();
+
+            coll.enabled = false;
+            coll.enabled = true;
+
+            findNearestInteractable = StartCoroutine(FindNearestInteractable());
+        }
 
 
         private void EnterInteract(Collider other)
@@ -105,20 +88,10 @@ namespace lsy
             IInteractable interactable = other.GetComponent<IInteractable>();
             if (interactable != null)
             {
-                interacts.Add(interactable);
-                StartCheckInteractable();
-            }
-        }
+                interactList.Add(interactable);
 
-
-        private void EnterMonster(Collider other)
-        {
-            MonsterBT monster = other.GetComponent<MonsterBT>();
-            if (monster != null)
-            {
-                monsterList.Add(monster);
-
-
+                if (!isRunningFindInteractable)
+                    findNearestInteractable = StartCoroutine(FindNearestInteractable());
             }
         }
 
@@ -129,14 +102,14 @@ namespace lsy
 
             if (interactable != null)
             {
-                interacts.Remove(interactable);
+                interactList.Remove(interactable);
 
-                if (interacts.Count == 0)
+                if (interactList.Count == 0)
                 {
-                    isProcessing = false;
+                    isRunningFindInteractable = false;
 
-                    if (checkInteractable != null)
-                        StopCoroutine(checkInteractable);
+                    if (findNearestInteractable != null)
+                        StopCoroutine(findNearestInteractable);
 
                     // 기본 버튼으로 변경
                     inputController.SetBasicInteractButton();
@@ -145,57 +118,34 @@ namespace lsy
             }
         }
 
-        private void ExitMonster(Collider other)
-        {
-
-        }
-
-
-
-
-
-
-        // 상호작용 대상 찾기
-        private void StartCheckInteractable()
-        {
-            if (isProcessing)
-                return;
-
-            isProcessing = true;
-
-            if (checkInteractable != null)
-                StopCoroutine(checkInteractable);
-
-            checkInteractable = StartCoroutine(CheckInteractable());
-        }
 
 
         // 가장 가까운 타겟을 정하기
-        private IEnumerator CheckInteractable()
+        private IEnumerator FindNearestInteractable()
         {
+            isRunningFindInteractable = true;
+
             IInteractable prevInteract = null;
             IInteractable currentInteract = null;
-
-            prevInteract = null;
-            currentInteract = null;
 
             while (true)
             {
                 float minDist = 1000f;
 
-                if (interacts.Count <= 0)
+                if (interactList.Count <= 0)
                 {
+                    StopFindInteractable();
                     yield break;
                 }
 
-                for (int i = 0; i < interacts.Count; i++)
+                for (int i = 0; i < interactList.Count; i++)
                 {
-                    float dist = (transform.position - interacts[i].GetTransform().position).sqrMagnitude;
+                    float dist = (transform.position - interactList[i].GetTransform().position).sqrMagnitude;
 
                     if (dist < minDist)
                     {
                         minDist = dist;
-                        currentInteract = interacts[i];
+                        currentInteract = interactList[i];
                     }
                 }
 
@@ -213,7 +163,7 @@ namespace lsy
 
                 prevInteract = currentInteract;
 
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(checkTime);
             }
         }
     }

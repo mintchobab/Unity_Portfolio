@@ -56,9 +56,9 @@ namespace lsy
 
 
 
-        public override void Show()
+        public override void Show(Action onShow = null)
         {
-            base.Show();
+            base.Show(onShow);
             scrollRect.verticalNormalizedPosition = 1f;
         }
 

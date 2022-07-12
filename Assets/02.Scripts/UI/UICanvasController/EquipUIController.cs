@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,7 @@ namespace lsy
             equipInventoryManager.ItemEquiped += OnItemEquiped;
             equipInventoryManager.ItemUnEquiped += OnItemUnEquiped;
 
-            exitButton.onClick.AddListener(Hide);
+            exitButton.onClick.AddListener(() => Hide());
 
             AddTabButtonEvent();
             SetInitalizeSlots();
@@ -65,9 +66,9 @@ namespace lsy
   
 
 
-        public override void Show()
+        public override void Show(Action onShow = null)
         {
-            base.Show();            
+            base.Show(onShow);
             scrollRect.verticalNormalizedPosition = 1f;
 
             // 카메라 줌 시작
@@ -76,9 +77,9 @@ namespace lsy
         }
 
 
-        public override void Hide()
+        public override void Hide(Action onHide = null)
         {
-            base.Hide();
+            base.Hide(onHide);
             equipInventoryPopup.gameObject.SetActive(false);
             Managers.Instance.UIManager.InputUIController.Show();
 

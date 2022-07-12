@@ -613,7 +613,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6166165863877541896}
-  - component: {fileID: 896338014517583667}
+  - component: {fileID: 2168584368505275919}
   - component: {fileID: 2026741004106599850}
   - component: {fileID: 1077510568309773965}
   m_Layer: 0
@@ -638,19 +638,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &896338014517583667
-SphereCollider:
+--- !u!136 &2168584368505275919
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2966698096521097943}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.6
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Radius: 0.55
+  m_Height: 2.24
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.3, z: 0.13}
 --- !u!114 &2026741004106599850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,8 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427c7227a8f5829458b23932fbe3213f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InteractObjResourceName>k__BackingField: Sapphire
-  CollectionType: 0
+  <CollectionType>k__BackingField: 0
   <ItemId>k__BackingField: 201
 --- !u!114 &1077510568309773965
 MonoBehaviour:

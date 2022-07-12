@@ -376,5 +376,16 @@
       "key": "Text_ManaPoint",
       "values": [ "마나", "Mp" ]
     }
+  ],
+
+  "stringSystemMessages": [
+    {
+      "key": "Text_EquipWeapon",
+      "values": [ "무기를 장착해주세요", "rrrrrrrrrrrr" ]
+    },
+    {
+      "key": "Text_EquipShield",
+      "values": [ "방패를 장착해주세요", "rrrrrrrrrrrr" ]
+    }
   ]
 }

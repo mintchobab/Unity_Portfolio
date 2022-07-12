@@ -17,8 +17,8 @@ namespace lsy
         [SerializeField]
         private Button equipButton;
 
-        //[SerializeField]
-        //private GameObject
+        [SerializeField]
+        private GameObject basicButtons;
 
         [SerializeField]
         private CombatButtonController combatButtonController;
@@ -89,12 +89,13 @@ namespace lsy
         }
 
 
+        // 전투 준비버튼으로 교체
         public void SetCombatReadyButton(Action action)
         {
             interactButton.image.sprite = Managers.Instance.ResourceManager.Load<Sprite>(ResourcePath.IconCombat);
 
             interactButton.onClick.RemoveAllListeners();
-            interactButton.onClick.AddListener(action.Invoke);
+            interactButton.onClick.AddListener(() => action?.Invoke());
         }
 
 
@@ -121,12 +122,18 @@ namespace lsy
         }
 
 
-        public void ChangeSkill(List<SkillData> skillDatas)
-        {
-            if (combatButtonController == null)
-                Debug.LogWarning("여기");
 
-            combatButtonController.ChangeSkillButton(skillDatas);
+
+        public void ChangeSkillButtons(SkillData nomalAttackData, SkillData[] skillDatas)
+        {
+            combatButtonController.ChangeSkillButton(nomalAttackData, skillDatas);
+        }
+
+
+        public void ActivateCombatButton()
+        {
+            combatButtonController.gameObject.SetActive(true);
+            basicButtons.SetActive(false);
         }
 
     }

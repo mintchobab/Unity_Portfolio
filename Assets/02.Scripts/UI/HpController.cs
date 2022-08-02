@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,34 +8,132 @@ namespace lsy
     public class HpController : MonoBehaviour
     {
         [SerializeField]
+        private bool isShowDamage;
+
+        [SerializeField]
+        private Vector3 damagePosition;
+
+        [SerializeField]
+        private Material rimMaterial;
+
+
+        [Header("Hp Bar")]
+        [SerializeField]
         private float hpBarHeight;
 
-        //private WorldUIController billboardController => Managers.Instance.UIManager.WorldUIController;
-        //private HpBar hpBar;
+
+        private Renderer myRenderer;
+        private Material originMaterial;
+        private WorldUIHpCanvas hpCanvas;
 
 
+        public event Action onTakeDamage;
+        public event Action onDead;
+
+
+        private int currentHp;
+        private int maxHp;
+        private int defensivePower;
+
+
+        public bool IsDead { get; private set; }
+
+
+
+        // MaxHp구하는것도 추가하기..
         private void Start()
         {
-            CreateWorldHpBar();
+            myRenderer = GetComponentInChildren<Renderer>();
+            IHpHasable hpHasable = GetComponent<IHpHasable>();
+
+            originMaterial = myRenderer.material;
+
+            maxHp = hpHasable.GetMaxHp();
+            defensivePower = hpHasable.GetDefensivePower();
+            currentHp = maxHp;
+
+            MakeWorldHpUI(maxHp);
         }
 
 
-        private void CreateWorldHpBar()
+
+        public void ChangeMaxHp(int maxHp)
         {
-            //hpBar = Managers.Instance.ResourceManager.Instantiate<HpBar>(ResourcePath.HpBar, billboardController.transform);
-            //billboardController.AddTarget(hpBar.gameObject, new Vector3(0f, hpBarHeight, 0f));
+            this.maxHp = maxHp;
+
+            hpCanvas.MakePartitions(maxHp);
+        }
+
+
+        public void ChangeDeffensivePower(int defensivePower)
+        {
+            this.defensivePower = defensivePower;
         }
 
 
 
-        // Canvas HP가 있는 경우와 없는 경우가 있음
-        // 1.있는 경우 => 플레이어, 보스 or 엘리트 몬스터
-        // 2.없는 경우 => 일반 몬스터
-        public void ChangeHpUI(int currentHp, int maxHp)
+        // 데미지를 받았을 때 처리
+        public void TakeDamage(int damage)
         {
-            // 일단은 World만 바꾸도록 하자
-            //float value = currentHp / (float)maxHp;
-            //hpBar.ChangeHpBar(value);
+            if (IsDead)
+                return;
+
+            damage -= defensivePower;
+
+            if (damage < 0)
+                damage = 0;
+
+            // 플로팅데미지 UI 생성
+            if (isShowDamage)
+            {
+                string name = Managers.Instance.PoolManager.GetOriginPrefabName(ResourcePath.DamageText);
+                if (name != null)
+                {
+                    Poolable poolable = Managers.Instance.PoolManager.Pop(name);
+                    poolable.GetComponent<DamageText>().ShowDamage(transform.position + damagePosition, damage);
+                }
+            }            
+
+            if (rimMaterial)
+            {
+                StartCoroutine(ChangeMaterialToRimLight());
+            }
+
+
+            currentHp -= damage;
+            if (currentHp <= 0)
+            {
+                IsDead = true;
+
+                hpCanvas.ChangeHp(0);
+                onDead?.Invoke();
+                onDead = null;
+
+                return;
+            }
+
+            hpCanvas.ChangeHp(currentHp);
+            onTakeDamage?.Invoke();
+        }
+
+
+        // 피격시 RimLight 효과 적용
+        private IEnumerator ChangeMaterialToRimLight()
+        {
+            myRenderer.material = rimMaterial;
+            yield return new WaitForSeconds(0.8f);
+            myRenderer.material = originMaterial;
+        }
+
+
+        // World Hp UI 생성
+        private void MakeWorldHpUI(int maxHp)
+        {
+            hpCanvas = Managers.Instance.ResourceManager.Instantiate<WorldUIHpCanvas>(ResourcePath.WorldHpCanvas);
+            hpCanvas.transform.SetParent(transform);
+            hpCanvas.transform.localPosition = Vector3.zero + new Vector3(0f, hpBarHeight, 0f);
+
+            hpCanvas.Init(maxHp);
         }
     }
 }

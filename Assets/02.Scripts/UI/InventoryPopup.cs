@@ -40,12 +40,21 @@ namespace lsy
             itemName.text = StringManager.GetLocalizedItemName(item.name);
             itemDescription.text = StringManager.GetLocalizedItemExplanation(item.explanation);
 
+            // 버튼 활성화 여부
+            if (!item.itemType.Equals(nameof(ItemType.Consumable)))
+            {
+                useButton.interactable = false;
+            }
+
             gameObject.SetActive(true);
         }
 
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (!eventData.pointerCurrentRaycast.gameObject.Equals(gameObject))
+                return;
+
             gameObject.SetActive(false);
         }
 

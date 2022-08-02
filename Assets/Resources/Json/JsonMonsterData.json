@@ -1,0 +1,23 @@
+{
+  "monsters": [
+    {
+      "id": 0,
+      "monsterName": "Wolf",
+      "stat": {
+        "hp": 1000,
+        "offensivePower": 100,
+        "defensivePower": 100
+      }
+    },
+
+    {
+      "id": 1,
+      "monsterName": "BossWolf",
+      "stat": {
+        "hp": 1000,
+        "offensivePower": 100,
+        "defensivePower": 100
+      }
+    }
+  ]
+}

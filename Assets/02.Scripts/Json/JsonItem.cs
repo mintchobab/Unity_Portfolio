@@ -27,13 +27,14 @@ namespace lsy
         public int maxCount;
     }
 
+
     [Serializable]
     public class EquipItem : Item
     {
         public string _parts;
-        public int power;
-        public int healthPoint;
-        public int manaPoint;
+        public int hp;
+        public int offensivePower;
+        public int defensivePower;
     }
 
 }

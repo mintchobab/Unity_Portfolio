@@ -22,7 +22,7 @@ namespace lsy
         private float checkTime = 0.2f;
 
 
-        private InputUIController inputController => Managers.Instance.UIManager.InputUIController;
+        private MainUIController inputController => Managers.Instance.UIManager.MainUIController;
 
 
 

@@ -14,6 +14,9 @@ namespace lsy
         private ItemManager itemManager = new ItemManager();
         private InventoryManager inventoryManager = new InventoryManager();
         private EquipInventoryManager equipInventoryManager = new EquipInventoryManager();
+        private PoolManager poolManager = new PoolManager();
+        private CombatManager combatManager = new CombatManager();
+        private SoundManager soundManager = new SoundManager();
 
         public JsonManager JsonManager { get => jsonManager; }
         public StringManager StringManager { get => stringManager; }
@@ -23,20 +26,26 @@ namespace lsy
         public ItemManager ItemManager { get => itemManager; }
         public InventoryManager InventoryManager { get => inventoryManager; }
         public EquipInventoryManager EquipInventoryManager { get => equipInventoryManager; }
+        public PoolManager PoolManager { get => poolManager; }
+        public CombatManager CombatManager { get => combatManager; }
+        public SoundManager SoundManager { get => soundManager; }
 
 
         public override void Init()
         {
             DontDestroyOnLoad(this);
 
-            JsonManager.Initialize();
-            StringManager.Initialize();
-            ResourceManager.Initialize();
-            UIManager.Initialize();
-            QuestManager.Initialize();
-            ItemManager.Initialize();
-            InventoryManager.Initialize();
-            EquipInventoryManager.Initialize();
+            JsonManager.Init();
+            StringManager.Init();
+            ResourceManager.Init();
+            UIManager.Init();
+            SoundManager.Init();
+            QuestManager.Init();
+            ItemManager.Init();
+            InventoryManager.Init();
+            EquipInventoryManager.Init();
+            PoolManager.Init();
+            CombatManager.Init();            
         }
     }
 }

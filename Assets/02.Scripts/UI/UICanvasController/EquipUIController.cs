@@ -20,10 +20,16 @@ namespace lsy
         private List<ItemSlot> slotList;
 
         [SerializeField]
-        private Button[] tabButtons;
+        private EquipSlot[] equipSlots;
 
         [SerializeField]
-        private EquipSlot[] equipSlots;
+        private Text hpText;
+
+        [SerializeField]
+        private Text offensivePowerText;
+
+        [SerializeField]
+        private Text defensivePowerText;
 
 
         private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
@@ -32,28 +38,27 @@ namespace lsy
         protected override void Awake()
         {
             base.Awake();
-            equipInventoryManager.ItemAdded += OnItemAdded;
+
+            equipInventoryManager.onExchangedAllItems += OnExchangedAllItems;
+            equipInventoryManager.onAddedItem += OnAddedItem;
             //equipInventoryManager.onItemRemoved += OnItemRemoved;
-            equipInventoryManager.ItemExchanged += OnItemExchanged;
-            equipInventoryManager.ItemMovedTo += OnItemMovedTo;
-            equipInventoryManager.ItemEquiped += OnItemEquiped;
-            equipInventoryManager.ItemUnEquiped += OnItemUnEquiped;
+            equipInventoryManager.onExchangedItem += OnExchangedItem;
+            equipInventoryManager.onMovedItem += OnMovedItem;
+            equipInventoryManager.onEquipedItem += OnEquipedItem;
+            equipInventoryManager.onUnEquipedItem += OnUnEquipedItem;
 
             exitButton.onClick.AddListener(() => Hide());
 
-            AddTabButtonEvent();
             SetInitalizeSlots();
         }
 
 
-        private void AddTabButtonEvent()
+        private void Start()
         {
-            for (int i = 0; i < tabButtons.Length; i++)
-            {
-                int j = i;
-                tabButtons[j].onClick.AddListener(() => OnClickTabButton(j));
-            }
+            PlayerController.Instance.StatController.onChangedStat += ChangePlayerStatText;
         }
+
+
 
 
         private void SetInitalizeSlots()
@@ -71,24 +76,49 @@ namespace lsy
             base.Show(onShow);
             scrollRect.verticalNormalizedPosition = 1f;
 
+            ChangePlayerStatText();
+
             // 카메라 줌 시작
-            // 플레이어를 따라가기
             CameraController.Instance.LookPlayer();
         }
+
 
 
         public override void Hide(Action onHide = null)
         {
             base.Hide(onHide);
             equipInventoryPopup.gameObject.SetActive(false);
-            Managers.Instance.UIManager.InputUIController.Show();
+            Managers.Instance.UIManager.MainUIController.Show();
 
             // 카메라 줌 해제
             CameraController.Instance.RestoreCamera();
         }
 
 
-        private void OnItemAdded(int itemIndex)
+        private void OnExchangedAllItems()
+        {
+            List<EquipInventoryItem> itemList = equipInventoryManager.ItemList;
+
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                EquipItem item = itemList[i].item;
+
+                if (item == null)
+                    continue;
+
+                // 밑에꺼랑 비교
+                string path = $"{ResourcePath.EquipItem}/{item._resourceName}";
+                Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
+
+                slotList[i].UpdateSlotImage(sprite);
+
+                string name = StringManager.GetLocalizedItemName(item.name);
+                slotList[i].UpdateItemName(name);
+            }
+        }
+
+
+        private void OnAddedItem(int itemIndex)
         {
             EquipInventoryItem equipInventoryItem = equipInventoryManager.ItemList[itemIndex];
 
@@ -110,7 +140,7 @@ namespace lsy
         //}
 
 
-        private void OnItemExchanged(int prev, int next)
+        private void OnExchangedItem(int prev, int next)
         {
             Sprite prevSprite;
             string prevName;
@@ -126,7 +156,7 @@ namespace lsy
         }
 
 
-        private void OnItemMovedTo(int self, int target)
+        private void OnMovedItem(int self, int target)
         {
             slotList[target].UpdateSlotImage(slotList[self].MyItemSprite);
             slotList[target].UpdateItemName(slotList[self].MyItemName);
@@ -134,7 +164,7 @@ namespace lsy
 
 
         // 아이템 장착 이벤트
-        private void OnItemEquiped(EquipType equipType, EquipItem item)
+        private void OnEquipedItem(EquipType equipType, EquipItem item)
         {
             // 해당 타입의 슬롯에 아이템 들어감...
             EquipSlot slot = FindEquipSlot(equipType);
@@ -148,7 +178,7 @@ namespace lsy
 
 
         // 아이템 장착 해제 이벤트
-        private void OnItemUnEquiped(EquipType equipType, EquipItem item)
+        private void OnUnEquipedItem(EquipType equipType, EquipItem item)
         {
             EquipSlot slot = FindEquipSlot(equipType);
             slot.ClearSlot();
@@ -186,35 +216,13 @@ namespace lsy
 
 
 
-        private void OnClickTabButton(int index)
+        // Action 순서 때문에 StatController에 접근해서 추가함
+        private void ChangePlayerStatText()
         {
-            switch (index)
-            {
-                // All
-                case 0:
-                    break;
-
-                // 무기
-                case 1:
-                    break;
-
-                // 방패
-                case 2:
-                    break;
-
-                // 투구
-                case 3:
-                    break;
-
-                // 갑옷
-                case 4:
-                    break;
-
-                // 신발
-                case 5:
-                    break;
-            }
+            hpText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedHp().ToString();
+            offensivePowerText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedOffensivePower().ToString();
+            defensivePowerText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedDefensivePower().ToString();
         }
-
     }
+
 }

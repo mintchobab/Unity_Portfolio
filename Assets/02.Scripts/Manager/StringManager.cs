@@ -10,7 +10,7 @@ namespace lsy
         private static int localizeIndex = 0;
 
 
-        public void Initialize()
+        public void Init()
         {
             jsonString = Managers.Instance.JsonManager.jsonString;
         }
@@ -65,6 +65,11 @@ namespace lsy
         public static string GetLocalizedSystemMessage(string nameKey)
         {
             return jsonString.stringSystemMessages.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+        }
+
+        public static string GetLocalizedSkillName(string namekey)
+        {
+            return jsonString.stringSkillNames.Find(x => x.key.Equals(namekey)).values[localizeIndex];
         }
 
         //public static string GetLocalizedCollection(string nameKey)

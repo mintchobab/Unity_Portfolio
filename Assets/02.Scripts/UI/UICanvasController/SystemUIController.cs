@@ -8,6 +8,9 @@ namespace lsy
     public class SystemUIController : SceneUI
     {
         [SerializeField]
+        private Image fadeImage;
+
+        [SerializeField]
         private Image itemImage;
 
         [SerializeField]
@@ -16,6 +19,8 @@ namespace lsy
         [SerializeField]
         private Text[] systemTexts;
 
+
+        private Coroutine fade;
         private Color systemTextTransparentColor;
 
         private Queue<Text> systemTextQueue = new Queue<Text>();
@@ -45,17 +50,34 @@ namespace lsy
 
 
 
-        // UI가 중첩될 수 있는 구조로 만들기........ㅣㄴ;ㅇ리;너ㅏㅇ러;ㅣㄴㅁㅇ러ㅣ;'ㄻㄴ어ㅣ;'ㄹㄴㅇ;'
+        public void FadeScreen(Color start, Color end, float time)
+        {
+            if (fade != null)
+                StopCoroutine(fade);
+
+            fade = StartCoroutine(Fade(start, end, time));
+        }
 
 
-        // 하나가 추가되면 이미 추가되어있는 애들 위치 다 위로 올리기
-        // => 여러 텍스트가 한꺼번에 보일 수 있게
-        // => 알파값 변경은 각자 알아서 할 수 있도록
+
+        private IEnumerator Fade(Color start, Color end, float time)
+        {
+            float t = 0f;
+
+            fadeImage.color = start;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime / time;
+                fadeImage.color = Color.Lerp(start, end, t);
+
+                yield return null;
+            }
+        } 
 
 
-        // 1.나타났다가
-        // 2.일정시간이 지나면
-        // 3.서서히 사라지기
+
+        // 게임 시스템 문구 출력
         public void ShowSystemText(string messageKey)
         {
             Text systemText = systemTextQueue.Dequeue();
@@ -74,7 +96,7 @@ namespace lsy
         }
 
 
-        // 페이드 기능은 고려해보기...
+        // 시스템 문구 페이드
         private IEnumerator FadeText(Text text)
         {
             float fadeTime = ValueData.SystemMessageFadeTime;
@@ -110,7 +132,7 @@ namespace lsy
             itemImage.gameObject.SetActive(true);
 
             Vector3 currentPosition = Camera.main.WorldToScreenPoint(targetPos);
-            Vector3 targetPosition = Managers.Instance.UIManager.InputUIController.InventoryButton.transform.position;
+            Vector3 targetPosition = Managers.Instance.UIManager.MainUIController.InventoryButton.transform.position;
 
             while (time < 1)
             {

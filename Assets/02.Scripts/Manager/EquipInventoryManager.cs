@@ -15,12 +15,13 @@ namespace lsy
     {
         public List<EquipInventoryItem> ItemList { get; private set; } = new List<EquipInventoryItem>();
 
-        public event Action<int> ItemAdded;
+        public event Action onExchangedAllItems;
+        public event Action<int> onAddedItem;
+        public event Action<int, int> onExchangedItem;
+        public event Action<int, int> onMovedItem;
+        public event Action<EquipType, EquipItem> onEquipedItem;
+        public event Action<EquipType, EquipItem> onUnEquipedItem;
         //public event Action<int> onItemRemoved;
-        public event Action<int, int> ItemExchanged;
-        public event Action<int, int> ItemMovedTo;
-        public event Action<EquipType, EquipItem> ItemEquiped;
-        public event Action<EquipType, EquipItem> ItemUnEquiped;
 
         public readonly int StartSlotSize = 28;
 
@@ -37,7 +38,7 @@ namespace lsy
         };
 
 
-        public void Initialize()
+        public void Init()
         {
             AddInventorySlot(StartSlotSize);
         }
@@ -59,10 +60,9 @@ namespace lsy
         {
             if (currentItemCount >= StartSlotSize)
             {
-                UnityEngine.Debug.Log("장비 인벤토리 초과");
+                Debug.Log("장비 인벤토리 초과");
                 return;
             }
-
 
             EquipInventoryItem inventoryItem = MakeNewEquipItem(itemId);
 
@@ -71,7 +71,7 @@ namespace lsy
                 if (ItemList[i].item == null)
                 {
                     ItemList[i] = inventoryItem;
-                    ItemAdded?.Invoke(i);
+                    onAddedItem?.Invoke(i);
                     currentItemCount++;
                     break;
                 }
@@ -85,7 +85,7 @@ namespace lsy
                 {
                     PushList(i);
                     ItemList[i] = inventoryItem;
-                    ItemAdded?.Invoke(i);
+                    onAddedItem?.Invoke(i);
                     currentItemCount++;
                     break;
                 }
@@ -104,13 +104,13 @@ namespace lsy
                 if (ItemList[i + 1].item == null)
                 {
                     ItemList[i] = ItemList[i + 1];
-                    ItemMovedTo(i + 1, i);
+                    onMovedItem(i + 1, i);
                     break;
                 }
                 else
                 {
                     ItemList[i] = ItemList[i + 1];
-                    ItemMovedTo(i + 1, i);
+                    onMovedItem(i + 1, i);
                 }
             }
 
@@ -123,7 +123,6 @@ namespace lsy
         public void Equip(int index)
         {
             EquipItem item = ItemList[index].item;
-
             EquipType type = (EquipType)Enum.Parse(typeof(EquipType), $"{item._parts}");
 
             // 이미 장착된 아이템 있는지 확인
@@ -142,11 +141,8 @@ namespace lsy
                 AddEquipItem(equipedItem.id);
             }
 
-            // 실제 아이템 장착
-            //PlayerController.Instance.EquipController.Equip(type, item);
-
-            // 장착됐을때의 효과?? 스텟 변경같은거 여기에
-            ItemEquiped?.Invoke(type, item);
+            // 장착됐을때의 효과?? 스텟 변경같은거 여기에 쓰기
+            onEquipedItem?.Invoke(type, item);
         }
 
 
@@ -158,10 +154,71 @@ namespace lsy
 
             AddEquipItem(item.id);
 
-            ItemUnEquiped?.Invoke(type, item);
+            onUnEquipedItem?.Invoke(type, item);
 
             //PlayerController.Instance.EquipController.UnEquip(type);
         }
+
+
+        // 탭 버튼이 눌렸을 때 리스트 재정렬
+        public void SortInventory(EquipType tabType)
+        {
+            if (tabType == EquipType.Default)
+            {
+                SortInventoryAll();                
+                return;
+            }
+
+            List<EquipInventoryItem> tmpList = new List<EquipInventoryItem>();
+
+            for (int i = ItemList.Count - 1; i >= 0; i--)
+            {
+                if (ItemList[i].item == null)
+                    continue;
+
+                EquipType type = (EquipType)Enum.Parse(typeof(EquipType), $"{ItemList[i].item._parts}");
+
+                if (type.Equals(tabType))
+                {
+                    tmpList.Add(ItemList[i]);
+                    ItemList.RemoveAt(i);
+                }
+            }
+
+            tmpList.Sort((x, y) => x.item.id.CompareTo(y.item.id));
+
+            for (int i = 0; i < tmpList.Count; i++)
+            {
+                ItemList.Insert(i, tmpList[i]);
+            }
+
+            onExchangedAllItems?.Invoke();
+        }
+
+
+        // 모든 아이템 id 순으로 정렬
+        private void SortInventoryAll()
+        {
+            List<EquipInventoryItem> tmpList = new List<EquipInventoryItem>();
+
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                if (ItemList[i].item == null)
+                    continue;
+
+                tmpList.Add(ItemList[i]);
+            }
+
+            tmpList.Sort((x, y) => x.item.id.CompareTo(y.item.id));
+
+            for (int i = 0; i < tmpList.Count; i++)
+            {
+                ItemList[i] = tmpList[i];
+            }
+
+            onExchangedAllItems?.Invoke();
+        }
+
 
 
         // 무조건 데이터가 한개이상 존재해야함
@@ -183,7 +240,7 @@ namespace lsy
             for (int i = lastIndex; i > startIndex; i--)
             {
                 ItemList[i] = ItemList[i - 1];
-                ItemExchanged?.Invoke(i - 1, i);
+                onExchangedItem?.Invoke(i - 1, i);
             }
         }
 

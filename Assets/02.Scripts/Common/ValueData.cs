@@ -18,7 +18,7 @@ namespace lsy
         public static readonly float SearchDistance = 1f;
 
         public static readonly float FishingTime = 3f;
-        public static readonly float FishingDistance = 1f;
+        public static readonly float FishingDistance = 3.5f;
 
         public static readonly float NpcDistance = 1f;
 
@@ -34,8 +34,15 @@ namespace lsy
         // UI
         public static readonly float SystemMessageFadeTime = 4f;
 
-        public static readonly float SkillButtonTransitionTime = 0.35f;
+        public static readonly float SkillButtonTransitionTime = 0.28f;
         public static readonly float SkillButtonTransitionScale = 0.8f;
+
+        // Monster
+        // 이건 json으로 옮길지도??
+        public static readonly float MonsterDestroyTime = 3f;
+
+        public static readonly float WolfAttackBeforeTime = 1f;
+        public static readonly float WolfAttackAfterTime = 1f;
     }
 }
 

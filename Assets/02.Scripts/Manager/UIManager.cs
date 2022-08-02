@@ -12,7 +12,7 @@ namespace lsy
         private GameObject rootCanvas;
 
         // 팝업도 생성할 수 있어야함......
-        public InputUIController InputUIController { get; private set; }
+        public MainUIController MainUIController { get; private set; }
         public SystemUIController SystemUIController { get; private set; }
         public DialogueUIController DialogueUIController { get; private set; }
         public QuestUIController QuestUIController { get; private set; }
@@ -21,7 +21,7 @@ namespace lsy
         //public WorldUIController WorldUIController { get; private set; }
 
 
-        public void Initialize()
+        public void Init()
         {
             MakeRoot();
             MakeCanvas();
@@ -42,7 +42,7 @@ namespace lsy
         // 프리팹 Canvas 생성
         private void MakeCanvas()
         {
-            InputUIController = Managers.Instance.ResourceManager.Instantiate<InputUIController>(ResourcePath.InputCanvas, rootCanvas.transform);
+            MainUIController = Managers.Instance.ResourceManager.Instantiate<MainUIController>(ResourcePath.MainCanvas, rootCanvas.transform);
             SystemUIController = Managers.Instance.ResourceManager.Instantiate<SystemUIController>(ResourcePath.SystemCanvas, rootCanvas.transform);
             DialogueUIController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourcePath.DialogueCanvas, rootCanvas.transform);
             QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourcePath.QuestCanvas, rootCanvas.transform);

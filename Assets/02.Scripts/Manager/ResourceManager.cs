@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class ResourceManager : IManager
 {
-    public void Initialize() { }
-
+    public void Init() { }
 
     private Dictionary<string, Object> resourceCache = new Dictionary<string, Object>();
+
 
     public T Load<T>(string path) where T : Object
     {

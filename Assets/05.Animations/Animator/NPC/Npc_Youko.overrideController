@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Npc_Youko
+  m_Controller: {fileID: 9100000, guid: 40a302a2ff5a47a4b8afb50cce32796d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: f574df3af32bb8f4faa90043cdf76d1a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f1a382658057bba479628e029403ebff, type: 2}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 861e55792a3e01f4a95cadbdf303531f, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: d5e75bd14a7c68e409d4788b87fa6ef1, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: d5e75bd14a7c68e409d4788b87fa6ef1, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: d5e75bd14a7c68e409d4788b87fa6ef1, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 2bc503589b8990049822d85798feafe1, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: d5e75bd14a7c68e409d4788b87fa6ef1, type: 3}

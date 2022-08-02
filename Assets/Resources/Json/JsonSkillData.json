@@ -1,0 +1,39 @@
+{
+  "skills": [
+    {
+      "id": 0,
+      "skillName": "Skill_Skill0",
+      "_resourceName": "Skill0",
+      "coolTime": 3,
+      "minDamage": 140,
+      "maxDamage": 160
+    },
+
+    {
+      "id": 1,
+      "skillName": "Skill_Skill1",
+      "_resourceName": "Skill1",
+      "coolTime": 3,
+      "minDamage": 140,
+      "maxDamage": 160
+    },
+
+    {
+      "id": 2,
+      "skillName": "Skill_Skill2",
+      "_resourceName": "Skill2",
+      "coolTime": 3,
+      "minDamage": 140,
+      "maxDamage": 160
+    },
+
+    {
+      "id": 3,
+      "skillName": "Skill_Skill3",
+      "_resourceName": "Skill3",
+      "coolTime": 3,
+      "minDamage": 140,
+      "maxDamage": 160
+    }
+  ]
+}

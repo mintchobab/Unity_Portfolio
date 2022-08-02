@@ -10,6 +10,11 @@ namespace lsy
         public int NpcId { get; private set; }
 
         private GameObject exclamationMark;
+        private GameObject questionMark;
+        private Animator anim;
+
+        private int hashIdle = Animator.StringToHash("idle");
+        private int hashTalk = Animator.StringToHash("talk");
 
         public Npc Npc { get; private set; }
         public Quest MyQuest { get; private set; }
@@ -18,26 +23,36 @@ namespace lsy
 
         protected void Awake()
         {
+            anim = GetComponentInChildren<Animator>();
+
             SetNPCData();
             NpcName = StringManager.GetLocalizedNPCName(Npc.name);
         }
 
+
+        // 플레이어와 상호작용을 시작했을 때 처리
         public void Interact()
         {
-            PlayerController.Instance.StartInteract(this, transform);
+            PlayerController.Instance.StartInteract(this, transform, null);
+            anim.SetTrigger(hashTalk);
         }
 
 
+        // 상호작용 버튼 이미지 Load
         public Sprite LoadButtonImage()
         {
             return Managers.Instance.ResourceManager.Load<Sprite>(ResourcePath.IconDialogue);
         }
 
+
+        // Transform 반환
         public Transform GetTransform()
         {
             return transform;
         }
 
+
+        // 상호작용 거리 반환
         public float GetInteractDistance()
         {
             return ValueData.NpcDistance;
@@ -50,15 +65,18 @@ namespace lsy
             MyQuest = quest;
 
             // 느낌표 띄우기
-            exclamationMark = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.ExclamationMark, transform);
-            exclamationMark.transform.localPosition = new Vector3(0f, 2.1f, 0f);
+            CreateExclamationMark();
         }
 
+
+        // 퀘스트 정보 초기화
         public void ResetQuest()
         {
             MyQuest = null;
         }
 
+
+        // NPC의 데이터 설정
         private void SetNPCData()
         {
             JsonNpc dialogueData = Managers.Instance.JsonManager.jsonNPC;
@@ -73,6 +91,23 @@ namespace lsy
                 Debug.LogError("NPC Data Not Found");
         }
 
+
+        // Idle 애니메이션으로 변경
+        public void ChangeAnimationToIdle()
+        {
+            anim.SetTrigger(hashIdle);
+        }
+
+
+        // 느낌표 생성
+        private void CreateExclamationMark()
+        {
+            exclamationMark = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.ExclamationMark, transform);
+            exclamationMark.transform.localPosition = new Vector3(0f, 2.1f, 0f);
+        }
+
+
+        // 느낌표 삭제
         public void DestoryExclamationMark()
         {
             if (exclamationMark)
@@ -81,5 +116,25 @@ namespace lsy
                 exclamationMark = null;
             }
         }
+
+
+        // 물음표 생성
+        public void CreateQuestionMark()
+        {
+            questionMark = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.QuestionMark, transform);
+            questionMark.transform.localPosition = new Vector3(0f, 2.1f, 0f);
+        }
+
+
+        // 물음표 삭제
+        public void DestroyQuestionMark()
+        {
+            if (questionMark)
+            {
+                Destroy(questionMark);
+                questionMark = null;
+            }
+        }
+
     }
 }

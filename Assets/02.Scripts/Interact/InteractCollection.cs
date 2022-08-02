@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +27,10 @@ namespace lsy
         public CollectionData MyCollectionData { get; private set; }
 
 
+        public Action onInteract;
+        public Action onEndInteract;
+
+
         private void Awake()
         {
             SetCollectionData();
@@ -35,7 +39,8 @@ namespace lsy
 
         public void Interact()
         {
-            PlayerController.Instance.StartInteract(this, transform);
+            PlayerController.Instance.StartInteract(this, transform, onEndInteract);
+            onInteract?.Invoke();
         }
 
 
@@ -44,21 +49,17 @@ namespace lsy
             return Managers.Instance.ResourceManager.Load<Sprite>(MyCollectionData.ButtonIconPath);
         }
 
+
         public Transform GetTransform()
         {
             return transform;
         }
 
+
         public float GetInteractDistance()
         {
             return MyCollectionData.InteractDistance;
         }
-
-
-        //public override Sprite LoadButtonImage()
-        //{
-        //    return Managers.Instance.ResourceManager.Load<Sprite>(MyCollectionData.ButtonIconPath);
-        //}
 
 
         private void SetCollectionData()

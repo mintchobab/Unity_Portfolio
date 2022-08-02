@@ -17,6 +17,7 @@ public class JsonString
 
     public List<StringKeyvalues> stringUITexts;
     public List<StringKeyvalues> stringSystemMessages;
+    public List<StringKeyvalues> stringSkillNames;
     //public List<StringKeyvalues> stringCollection;
 }
 

@@ -28,7 +28,7 @@ namespace lsy
         public int CurrentSlotSize { get; private set; }
 
 
-        public void Initialize()
+        public void Init()
         {
             AddInventorySlot(StartSlotSize);
         }

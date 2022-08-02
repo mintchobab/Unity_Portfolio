@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
+
 
 namespace lsy
 {
@@ -10,6 +12,7 @@ namespace lsy
         public QuestType QuestType { get; private set; }
 
         public bool IsCompleted { get; private set; }
+
         public int CurrentCount { get; private set; }
         public int GoalCount { get; private set; }
 
@@ -34,13 +37,14 @@ namespace lsy
                 // 현재 아이템을 가지고 있을 수도 있어서 한번더 체크해야함
                 CurrentCount = Managers.Instance.InventoryManager.FindItemCount(Quest.task.collect[0]);
             }
-            else
+            else if (Quest.task.kill.Count != 0)
             {
                 QuestType = QuestType.Kill;
                 CurrentCount = 0;
                 GoalCount = Quest.task.kill[1];
             }
         }
+
 
         public void ChangeCurrentCount(int count)
         {
@@ -56,20 +60,19 @@ namespace lsy
         private List<InteractNpc> npcs;
 
         public Action onQuestChanged;
-        public Action onCurrentQuestItemCountChanged;
+        public Action onChangedCurrentQuestCount;
+
+        private InteractNpc currentQuestNpc;
 
         private List<Quest> allQuestList => Managers.Instance.JsonManager.jsonQuest.quests;
         private InventoryManager inventoryManager => Managers.Instance.InventoryManager;
         private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
 
-
         public CurrentQuest CurrentQuest { get; private set; }
 
-        // 특정 타이밍에 해당 NPC한테 퀘스트를 줄 수 있는 기능이 필요
-        // 퀘스트가 완료됐을 때도 여기를 거쳐서 실행 될 수 있게하기
-        // 현재 퀘스트 하나만 나오게 하기
-        // 리스트 같은거 필요없음
-        public void Initialize()
+
+
+        public void Init()
         {
             npcs = UnityEngine.Object.FindObjectsOfType<InteractNpc>().ToList();
 
@@ -90,14 +93,15 @@ namespace lsy
             {
                 if (npc.NpcId == quest.questNpcId)
                 {
-                    npc.SetQuest(quest);
+                    currentQuestNpc = npc;
+                    currentQuestNpc.SetQuest(quest);
                     break;
                 }
             }
         }
 
 
-        // 퀘스트를 받았을 떄 실행
+        // 퀘스트를 받을 떄 실행
         public void TakeQuest(Quest quest)
         {
             CurrentQuest = new CurrentQuest(quest);
@@ -125,7 +129,7 @@ namespace lsy
                 else
                 {
                     equipInventoryManager.AddEquipItem(id);
-                }                
+                }
             }
 
             // 현재 npc의 퀘스트 초기화
@@ -135,7 +139,6 @@ namespace lsy
             // 다음 퀘스트 NPC에게 부여하기
             if (CurrentQuest.Quest.nextQuestId > 0)
             {
-                UnityEngine.Debug.LogWarning("asd");
                 SetQuestToNPC(CurrentQuest.Quest.nextQuestId);
             }
 
@@ -160,7 +163,38 @@ namespace lsy
                 return;
 
             CurrentQuest.ChangeCurrentCount(inventoryManager.FindItemCount(itemId));
-            onCurrentQuestItemCountChanged?.Invoke();
+
+            if (CurrentQuest.IsCompleted)
+            {
+                currentQuestNpc.CreateQuestionMark();
+            }
+
+            onChangedCurrentQuestCount?.Invoke();
+        }
+
+
+        // 몬스터가 사망했을 때 체크
+        public void KilledMonster(int monsterId)
+        {
+            if (CurrentQuest == null)
+                return;
+
+            if (CurrentQuest.QuestType != QuestType.Kill)
+                return;
+
+            int id = CurrentQuest.Quest.task.kill[0];
+
+            if (id != monsterId)
+                return;
+
+            CurrentQuest.ChangeCurrentCount(CurrentQuest.CurrentCount + 1);
+
+            if (CurrentQuest.IsCompleted)
+            {
+                currentQuestNpc.CreateQuestionMark();
+            }
+
+            onChangedCurrentQuestCount?.Invoke();
         }
     }
 }

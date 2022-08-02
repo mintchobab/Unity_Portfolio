@@ -12,7 +12,7 @@
       "progressingDialogues": [ "Quest_Dialogue_2"],
       "endDialogues": [ "Quest_Dialogue_3", "Quest_Dialogue_4" ],
       "task": {
-        "collect": [200, 1],
+        "collect": [200, 3],
         "kill": []
       },
       "reward": {
@@ -38,7 +38,7 @@
       "progressingDialogues": [ "Quest_Dialogue_6" ],
       "endDialogues": [ "Quest_Dialogue_7", "Quest_Dialogue_8" ],
       "task": {
-        "collect": [201, 1],
+        "collect": [ 201, 2 ],
         "kill": []
       },
       "reward": {
@@ -51,6 +51,58 @@
           }
         ]
       }
-    }    
+    },
+
+    {
+      "questId": 2002,
+      "questNpcId": 1002,
+      "questName": "Quest_Name_3",
+      "goal": "Quest_Goal_3",
+      "content": "Quest_Content_3",
+      "nextQuestId": -1,
+      "startDialogues": [ "Quest_Dialogue_9", "Quest_Dialogue_10" ],
+      "progressingDialogues": [ "Quest_Dialogue_10" ],
+      "endDialogues": [ "Quest_Dialogue_11", "Quest_Dialogue_12" ],
+      "task": {
+        "collect": [],
+        "kill": [0, 3]
+      },
+      "reward": {
+        "exp": 200,
+        "gold": 400,
+        "items": [
+          {
+            "itemId": 100,
+            "itemCount": 3
+          }
+        ]
+      }
+    },
+
+    {
+      "questId": 2003,
+      "questNpcId": 1002,
+      "questName": "Quest_Name_3",
+      "goal": "Quest_Goal_3",
+      "content": "Quest_Content_3",
+      "nextQuestId": -1,
+      "startDialogues": [ "Quest_Dialogue_9", "Quest_Dialogue_10" ],
+      "progressingDialogues": [ "Quest_Dialogue_10" ],
+      "endDialogues": [ "Quest_Dialogue_11", "Quest_Dialogue_12" ],
+      "task": {
+        "collect": [],
+        "kill": [ ]
+      },
+      "reward": {
+        "exp": 200,
+        "gold": 400,
+        "items": [
+          {
+            "itemId": 100,
+            "itemCount": 3
+          }
+        ]
+      }
+    }   
   ]
 }

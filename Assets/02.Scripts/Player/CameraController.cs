@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 namespace lsy
 {
@@ -8,20 +9,27 @@ namespace lsy
         [SerializeField]
         private float distance;
 
+        [SerializeField]
+        private AnimationCurve shakeCurve;
+
         private Quaternion originRotation;
 
         private Vector3 prevPosition;
         private Quaternion prevRotation;
+
         private Coroutine moveCamera;
+        private Coroutine shaking;
+        private Camera cam;
 
         private bool isFollowing = true;
 
-        private InputUIController inputUIController => Managers.Instance.UIManager.InputUIController;
+        private MainUIController inputUIController => Managers.Instance.UIManager.MainUIController;
 
 
 
         public override void Init()
         {
+            cam = Camera.main;
             originRotation = transform.rotation;
         }
 
@@ -40,17 +48,18 @@ namespace lsy
         }
 
 
-
-        private void Zoom()
+        public void StartFolloing()
         {
-            //distance -= Input.mouseScrollDelta.y;
-            //distance = Mathf.Clamp(distance, 7f, 12f);
+            isFollowing = true;
+        }
+
+        public void StopFolloing()
+        {
+            isFollowing = false;
         }
 
 
-        
-
-
+        // position, rotation 값 저장
         private void SetCurrentPositionAndRotation()
         {
             prevPosition = transform.position;
@@ -85,9 +94,10 @@ namespace lsy
         }
 
 
+        // 카메라가 특정 위치로 이동 (ex. npc 대화)
         private IEnumerator MoveCamera(Vector3 targetPosition, Quaternion lookTargetRotation)
         {
-            isFollowing = false;
+            StopFolloing();
 
             // 60%정도 미리 이동
             transform.position = Vector3.Lerp(transform.position, targetPosition, 0.8f);
@@ -105,7 +115,7 @@ namespace lsy
         // 카메라를 원래 위치로 복귀
         public void RestoreCamera()
         {
-            isFollowing = true;
+            StartFolloing();
 
             if (moveCamera != null)
                 StopCoroutine(moveCamera);
@@ -114,6 +124,34 @@ namespace lsy
             transform.rotation = prevRotation;
         }
 
+
+        // 카메라 흔들기 시작 (중복 적용 막기 위해)
+        public void StartShaking(float time = 0.1f, float intensity = 1f)
+        {
+            if (shaking != null)
+                StopCoroutine(shaking);
+
+            shaking = StartCoroutine(Shaking(time, intensity));
+        }
+
+
+        // 카메라 흔들기
+        private IEnumerator Shaking(float time, float intensity)
+        {
+            float t = 0f;
+
+            while (t < 1)
+            {
+                t += Time.deltaTime / time;
+
+                float value = shakeCurve.Evaluate(t) * intensity;
+                cam.transform.localPosition = new Vector3(value, 0f, 0f);
+                yield return null;
+            }
+
+            cam.transform.localPosition = Vector3.zero;
+            yield return null;
+        }
 
     }
 }

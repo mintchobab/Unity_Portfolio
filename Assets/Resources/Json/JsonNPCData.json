@@ -10,6 +10,7 @@
         "Dialogue_Rona_3"
       ]
     },
+
     {
       "id": 1001,
       "name": "NPC_Dunkun",
@@ -20,6 +21,7 @@
         "Dialogue_Dunkun_4"
       ]
     },
+
     {
       "id": 1002,
       "name": "NPC_Malcom",
@@ -30,6 +32,7 @@
         "Dialogue_Malcom_4"
       ]
     },
+
     {
       "id": 1003,
       "name": "NPC_Deian",
@@ -38,6 +41,28 @@
         "Dialogue_Deian_2",
         "Dialogue_Deian_3",
         "Dialogue_Deian_4"
+      ]
+    },
+
+    {
+      "id": 1004,
+      "name": "NPC_Youko",
+      "dialogues": [
+        "Dialogue_Youko_1",
+        "Dialogue_Youko_2",
+        "Dialogue_Youko_3",
+        "Dialogue_Youko_4"
+      ]
+    },
+
+    {
+      "id": 1005,
+      "name": "NPC_Souta",
+      "dialogues": [
+        "Dialogue_Souta_1",
+        "Dialogue_Souta_2",
+        "Dialogue_Souta_3",
+        "Dialogue_Souta_4"
       ]
     }
   ]

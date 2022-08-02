@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.AI;
 
 namespace lsy
 {
-    public class PlayerController : Singleton<PlayerController>, IDamageable
+    public class PlayerController : Singleton<PlayerController>, IHpHasable
     {
         [field: SerializeField]
         public Transform PlayerLookPosition { get; private set; }
@@ -17,10 +18,11 @@ namespace lsy
         private Animator anim;
         private Rigidbody rigid;
         private Joystick joystick;
-        private InteractChecker interactChecker;
         private NavMeshAgent navMeshAgent;
+        private InteractChecker interactChecker;
+        private HpController hpController;
 
-        private Coroutine autoMove;
+        private Action onEndInteract;
 
         private RaycastHit slopeHit;
         private Vector3 moveDirection;
@@ -29,18 +31,22 @@ namespace lsy
         private bool isMoving;
         private bool isAutoMoving;
 
-        private int currentHp;
         private float rotSpeed = 10f;
 
-        private int hashSpeed = Animator.StringToHash("speed");
+        private int hashSpeed           = Animator.StringToHash("speed");
         private int hashSuccessInteract = Animator.StringToHash("successInteract");
-        private int hashFailInteract = Animator.StringToHash("failInteract");
-        private int hashEndInteract = Animator.StringToHash("endInteract");        
+        private int hashFailInteract    = Animator.StringToHash("failInteract");
+        private int hashEndInteract     = Animator.StringToHash("endInteract");
+        private int hashTakeDamage      = Animator.StringToHash("takeDamage");
+        private int hashDead            = Animator.StringToHash("dead");
 
 
         public EquipController EquipController { get; private set; }
+        public PlayerStatController StatController { get; private set; }
+        public PlayerCombatController CombatController { get; private set; }
+
         private QuestManager questManager => Managers.Instance.QuestManager;
-        private InputUIController inputUIController => Managers.Instance.UIManager.InputUIController;
+        private MainUIController inputUIController => Managers.Instance.UIManager.MainUIController;
         private DialogueUIController dialogueController => Managers.Instance.UIManager.DialogueUIController;
 
 
@@ -49,17 +55,42 @@ namespace lsy
         {
             cam = Camera.main;
 
-            rigid = GetComponent<Rigidbody>();
-            navMeshAgent = GetComponent<NavMeshAgent>();
-            EquipController = GetComponent<EquipController>();
-            anim = GetComponentInChildren<Animator>();
-            interactChecker = GetComponentInChildren<InteractChecker>();
+            rigid                   = GetComponent<Rigidbody>();
+            StatController          = GetComponent<PlayerStatController>();
+            hpController            = GetComponent<HpController>();
+            navMeshAgent            = GetComponent<NavMeshAgent>();
+            EquipController         = GetComponent<EquipController>();
+            CombatController        = GetComponent<PlayerCombatController>();
+            anim                    = GetComponentInChildren<Animator>();
+            interactChecker         = GetComponentInChildren<InteractChecker>();
 
-            joystick = Managers.Instance.UIManager.InputUIController.GetComponentInChildren<Joystick>();
+            joystick = Managers.Instance.UIManager.MainUIController.GetComponentInChildren<Joystick>();
+            navMeshAgent.updateRotation = false;
 
-            joystick.StickMoveStart += OnStickMoveStart;
-            joystick.StickMoving += OnStickMoving;
-            joystick.StickMoveEnd += OnStickMoveEnd;
+            
+        }
+
+        private void OnEnable()
+        {
+            joystick.onMovingStick += OnMovingStick;
+            joystick.onMovedStick += OnMovedStick;
+
+            hpController.onTakeDamage += OnTakeDamage;
+            hpController.onDead += OnDead;
+
+            StatController.onChangedStat += OnChangedStat;
+        }
+
+
+        private void OnDisable()
+        {
+            joystick.onMovingStick -= OnMovingStick;
+            joystick.onMovedStick -= OnMovedStick;
+
+            hpController.onTakeDamage -= OnTakeDamage;
+            hpController.onDead -= OnDead;
+
+            StatController.onChangedStat -= OnChangedStat;
         }
 
 
@@ -76,6 +107,7 @@ namespace lsy
 
 
 
+        // 경사면 체크
         private bool IsOnSlope()
         {
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out slopeHit, 5f))
@@ -95,13 +127,7 @@ namespace lsy
 
 
 
-        private void OnStickMoveStart()
-        {
-            //anim.SetBool(hashIsRun, true);
-        }
-
-
-        private void OnStickMoving(Vector2 stickVector)
+        private void OnMovingStick(Vector2 stickVector)
         {
             if (!canMoving)
                 return;
@@ -125,9 +151,8 @@ namespace lsy
         }
 
 
-        private void OnStickMoveEnd()
+        private void OnMovedStick()
         {
-            //anim.SetBool(hashIsRun, false);
             anim.SetFloat(hashSpeed, 0f);
 
             if (isMoving)
@@ -138,43 +163,22 @@ namespace lsy
         }
 
 
-
-        public void TakeDamage(int damage)
-        {
-            //currentHp -= damage;
-
-            // UI 변경
-            //int maxHp = playerStat.FindStat(StatType.Hp).GetValue();
-            //hpController.ChangeHpUI(currentHp, maxHp);
-
-            //if (currentHp <= 0)
-            //    Debug.LogWarning("사망");
-        }
-
-        public bool CheckIsDead()
-        {
-            return false;
-        }
-
-
-
-
-
-        private IEnumerator AutoMove(Vector3 targetPosition, float targetDistance)
+        public IEnumerator AutoMove(Transform moveTarget, float targetDistance)
         {
             isMoving = false;
             isAutoMoving = true;
 
             navMeshAgent.enabled = true;
-            navMeshAgent.SetDestination(targetPosition);
+            //navMeshAgent.SetDestination(targetPosition);
 
             anim.SetFloat(hashSpeed, 1f);
-            //anim.SetBool(hashIsRun, true);
 
-            float distance = Vector3.Distance(transform.position, targetPosition);
+            float distance = Vector3.Distance(transform.position, moveTarget.position);
 
             while (distance > targetDistance)
             {
+                navMeshAgent.SetDestination(moveTarget.position);
+
                 // 중간에 멈췄을 때
                 if (isMoving)
                 {
@@ -183,12 +187,19 @@ namespace lsy
                     yield break;
                 }
 
-                distance = Vector3.Distance(transform.position, targetPosition);
+                // 회전
+                Vector3 lookRotation = navMeshAgent.steeringTarget - transform.position;
+                lookRotation.y = 0f;
+
+                if (lookRotation != Vector3.zero)
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookRotation), 10f * Time.deltaTime);
+
+                distance = Vector3.Distance(transform.position, moveTarget.position);
+
                 yield return null;
             }
 
             navMeshAgent.enabled = false;
-            //anim.SetBool(hashIsRun, false);
             anim.SetFloat(hashSpeed, 0f);
         }
 
@@ -206,7 +217,48 @@ namespace lsy
             model.SetActive(false);
         }
 
-        
+
+        private void OnTakeDamage()
+        {
+            if (!CombatController.IsProcessingSkill)
+            {
+                anim.SetTrigger(hashTakeDamage);
+            }
+        }
+
+
+        // 플레이어가 죽었을 때
+        private void OnDead()
+        {
+            anim.SetTrigger(hashDead);
+
+            rigid.isKinematic = true;
+            GetComponent<Collider>().enabled = false;
+
+            enabled = false;
+        }
+
+
+        // 스텟이 바뀔 때
+        private void OnChangedStat()
+        {
+            // 체력이 바뀔 때
+            hpController.ChangeMaxHp(GetMaxHp());
+
+            // 공격력, 방어력 변경도 적용시키기
+            hpController.ChangeDeffensivePower(GetDefensivePower());
+        }
+
+
+        public int GetMaxHp()
+        {
+            return StatController.PlayerStat.GetAddedHp();
+        }
+
+        public int GetDefensivePower()
+        {
+            return StatController.PlayerStat.GetAddedDefensivePower();
+        }
 
 
 
@@ -222,21 +274,22 @@ namespace lsy
 
 
 
-        public void StartInteract(IInteractable interactable, Transform interactObj)
+        public void StartInteract(IInteractable interactable, Transform interactObj, Action endAction)
         {
             if (moveToInteractable != null)
                 StopCoroutine(moveToInteractable);
+
+            if (endAction != null)
+                onEndInteract = () => endAction();
 
             moveToInteractable = StartCoroutine(MoveToInteractable(interactable, interactObj));
         }
 
 
         // 거리체크해서 자동 이동
-        // 이동 입력이 있으면 취소하기
-        // 자동이동 기능이 필요하네..................
         private IEnumerator MoveToInteractable(IInteractable interactable, Transform interactObj)
         {
-            yield return StartCoroutine(AutoMove(interactObj.position, interactable.GetInteractDistance()));
+            yield return StartCoroutine(AutoMove(interactObj, interactable.GetInteractDistance()));
 
             if (!isAutoMoving)
             {
@@ -261,12 +314,13 @@ namespace lsy
         // NPC와 상호작용
         private void StartInteractNpc(InteractNpc interactNpc, Transform interactObj)
         {
-            Vector3 targetPos = interactObj.position + (interactObj.forward * 2) + Vector3.up;
+            Vector3 targetPos = interactObj.position + (interactObj.forward * 2) + (Vector3.up * 1.4f);
             Quaternion targetRot = interactObj.rotation * Quaternion.Euler(0f, 180f, 0f);
 
             CameraController.Instance.LookTarget(targetPos, targetRot);
             dialogueController.onDialougeClosed += CameraController.Instance.RestoreCamera;
             dialogueController.onDialougeClosed += ShowModel;
+            dialogueController.onDialougeClosed += interactNpc.ChangeAnimationToIdle;
 
             if (interactNpc.MyQuest == null)
             {
@@ -372,6 +426,8 @@ namespace lsy
             for (int i = 0; i < dialouges.Count; i++)
             {
                 resultDialogues.Add(StringManager.GetLocalizedQuestDialogue(dialouges[i]));
+
+                interactNpc.DestroyQuestionMark();
             }
 
             dialogueController.SetInitializeInfo(false, interactNpc.NpcName, resultDialogues);
@@ -419,7 +475,7 @@ namespace lsy
 
 
         // 상호작용 동작 (플레이어 애니메이션 + 자리이동 + 오브젝트 바라보기)
-        private IEnumerator InteractingCollection(CollectionData collectinData, Transform target)
+        private IEnumerator InteractingCollection(CollectionData collectionData, Transform target)
         {
             //  이동 & 회전
             float time = 0f;
@@ -427,11 +483,13 @@ namespace lsy
 
             Vector3 direction = (transform.position - target.position).normalized;
             Vector3 startPos = transform.position;
-            Vector3 targetPos = target.position + direction * collectinData.InteractDistance;
+
+            Vector3 targetPos = target.position + direction * collectionData.InteractDistance;
 
             targetPos.y = transform.position.y;
             direction = Quaternion.Euler(0f, 180, 0f) * direction;
             direction.y = 0;
+
 
             while (time < 1)
             {
@@ -494,6 +552,9 @@ namespace lsy
 
             Destroy(gaugeCanvas.gameObject);
             gaugeCanvas = null;
+
+            onEndInteract?.Invoke();
+            onEndInteract = null;
 
             if (endCollectingAnimation != null)
                 StopCoroutine(endCollectingAnimation);

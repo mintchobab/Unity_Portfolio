@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &787497978171236728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1447276257061392393}
+  m_Layer: 0
+  m_Name: Child
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1447276257061392393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787497978171236728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7259560586474445718}
+  - {fileID: 7259560584520202156}
+  m_Father: {fileID: 7259560584696148495}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7259560584520202195
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +60,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7259560586431090877}
-  m_Father: {fileID: 7259560584696148495}
+  m_Father: {fileID: 1447276257061392393}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7259560584696148493
@@ -59,8 +91,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7259560586474445718}
-  - {fileID: 7259560584520202156}
+  - {fileID: 1447276257061392393}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76,13 +107,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cfa85d3e108ce43b626c8d1d9a795e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillData:
+  <SkillData>k__BackingField:
     skillIcon: {fileID: 0}
     skillName: 
     coolTime: 0
     damage: 0
-  animationClip: {fileID: 0}
-  damageApplyTimes: []
+  playerAnimator: {fileID: 0}
+  animationParameterName: 
+  <damageApplyPercents>k__BackingField: []
   distanceToTarget: 0
 --- !u!1 &7259560584764303035
 GameObject:
@@ -29360,6 +29392,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7259560584899803404}
-  m_Father: {fileID: 7259560584696148495}
+  m_Father: {fileID: 1447276257061392393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

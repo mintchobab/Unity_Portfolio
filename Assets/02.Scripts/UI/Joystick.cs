@@ -17,10 +17,8 @@ public class Joystick : MonoBehaviour
     private float smoothSpeed = 10f;
 
 
-    public event Action StickMoveStart;
-    public event Action<Vector2> StickMoving;
-    public event Action StickMoveEnd;
-
+    public event Action<Vector2> onMovingStick;
+    public event Action onMovedStick;
 
     private Coroutine resetStickPosition;
     private Coroutine drag;
@@ -32,20 +30,25 @@ public class Joystick : MonoBehaviour
     private float stickReturnTime = 0.5f;
 
 
-
     public Vector2 StickVector { get; private set; }
     public Vector2 StickVectorByRatio { get => StickVector.normalized * stickDistRatio; }
     public bool IsMoving { get; private set; }
     
 
-
-
-    void Start()
+    private void Start()
     {
         bgRadius = stickBG.rect.width * 0.5f;
         gameObject.SetActive(false);
     }
 
+
+    private void OnDisable()
+    {
+        IsMoving = false;
+        onMovedStick?.Invoke();
+        stickButton.position = stickBG.position;
+        gameObject.SetActive(false);
+    }
 
 
     public void BeginDrag(PointerEventData eventData)
@@ -56,8 +59,6 @@ public class Joystick : MonoBehaviour
             StopCoroutine(drag);
 
         drag = StartCoroutine(Drag(eventData));
-
-        StickMoveStart?.Invoke();
     }
 
 
@@ -66,7 +67,7 @@ public class Joystick : MonoBehaviour
         while (true)
         {
             MoveStick(eventData.position);
-            StickMoving?.Invoke(StickVector);
+            onMovingStick?.Invoke(StickVector);
             yield return null;
         }           
     }
@@ -75,7 +76,7 @@ public class Joystick : MonoBehaviour
     public void EndDrag(PointerEventData eventData)
     {
         IsMoving = false;
-        StickMoveEnd?.Invoke();
+        onMovedStick?.Invoke();
 
         if (resetStickPosition != null)
             StopCoroutine(resetStickPosition);

@@ -3,39 +3,61 @@ using UnityEngine;
 
 namespace lsy
 {
-    [Serializable]
-    public class SkillData
-    {
-        public Sprite skillIcon;
-
-        public string skillName;
-        public float coolTime;
-
-        public int damage;
-    }
-
-
     public class PlayerSkill : MonoBehaviour
     {
-        public float[] damageApplyTimes;
+        [SerializeField]
+        private int skillId;
+
+        
+
+        [SerializeField]
+        private string animationParameterName;
+
+        [field: SerializeField]
+        public float[] damageApplyPercents { get; private set; }
+
+        private Transform child;
 
         public float distanceToTarget;
 
+        public int HashSkill { get; private set; }
 
-        private int hashAttack  = Animator.StringToHash("attack");
-        private int hashSkill01 = Animator.StringToHash("skill01");
-        private int hashSkill02 = Animator.StringToHash("skill02");
-        private int hashSkill03 = Animator.StringToHash("skill03");
+        public bool IsCoolDown { get; set; }
 
-        public SkillData SkillData { get; private set; }
 
-        public void StartSkill()
+        public Skill SkillData { get; private set; }
+        public Sprite SkillIcon { get; private set; }
+
+
+        private void Awake()
         {
-            //animator.Play()
+            if (!animationParameterName.Equals(string.Empty))
+                HashSkill = Animator.StringToHash(animationParameterName);
 
-            // 1. 애니메이션 변경
-            // 2. 데미지 적용??
+            child = transform.GetChild(0);
+
+            SkillData = Managers.Instance.JsonManager.jsonSkill.skills.Find(x => x.id == skillId);
+            SkillIcon = Managers.Instance.ResourceManager.Load<Sprite>($"{ResourcePath.Icon}/Icon_{SkillData._resourceName}");
+
+            Deactivate();
+        }
+
+
+        public string GetSkillName()
+        {
+            return StringManager.GetLocalizedSkillName(SkillData.skillName);
+        }
+
+
+        public void Activate()
+        {
+            child.gameObject.SetActive(true);
+        }
+
+
+        public void Deactivate()
+        {
+            child.gameObject.SetActive(false);
         }
     }
-
 }

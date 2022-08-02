@@ -43,9 +43,9 @@ namespace lsy
             itemName.text = StringManager.GetLocalizedItemName(item.name);
             itemDescription.text = StringManager.GetLocalizedItemExplanation(item.explanation);
 
-            powerText.text = item.power.ToString();
-            hpText.text = item.healthPoint.ToString();
-            mpText.text = item.manaPoint.ToString();
+            powerText.text = item.hp.ToString();
+            hpText.text = item.offensivePower.ToString();
+            mpText.text = item.defensivePower.ToString();
 
             // 장착 / 해제 버튼 구분
             if (isInventory)

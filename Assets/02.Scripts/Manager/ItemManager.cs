@@ -5,7 +5,7 @@ namespace lsy
 
         private JsonItem jsonItem => Managers.Instance.JsonManager.jsonItem;
 
-        public void Initialize()
+        public void Init()
         {
 
         }

@@ -11,7 +11,7 @@ namespace lsy
         private float mouseSensitivity = 0.25f;
 
         private Coroutine rotateCamera;
-        private InputUIController inputUIController => Managers.Instance.UIManager.InputUIController;
+        private MainUIController inputUIController => Managers.Instance.UIManager.MainUIController;
 
 
         public void OnPointerDown(PointerEventData eventData)

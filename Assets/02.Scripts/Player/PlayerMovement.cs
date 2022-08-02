@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
         canMoving = true;
 
-        joystick.StickMoving += OnStickMove;
-        joystick.StickMoveEnd += OnEndStickMove;
+        joystick.onMovingStick += OnStickMove;
+        joystick.onMovedStick += OnEndStickMove;
     }
     
     private void OnStickMove(Vector2 stickVector)

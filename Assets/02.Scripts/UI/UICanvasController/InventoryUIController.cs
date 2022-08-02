@@ -137,7 +137,7 @@ namespace lsy
         // Exit 버튼 클릭
         private void OnClickExitButton()
         {
-            Managers.Instance.UIManager.InputUIController.Show();
+            Managers.Instance.UIManager.MainUIController.Show();
             Hide();
         }
 

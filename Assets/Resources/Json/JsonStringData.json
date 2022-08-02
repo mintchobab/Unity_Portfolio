@@ -15,6 +15,14 @@
     {
       "key": "NPC_Deian",
       "values": [ "데이안", "Deian" ]
+    },
+    {
+      "key": "NPC_Youko",
+      "values": [ "유코", "Youko" ]
+    },
+    {
+      "key": "NPC_Souta",
+      "values": [ "소우타", "Souta" ]
     }
   ],
 
@@ -85,6 +93,40 @@
     {
       "key": "Dialogue_Deian_4",
       "values": [ "데이안의 대사 4", "Deian's Dialogue 4" ]
+    },
+
+    {
+      "key": "Dialogue_Youko_1",
+      "values": [ "유코의 대사 1", "Deian's Dialogue 1" ]
+    },
+    {
+      "key": "Dialogue_Youko_2",
+      "values": [ "유코의 대사 2", "Deian's Dialogue 2" ]
+    },
+    {
+      "key": "Dialogue_Youko_3",
+      "values": [ "유코의 대사 3", "Deian's Dialogue 3" ]
+    },
+    {
+      "key": "Dialogue_Youko_4",
+      "values": [ "유코의 대사 4", "Deian's Dialogue 4" ]
+    },
+
+    {
+      "key": "Dialogue_Souta_1",
+      "values": [ "소우타의 대사 1", "Deian's Dialogue 1" ]
+    },
+    {
+      "key": "Dialogue_Souta_2",
+      "values": [ "소우타의 대사 2", "Deian's Dialogue 2" ]
+    },
+    {
+      "key": "Dialogue_Souta_3",
+      "values": [ "소우타의 대사 3", "Deian's Dialogue 3" ]
+    },
+    {
+      "key": "Dialogue_Souta_4",
+      "values": [ "소우타의 대사 4", "Deian's Dialogue 4" ]
     }
   ],
 
@@ -100,7 +142,7 @@
     },
     {
       "key": "Quest_Name_3",
-      "values": [ "3번 퀘스트입니다.", "This is Quest 3" ]
+      "values": [ "말콤의 심부름", "Malcom's Errand" ]
     },
     {
       "key": "Quest_Name_4",
@@ -120,7 +162,7 @@
     },
     {
       "key": "Quest_Goal_3",
-      "values": [ "3번 퀘스트 목표입니다.", "This is Quest Goal 3" ]
+      "values": [ "늑대 사냥", "This is Quest Goal 3" ]
     },
     {
       "key": "Quest_Goal_4",
@@ -140,7 +182,7 @@
     },
     {
       "key": "Quest_Content_3",
-      "values": [ "3번 퀘스트 설명입니다.", "This is Quest Content 3" ]
+      "values": [ "늑대를 사냥하세요", "This is Quest Content 3" ]
     },
     {
       "key": "Quest_Content_4",
@@ -165,6 +207,7 @@
       "key": "Quest_Dialogue_4",
       "values": [ "던컨에게 가보세요", "This is Quest Dialouge 4" ]
     },
+
     {
       "key": "Quest_Dialogue_5",
       "values": [ "사파이어가 갖고 싶어요", "This is Quest Dialouge 5" ]
@@ -180,6 +223,23 @@
     {
       "key": "Quest_Dialogue_8",
       "values": [ "고맙습니다. 퀘스트 완료", "This is Quest Dialouge 7" ]
+    },
+
+    {
+      "key": "Quest_Dialogue_9",
+      "values": [ "마을에 늑대가 나타났습니다.", "This is Quest Dialouge 9" ]
+    },
+    {
+      "key": "Quest_Dialogue_10",
+      "values": [ "늑대를 사냥해주세요", "This is Quest Dialouge 10" ]
+    },
+    {
+      "key": "Quest_Dialogue_11",
+      "values": [ "고맙습니다. 퀘스트 완료111111", "This is Quest Dialouge 11" ]
+    },
+    {
+      "key": "Quest_Dialogue_12",
+      "values": [ "고맙습니다. 퀘스트 완료222222", "This is Quest Dialouge 12" ]
     }
   ],
 
@@ -248,6 +308,10 @@
     {
       "key": "Item_Name_Mushroom",
       "values": [ "버섯", "Mushroom" ]
+    },
+    {
+      "key": "Item_Name_Feather",
+      "values": [ "깃털", "Feather" ]
     }
   ],
 
@@ -316,6 +380,10 @@
     {
       "key": "Item_Explanation_Mushroom",
       "values": [ "버섯입니다", "This is Mushroom" ]
+    },
+    {
+      "key": "Item_Explanation_Feather",
+      "values": [ "깃털입니다", "This is Feather" ]
     }
   ],
 
@@ -365,27 +433,46 @@
       "values": [ "해제", "UnEquip" ]
     },
     {
-      "key": "Text_Power",
-      "values": [ "힘", "Power" ]
-    },
-    {
-      "key": "Text_HealthPoint",
+      "key": "Text_Hp",
       "values": [ "체력", "Hp" ]
     },
     {
-      "key": "Text_ManaPoint",
-      "values": [ "마나", "Mp" ]
+      "key": "Text_OffensivePower",
+      "values": [ "공격력", "Offensive Power" ]
+    },
+    {
+      "key": "Text_DefensivePower",
+      "values": [ "방어력", "Defensive Power" ]
     }
   ],
 
   "stringSystemMessages": [
     {
       "key": "Text_EquipWeapon",
-      "values": [ "무기를 장착해주세요", "rrrrrrrrrrrr" ]
+      "values": [ "무기를 장착해주세요", "Please put on the sword" ]
     },
     {
       "key": "Text_EquipShield",
-      "values": [ "방패를 장착해주세요", "rrrrrrrrrrrr" ]
+      "values": [ "방패를 장착해주세요", "Please put on the shield" ]
+    }
+  ],
+
+  "stringSkillNames": [
+    {
+      "key": "Skill_Skill0",
+      "values": [ "0번 스킬", "This is SKill 0" ]
+    },
+    {
+      "key": "Skill_Skill1",
+      "values": [ "1번 스킬", "This is SKill 1" ]
+    },
+    {
+      "key": "Skill_Skill2",
+      "values": [ "2번 스킬", "This is SKill 2" ]
+    },
+    {
+      "key": "Skill_Skill3",
+      "values": [ "3번 스킬", "This is SKill 3" ]
     }
   ]
 }

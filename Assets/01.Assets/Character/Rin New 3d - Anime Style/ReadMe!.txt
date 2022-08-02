@@ -22,10 +22,11 @@ You can use these blend shapes to create custom emotions. To use the blend shape
 Go to character heirachy> body > Skinned mesh renderer > click blend shape drop down.
 You will find all the blend shapes listed there.
 
-***For vrchat and any other uses***
-If you want to use this avatar in vrchat or need the source files. Please, contact us with your invoice no.(If paid asset, 
-invoice no. not required if its a free asset) and we will send you a full package that contains vrchat ready package, 
-source files, FBX files etc.
+***For vrchat users/ For Full package***
+This character has a full package which contains VRChat-ready unity package (all setup with full body tracking, 
+gestures & physics), Blender source file, FBX file etc. But we cannot provide this package here on Assetstore. 
+If you need the full package, please contact us with your invoice no. and we will provide you a link to download 
+the package.
 
 ***For ordering custom avatar (commision), contact us through our website with your character details
 

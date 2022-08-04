@@ -2,21 +2,35 @@
 
 테스트 문구
 ## 구현된 기능
+<br>
 
-### 0. 대화 시스템
+### Json 데이터 관리
+<br>
 
-### 1. 다중 언어 지원
+### 대화 시스템
+<br>
 
-### 2. Json 데이터 관리
+### 다중 언어 지원  
+<br>
+<img src="./readmeImages/Language_1.png" width="400">
+<img src="./readmeImages/Language_2.png" width="400">
+<img src="./readmeImages/Language_3.png" width="400">
+<img src="./readmeImages/Language_4.png" width="400">
 
-### 3. Behaviour 트리
 
-### 4. 인벤토리 기능
+### Behaviour 트리
+<br>
 
-### 5. 장비 인벤토리
+### 인벤토리 기능
+<br>
 
-### 6. 퀘스트 시스템
+### 장비 인벤토리
+<br>
 
-### 7. 전투 시스템
+### 퀘스트 시스템
+<br>
 
-### 8.
+### 전투 시스템
+<br>
+
+### 

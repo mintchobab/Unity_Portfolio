@@ -23,8 +23,9 @@
 <br>
 <br>
 
-### 인벤토리 기능
+### 아이템 인벤토리
 <br>
+![인벤토리](./readmeImages/Inventory.gif)
 
 ### 장비 인벤토리
 <br>

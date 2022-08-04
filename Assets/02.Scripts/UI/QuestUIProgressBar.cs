@@ -58,6 +58,8 @@ namespace lsy
             }
 
             questGoalString = StringManager.GetLocalizedQuestGoal(quest.goal);
+
+            ClearBarImages();
             ActivateBarImages(count);
         }
 
@@ -148,8 +150,6 @@ namespace lsy
         // 바 이미지 크기 변경
         private void ActivateBarImages(int imageCount)
         {
-            activatedBarImages.Clear();
-
             // 전체 크기를 알아야함
             float barWidth = rectTransform.rect.width / questManager.CurrentQuest.GoalCount;
             float xPos = 0f;
@@ -165,9 +165,18 @@ namespace lsy
 
 
         // 큐에서 비활성화 하기
-        private void DeactivateBarImages()
+        private void ClearBarImages()
         {
+            if (activatedBarImages.Count != 0)
+            {
+                for (int i = 0; i < activatedBarImages.Count; i++)
+                {
+                    activatedBarImages[i].color = Color.white;
+                    activatedBarImages[i].gameObject.SetActive(false);
+                }
+            }
 
+            activatedBarImages.Clear();
         }
 
     }

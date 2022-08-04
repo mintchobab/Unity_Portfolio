@@ -12,7 +12,7 @@ namespace lsy
                 new Sequence(new List<Node>
                 {
                     new CheckDead(this),
-                    new TaskDead(MonsterController, this)
+                    new TaskDead(this)
                 }),
                 new Sequence(new List<Node>
                 {

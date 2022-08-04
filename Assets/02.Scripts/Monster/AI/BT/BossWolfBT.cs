@@ -28,6 +28,13 @@ namespace lsy
         }
 
 
+        protected override void OnDead()
+        {
+            base.OnDead();
+            SkillIndicator.SetActive(false);
+        }
+
+
         protected override Node SetUpTree()
         {
             Node root = new Selector(new List<Node>
@@ -35,7 +42,7 @@ namespace lsy
                 new Sequence(new List<Node>
                 {
                     new CheckDead(this),
-                    new TaskDead(MonsterController, this)
+                    new TaskDead(this)
                 }),
                 //new Sequence(new List<Node>
                 //{

@@ -39,8 +39,7 @@ namespace lsy
 
         public void Interact()
         {
-            PlayerController.Instance.StartInteract(this, transform, onEndInteract);
-            onInteract?.Invoke();
+            PlayerController.Instance.StartInteract(this, transform, onInteract, onEndInteract);
         }
 
 

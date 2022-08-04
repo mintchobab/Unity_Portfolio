@@ -107,6 +107,7 @@ namespace lsy
                 {
                     Transform target = colls[0].transform;
                     float minDist = Vector3.SqrMagnitude(colls[0].transform.position - transform.position);
+                    int index = 0;
 
                     for (int i = 1; i < colls.Length; i++)
                     {
@@ -116,13 +117,17 @@ namespace lsy
                         {
                             target = colls[i].transform;
                             minDist = dist;
+                            index = i;
                         }
                     }
 
                     targetMonster = target;
                     targetMonster.GetComponent<HpController>().onDead += OnTargetDead;
 
-                    circleController.ShowCircle(targetMonster, Vector3.zero);
+                    Vector3 center = colls[index].bounds.center;
+                    Vector3 addedPosition = center - targetMonster.position;
+
+                    circleController.ShowCircle(targetMonster, addedPosition);
 
                     yield break;
                 }
@@ -170,13 +175,14 @@ namespace lsy
         private IEnumerator StartSkill(PlayerSkill playerSkill, CombatButton combatButton)
         {
             isAutoMoving = true;
-            yield return StartCoroutine(playerController.AutoMove(targetMonster, playerSkill.distanceToTarget));
+            yield return StartCoroutine(playerController.AutoMove(targetMonster, playerSkill.DistanceToTarget));
             isAutoMoving = false;
 
             Action onEnded = null;
 
             playerSkill.Activate();
             anim.SetTrigger(playerSkill.HashSkill);
+            playerController.DisableCanMoving();
 
             // ½ºÅ³
             if (combatButton is SkillButton)
@@ -193,7 +199,6 @@ namespace lsy
             Vector3 dir = (targetMonster.position - transform.position).normalized;
             dir.y = 0f;
             transform.rotation = Quaternion.LookRotation(dir);
-
 
             StartCoroutine(CoolTime(playerSkill));
             StartCoroutine(ProcessingSkill(playerSkill, onEnded));
@@ -248,7 +253,7 @@ namespace lsy
                             damage *= statController.PlayerStat.GetAddedOffensivePower();
 
                             hpController.TakeDamage((int)damage);
-
+                            playerSkill.onExecuteSkill?.Invoke(targetMonster);
 
                             Time.timeScale = 0.1f;
                             yield return new WaitForSecondsRealtime(0.12f);
@@ -270,6 +275,7 @@ namespace lsy
 
             IsProcessingSkill = false;
             playerSkill.Deactivate();
+            playerController.EnableCanMoving();
         }
     }
 }

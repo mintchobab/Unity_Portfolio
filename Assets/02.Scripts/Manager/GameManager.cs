@@ -22,10 +22,10 @@ namespace lsy
             Managers.Instance.SoundManager.Play("BGM04town3", SoundType.BGM);
 
 
-            //Managers.Instance.QuestManager.SetQuestToNPC(2000);
-            Managers.Instance.QuestManager.SetQuestToNPC(2002);
+            Managers.Instance.QuestManager.SetQuestToNPC(2000);
+            //Managers.Instance.QuestManager.SetQuestToNPC(2002);
 
-            Managers.Instance.InventoryManager.AddCountableItem(204, 5);
+            //Managers.Instance.InventoryManager.AddCountableItem(204, 5);
 
             Managers.Instance.EquipInventoryManager.AddEquipItem(0);
             Managers.Instance.EquipInventoryManager.AddEquipItem(1);
@@ -44,22 +44,22 @@ namespace lsy
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                for (int i = 0; i < testWolfs.Length; i++)
-                {
-                    testWolfs[i].gameObject.SetActive(true);
-                }
-
-
-                //if (!isCombating)
+                //for (int i = 0; i < testWolfs.Length; i++)
                 //{
-                //    isCombating = true;
-                //    Managers.Instance.CombatManager.StartCombat();
+                //    testWolfs[i].gameObject.SetActive(true);
                 //}
-                //else
-                //{
-                //    isCombating = false;
-                //    Managers.Instance.CombatManager.EndCombat();
-                //}               
+
+
+                if (!isCombating)
+                {
+                    isCombating = true;
+                    Managers.Instance.CombatManager.StartCombat();
+                }
+                else
+                {
+                    isCombating = false;
+                    Managers.Instance.CombatManager.EndCombat();
+                }
             }
         }
 

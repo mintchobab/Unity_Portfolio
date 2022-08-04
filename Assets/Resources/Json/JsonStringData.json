@@ -29,104 +29,40 @@
   "stringNpcDialogues": [
     {
       "key": "Dialogue_Rona_1",
-      "values": [ "로나의 대사 1", "Rona's Dialogue 1" ]
-    },
-    {
-      "key": "Dialogue_Rona_2",
-      "values": [ "로나의 대사 2", "Rona's Dialogue 2" ]
-    },
-    {
-      "key": "Dialogue_Rona_3",
-      "values": [ "로나의 대사 3", "Rona's Dialogue 3" ]
-    },
-    {
-      "key": "Dialogue_Rona_4",
-      "values": [ "로나의 대사 4", "Rona's Dialogue 4" ]
+      "values": [ "다리 건너편에는 늑대가 나옵니다", "On the other side of the bridge, there's a wolf" ]
     },
 
     {
       "key": "Dialogue_Dunkun_1",
-      "values": [ "던컨의 대사 1", "Dunkun's Dialogue 1" ]
-    },
-    {
-      "key": "Dialogue_Dunkun_2",
-      "values": [ "던컨의 대사 2", "Dunkun's Dialogue 2" ]
-    },
-    {
-      "key": "Dialogue_Dunkun_3",
-      "values": [ "던컨의 대사 3", "Dunkun's Dialogue 3" ]
-    },
-    {
-      "key": "Dialogue_Dunkun_4",
-      "values": [ "던컨의 대사 4", "Dunkun's Dialogue 4" ]
+      "values": [ "닭들에게서는 깃털을 채집할 수 있어요", "You can collect feathers from chickens" ]
     },
 
     {
       "key": "Dialogue_Malcom_1",
-      "values": [ "말콤의 대사 1", "Dunkun's Dialogue 1" ]
-    },
-    {
-      "key": "Dialogue_Malcom_2",
-      "values": [ "말콤의 대사 2", "Dunkun's Dialogue 2" ]
-    },
-    {
-      "key": "Dialogue_Malcom_3",
-      "values": [ "말콤의 대사 3", "Dunkun's Dialogue 3" ]
-    },
-    {
-      "key": "Dialogue_Malcom_4",
-      "values": [ "말콤의 대사 4", "Dunkun's Dialogue 4" ]
+      "values": [ "강에서는 낚시를 할 수 있습니다", "You can fish in the river" ]
     },
 
     {
       "key": "Dialogue_Deian_1",
-      "values": [ "데이안의 대사 1", "Deian's Dialogue 1" ]
-    },
-    {
-      "key": "Dialogue_Deian_2",
-      "values": [ "데이안의 대사 2", "Deian's Dialogue 2" ]
-    },
-    {
-      "key": "Dialogue_Deian_3",
-      "values": [ "데이안의 대사 3", "Deian's Dialogue 3" ]
-    },
-    {
-      "key": "Dialogue_Deian_4",
-      "values": [ "데이안의 대사 4", "Deian's Dialogue 4" ]
-    },
+      "values": [ "섬 밖을 나갈 수는 없습니다", "You can't leave the island" ]
+    },    
 
     {
       "key": "Dialogue_Youko_1",
-      "values": [ "유코의 대사 1", "Deian's Dialogue 1" ]
+      "values": [ "뒤쪽에 있는 언덕을 올라갈 수 있습니다", "You can go up the hill in the back" ]
     },
     {
       "key": "Dialogue_Youko_2",
-      "values": [ "유코의 대사 2", "Deian's Dialogue 2" ]
-    },
-    {
-      "key": "Dialogue_Youko_3",
-      "values": [ "유코의 대사 3", "Deian's Dialogue 3" ]
-    },
-    {
-      "key": "Dialogue_Youko_4",
-      "values": [ "유코의 대사 4", "Deian's Dialogue 4" ]
+      "values": [ "언덕 위에는 루비와 사파이어 광석이 있습니다", "There are rubies and sapphire ore on the hill" ]
     },
 
     {
       "key": "Dialogue_Souta_1",
-      "values": [ "소우타의 대사 1", "Deian's Dialogue 1" ]
+      "values": [ "환영합니다!!", "Welcom!!" ]
     },
     {
       "key": "Dialogue_Souta_2",
-      "values": [ "소우타의 대사 2", "Deian's Dialogue 2" ]
-    },
-    {
-      "key": "Dialogue_Souta_3",
-      "values": [ "소우타의 대사 3", "Deian's Dialogue 3" ]
-    },
-    {
-      "key": "Dialogue_Souta_4",
-      "values": [ "소우타의 대사 4", "Deian's Dialogue 4" ]
+      "values": [ "마을 사람들의 심부름을 들어주세요", "Please listen to the villagers" ]
     }
   ],
 
@@ -143,10 +79,6 @@
     {
       "key": "Quest_Name_3",
       "values": [ "말콤의 심부름", "Malcom's Errand" ]
-    },
-    {
-      "key": "Quest_Name_4",
-      "values": [ "4번 퀘스트입니다.", "This is Quest 4" ]
     }
   ],
 
@@ -158,15 +90,11 @@
     },
     {
       "key": "Quest_Goal_2",
-      "values": [ "사파이어 모으기", "Collect Sapphire" ]
+      "values": [ "깃털 모으기", "Collect Feather" ]
     },
     {
       "key": "Quest_Goal_3",
-      "values": [ "늑대 사냥", "This is Quest Goal 3" ]
-    },
-    {
-      "key": "Quest_Goal_4",
-      "values": [ "4번 퀘스트 목표입니다.", "This is Quest Goal 4" ]
+      "values": [ "늑대 사냥", "Wolf Hunting" ]
     }
   ],
 
@@ -174,72 +102,64 @@
   "stringQuestContents": [
     {
       "key": "Quest_Content_1",
-      "values": [ "광석을 캐서 루비를 모아오세요", "This is Quest Content 1" ]
+      "values": [ "광석을 캐서 루비를 모아요", "Dig up the ore and collect the rubies" ]
     },
     {
       "key": "Quest_Content_2",
-      "values": [ "광석을 캐서 사파이어를 모아오세요", "This is Quest Content 2" ]
+      "values": [ "깃털을 모아오세요", "Collect the feathers" ]
     },
     {
       "key": "Quest_Content_3",
-      "values": [ "늑대를 사냥하세요", "This is Quest Content 3" ]
-    },
-    {
-      "key": "Quest_Content_4",
-      "values": [ "4번 퀘스트 설명입니다.", "This is Quest Content 4" ]
+      "values": [ "늑대를 사냥하세요", "Hunt the wolf" ]
     }
   ],
 
   "stringQuestDialogues": [
     {
       "key": "Quest_Dialogue_1",
-      "values": [ "루비가 갖고 싶어요", "This is Quest Dialouge 1" ]
+      "values": [ "루비가 갖고 싶어요", "I want Ruby" ]
     },
     {
       "key": "Quest_Dialogue_2",
-      "values": [ "광석을 캐서 루비를 모아주세요", "This is Quest Dialouge 2" ]
+      "values": [ "광석을 캐서 루비를 모아주세요", "Dig up the ore and collect the rubies" ]
     },
     {
       "key": "Quest_Dialogue_3",
-      "values": [ "고마워요", "This is Quest Dialouge 3" ]
+      "values": [ "고마워요", "Thank you" ]
     },
     {
       "key": "Quest_Dialogue_4",
-      "values": [ "던컨에게 가보세요", "This is Quest Dialouge 4" ]
+      "values": [ "던컨에게 가보세요", "Go to Duncan" ]
     },
 
     {
       "key": "Quest_Dialogue_5",
-      "values": [ "사파이어가 갖고 싶어요", "This is Quest Dialouge 5" ]
+      "values": [ "깃털이 필요해요", "I need a feather" ]
     },
     {
       "key": "Quest_Dialogue_6",
-      "values": [ "광석을 캐서 사파이어를 모아주세요", "This is Quest Dialouge 6" ]
+      "values": [ "닭들에게서 깃털을 모아주세요", "Gather feathers from the chickens" ]
     },
     {
       "key": "Quest_Dialogue_7",
-      "values": [ "고마워요", "This is Quest Dialouge 7" ]
+      "values": [ "고마워요", "Thank you" ]
     },
     {
       "key": "Quest_Dialogue_8",
-      "values": [ "고맙습니다. 퀘스트 완료", "This is Quest Dialouge 7" ]
+      "values": [ "말콤에게 가보세요", "Go to Malcolm" ]
     },
 
     {
       "key": "Quest_Dialogue_9",
-      "values": [ "마을에 늑대가 나타났습니다.", "This is Quest Dialouge 9" ]
+      "values": [ "늑대가 나타났습니다", "A wolf has appeared" ]
     },
     {
       "key": "Quest_Dialogue_10",
-      "values": [ "늑대를 사냥해주세요", "This is Quest Dialouge 10" ]
+      "values": [ "늑대를 사냥해주세요", "Please hunt wolves" ]
     },
     {
       "key": "Quest_Dialogue_11",
-      "values": [ "고맙습니다. 퀘스트 완료111111", "This is Quest Dialouge 11" ]
-    },
-    {
-      "key": "Quest_Dialogue_12",
-      "values": [ "고맙습니다. 퀘스트 완료222222", "This is Quest Dialouge 12" ]
+      "values": [ "고맙습니다. 퀘스트 종료", "Thank you, Ending the quest" ]
     }
   ],
 
@@ -395,6 +315,14 @@
     {
       "key": "Text_Close",
       "values": [ "닫기", "Close" ]
+    },
+    {
+      "key": "Text_Success",
+      "values": [ "성공", "Success" ]
+    },
+    {
+      "key": "Text_Fail",
+      "values": [ "실패", "Fail" ]
     },
     {
       "key": "Text_Quest",

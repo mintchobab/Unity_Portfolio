@@ -8,16 +8,14 @@ namespace lsy
 {
     public class TaskDead : Node
     {
-        private MonsterController monsterController;
         private AttackMonsterBT monster;
 
         private bool isDead;
         private float elapsedTime;
 
 
-        public TaskDead(MonsterController monsterController, AttackMonsterBT monster)
+        public TaskDead(AttackMonsterBT monster)
         {
-            this.monsterController = monsterController;
             this.monster = monster;
         }
 

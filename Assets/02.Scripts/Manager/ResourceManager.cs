@@ -16,6 +16,22 @@ public class ResourceManager : IManager
         return (T)resourceCache[path];
     }
 
+    public T[] LoadAll<T>(string path) where T : Object
+    {
+        T[] objs = Resources.LoadAll<T>(path);
+
+        for (int i = 0; i < objs.Length; i++)
+        {
+            string filePath = $"{path}/{objs[i].name}";
+            if (!resourceCache.ContainsKey(filePath))
+            {
+                resourceCache[filePath] = objs[i];
+            }
+        }
+
+        return objs;
+    }
+
 
     public T Instantiate<T>(string path, Transform parent = null) where T : Object
     {

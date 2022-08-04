@@ -8,27 +8,21 @@ namespace lsy
     {
         private Dictionary<string, Pool> poolDic = new Dictionary<string, Pool>();
 
-        private readonly string poolPath = "Assets/Resources/Load/Prefab/Pool";
-        private readonly int prefabCount = 10;
-
         private Transform root;
 
+        private readonly int prefabCount = 10;
 
 
         public void Init()
         {
             root = new GameObject("Pool").transform;
 
-            // 프로젝트뷰에서 풀링 오브젝트 다 생성하기    
-            string[] guids = AssetDatabase.FindAssets("t:Prefab", new string[] { poolPath });
+            GameObject[] poolObjs = Managers.Instance.ResourceManager.LoadAll<GameObject>(ResourcePath.PoolPath);
 
-            for (int i = 0; i < guids.Length; i++)
+            for (int i = 0; i < poolObjs.Length; i++)
             {
-                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-                CreatePool(root, prefab, prefabCount);
-            }
+                CreatePool(root, poolObjs[i], prefabCount);
+            }            
         }
 
 

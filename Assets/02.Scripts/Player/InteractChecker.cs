@@ -12,9 +12,7 @@ namespace lsy
 
         private List<IInteractable> interactList = new List<IInteractable>();
 
-        private MonsterChecker monsterChecker;
-        private Collider coll;
-        
+        private Collider coll;        
         private Coroutine findNearestInteractable;
 
         private bool isRunningFindInteractable;

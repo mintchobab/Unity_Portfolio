@@ -6,12 +6,18 @@
         "processId": 0,
         "exited": false
     },
-    "m_SelectedPriority": 0,
+    "m_SelectedPriority": 3,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "LMV500N0db95d5b",
             "name": "com.pallo.passiontimerscoped",
             "processId": 12751,
+            "exited": true
+        },
+        {
+            "deviceId": "LMV500N0db95d5b",
+            "name": "com.DefaultCompany.Portfolio",
+            "processId": 22269,
             "exited": false
         }
     ],
@@ -23,7 +29,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -39,7 +45,7 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
+                "m_Selected": true
             },
             {
                 "m_Name": "CRASH",

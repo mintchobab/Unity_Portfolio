@@ -41,8 +41,8 @@ namespace lsy
         private bool isPanelMoving;
 
 
-        private readonly Vector2 openPosition = new Vector2(1300f, 0f);
-        private readonly Vector2 closePosition = new Vector2(1920f, 0f);
+        private readonly Vector2 openPosition = new Vector2(-600f, 0f);
+        private readonly Vector2 closePosition = new Vector2(0f, 0f);
         private readonly float panelMoveTime = 0.35f;
 
 

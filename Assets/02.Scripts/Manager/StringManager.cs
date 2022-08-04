@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+
 namespace lsy 
 {
     public class StringManager : IManager
@@ -13,6 +14,9 @@ namespace lsy
         public void Init()
         {
             jsonString = Managers.Instance.JsonManager.jsonString;
+
+            string language = UnityEngine.PlayerPrefs.GetString("Language");
+            localizeIndex = language.Equals("Korean") ? 0 : 1;
         }
 
 

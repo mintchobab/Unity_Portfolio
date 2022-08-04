@@ -47,6 +47,7 @@ namespace lsy
         public static readonly string Equip = "Load/Prefab/Equip";
 
         // Pool
+        public static readonly string PoolPath = "Load/Prefab/Pool";
         public static readonly string DamageText = "Load/Prefab/Pool/DamageText";
 
         // Sound

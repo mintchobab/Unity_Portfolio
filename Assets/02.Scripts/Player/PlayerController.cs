@@ -22,6 +22,7 @@ namespace lsy
         private InteractChecker interactChecker;
         private HpController hpController;
 
+        private Action onStartInteract;
         private Action onEndInteract;
 
         private RaycastHit slopeHit;
@@ -123,6 +124,17 @@ namespace lsy
             }
 
             return false;
+        }
+
+
+        public void EnableCanMoving()
+        {
+            canMoving = true;
+        }
+
+        public void DisableCanMoving()
+        {
+            canMoving = false;
         }
 
 
@@ -274,10 +286,13 @@ namespace lsy
 
 
 
-        public void StartInteract(IInteractable interactable, Transform interactObj, Action endAction)
+        public void StartInteract(IInteractable interactable, Transform interactObj, Action startAction, Action endAction)
         {
             if (moveToInteractable != null)
                 StopCoroutine(moveToInteractable);
+
+            if (startAction != null)
+                onStartInteract = () => startAction();
 
             if (endAction != null)
                 onEndInteract = () => endAction();
@@ -297,6 +312,7 @@ namespace lsy
             }
 
             isAutoMoving = false;
+            onStartInteract?.Invoke();
 
             // »Æ¿Œ
             if (interactable is InteractCollection)
@@ -320,7 +336,7 @@ namespace lsy
             CameraController.Instance.LookTarget(targetPos, targetRot);
             dialogueController.onDialougeClosed += CameraController.Instance.RestoreCamera;
             dialogueController.onDialougeClosed += ShowModel;
-            dialogueController.onDialougeClosed += interactNpc.ChangeAnimationToIdle;
+            dialogueController.onDialougeClosed += interactNpc.OnDialougeClosed;
 
             if (interactNpc.MyQuest == null)
             {
@@ -445,7 +461,7 @@ namespace lsy
         private void StartInteractCollection(InteractCollection interactCollection, Transform interactObj)
         {
             isCompleted = false;
-            canMoving = false;
+            DisableCanMoving();
 
             anim.SetTrigger(interactCollection.MyCollectionData.AnimationHash);
             EquipController.MakeTool(interactCollection.CollectionType);
@@ -530,7 +546,7 @@ namespace lsy
             if (interactingCollection != null)
                 StopCoroutine(interactingCollection);
 
-            canMoving = true;
+            EnableCanMoving();
 
             anim.SetTrigger(hashEndInteract);
 
@@ -573,7 +589,7 @@ namespace lsy
             interactChecker.RestartFindInteractable();
 
             anim.SetTrigger(hashEndInteract);
-            canMoving = true;
+            EnableCanMoving();
         }
 
         #endregion

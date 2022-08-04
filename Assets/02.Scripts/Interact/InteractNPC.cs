@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace lsy
 {
@@ -12,6 +13,7 @@ namespace lsy
         private GameObject exclamationMark;
         private GameObject questionMark;
         private Animator anim;
+        private WorldUIName worldUIName;
 
         private int hashIdle = Animator.StringToHash("idle");
         private int hashTalk = Animator.StringToHash("talk");
@@ -23,6 +25,7 @@ namespace lsy
 
         protected void Awake()
         {
+            worldUIName = GetComponent<WorldUIName>();
             anim = GetComponentInChildren<Animator>();
 
             SetNPCData();
@@ -33,8 +36,21 @@ namespace lsy
         // 플레이어와 상호작용을 시작했을 때 처리
         public void Interact()
         {
-            PlayerController.Instance.StartInteract(this, transform, null);
-            anim.SetTrigger(hashTalk);
+            Action action = () =>
+            {
+                anim.SetTrigger(hashTalk);
+                worldUIName.Hide();
+            };
+
+            PlayerController.Instance.StartInteract(this, transform, action, null);
+        }
+
+
+        // 상호작용 끝났을 때 실행되는 이벤트
+        public void OnDialougeClosed()
+        {
+            anim.SetTrigger(hashIdle);
+            worldUIName.Show();
         }
 
 
@@ -92,18 +108,11 @@ namespace lsy
         }
 
 
-        // Idle 애니메이션으로 변경
-        public void ChangeAnimationToIdle()
-        {
-            anim.SetTrigger(hashIdle);
-        }
-
-
         // 느낌표 생성
         private void CreateExclamationMark()
         {
             exclamationMark = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.ExclamationMark, transform);
-            exclamationMark.transform.localPosition = new Vector3(0f, 2.1f, 0f);
+            exclamationMark.transform.localPosition = new Vector3(0f, 2.65f, 0f);
         }
 
 

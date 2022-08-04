@@ -6,30 +6,29 @@ namespace lsy
     public class PlayerSkill : MonoBehaviour
     {
         [SerializeField]
-        private int skillId;
-
-        
+        protected int skillId;        
 
         [SerializeField]
-        private string animationParameterName;
+        protected string animationParameterName;
 
         [field: SerializeField]
         public float[] damageApplyPercents { get; private set; }
 
-        private Transform child;
+        [field: SerializeField]
+        public float DistanceToTarget { get; private set; }
 
-        public float distanceToTarget;
 
-        public int HashSkill { get; private set; }
+        protected Transform child;
+        public Action<Transform> onExecuteSkill;
+
 
         public bool IsCoolDown { get; set; }
-
-
+        public int HashSkill { get; private set; }
         public Skill SkillData { get; private set; }
         public Sprite SkillIcon { get; private set; }
 
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (!animationParameterName.Equals(string.Empty))
                 HashSkill = Animator.StringToHash(animationParameterName);

@@ -18,7 +18,6 @@ namespace lsy
         [field: SerializeField]
         public float AttackDelay { get; private set; }
 
-        public MonsterController MonsterController { get; private set; }
         public HpController HpController { get; private set; }
 
         public bool IsAttacking { get; set; }
@@ -52,7 +51,6 @@ namespace lsy
         {
             base.Awake();
 
-            MonsterController = GetComponent<MonsterController>();
             HpController = GetComponent<HpController>();
 
             PlayerLayer = LayerMask.NameToLayer("Player");
@@ -95,10 +93,17 @@ namespace lsy
         }
 
 
-        private void OnDead()
+        protected virtual void OnDead()
         {
             Managers.Instance.QuestManager.KilledMonster(monsterId);
             GetComponent<Collider>().enabled = false;
+
+            Invoke("DestroySelf", 3f);
+        }
+
+        protected void DestroySelf()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

@@ -17,7 +17,10 @@
 
 <br>
 
-### Behaviour 트리
+### Behaviour 트리를 이용한 AI 구현
+<br>
+<img src="./readmeImages/BehaviourTree.png">
+<br>
 <br>
 
 ### 인벤토리 기능
@@ -25,6 +28,11 @@
 
 ### 장비 인벤토리
 <br>
+
+#### 아이템 장착
+![Test](./readmeImages/TestGif.gif)
+
+#### 아이템 정렬
 
 ### 퀘스트 시스템
 <br>

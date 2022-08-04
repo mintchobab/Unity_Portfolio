@@ -12,11 +12,8 @@
 
 ### 다중 언어 지원  
 <br>
-<img align="left" src="./readmeImages/Language_1.png" width="400">
-<img align="right"src="./readmeImages/Language_2.png" width="400">
-<br>
-<img align="left"src="./readmeImages/Language_3.png" width="400">
-<img align="right"src="./readmeImages/Language_4.png" width="400">
+<p align="center"> <img src="./readmeImages/Language_1.png" width="400"> <img src="./readmeImages/Language_2.png" width="400"> </p>
+<p align="center"> <img src="./readmeImages/Language_3.png" width="400"> <img src="./readmeImages/Language_4.png" width="400"> </p>
 
 <br>
 

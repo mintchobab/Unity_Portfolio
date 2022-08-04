@@ -29,10 +29,13 @@
 ### 장비 인벤토리
 <br>
 
-#### 아이템 장착
-![Test](./readmeImages/TestGif.gif)
+#### 장비 장착 / 해제
+![장비 장착 / 해제](./readmeImages/EquipUnEquip.gif)
+
+<br>
 
 #### 아이템 정렬
+![장비 정렬](./readmeImages/Sort.gif)
 
 ### 퀘스트 시스템
 <br>

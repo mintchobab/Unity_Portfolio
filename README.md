@@ -44,9 +44,16 @@
 <br>
 
 ### 수집 시스템
-![광석 채굴](./readmeImages/Mining.gif "광석 채굴")
-![낚시](./readmeImages/Fisihing.gif "낚시")
-![채집](./readmeImages/Searching.gif "채집")
+![광석 채굴](./readmeImages/Mining.gif)
+<p align="center">광석 채굴</p>
+<br>
+
+![낚시](./readmeImages/Fisihing.gif)
+<p align="center">낚시</p>
+<br>
+
+![채집](./readmeImages/Searching.gif)
+<p align="center">채집</p>
 
 <br>
 <br>

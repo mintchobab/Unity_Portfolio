@@ -15,7 +15,7 @@
 <p align="center"> <img src="./readmeImages/Language_3.png" width="400"> <img src="./readmeImages/Language_4.png" width="400"> </p>
 
 <br>
-<p align="center> <img src="./readmeImages/Language_5.jpg"> </p>
+<p align="center"><img src="./readmeImages/Language_5.jpg"></p>
 언어별 데이터만 추가한다면 한국어, 영어 이외의 다른 언어도 바로 적용할 수 있음
 
 <br>

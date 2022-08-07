@@ -1,4 +1,9 @@
 ## 다중 언어 지원  
+
+<p align="center"><img src="language_select.png"></p>
+시작 화면에서 언어 선택 가능
+<br>
+
 <br>
 <p align="center"> <img src="language_1.png" width="400"> <img src="language_2.png" width="400"> </p>
 <p align="center"> <img src="language_3.png" width="400"> <img src="language_4.png" width="400"> </p>
@@ -12,7 +17,5 @@
 <br>
 
 
-![언어선택](../readmeImages/Language_6.png)
-<br>
-시작 화면에서 언어 선택 가능
+
 

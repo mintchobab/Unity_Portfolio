@@ -5,7 +5,7 @@
 
 <br>
 
-<p align="center"><img src="./readmeImages/Language_5.jpg"></p>
+<p align="center"><img src="../readmeImages/Language_5.jpg"></p>
 언어별 데이터만 추가한다면 한국어, 영어 이외의 언어도 적용 가능
 
 <br>

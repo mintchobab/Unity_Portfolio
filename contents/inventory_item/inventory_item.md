@@ -1,4 +1,12 @@
-## 아이템 인벤토리
+# 아이템 인벤토리
+
+- [아이템 획득](#아이템-획득) <!-- omit in toc -->
+- [아이템 사용](#아이템-사용)
+- [인벤토리 확장](#인벤토리-확장)
+
+<br>
+
+## 아이템 획득
 
 <br>
 
@@ -20,13 +28,8 @@
 <br>
 <br>
 
-'+' 버튼을 누르면 최대 50칸까지 인벤토리를 확장할 수 있다.
+## 아이템 사용
 
-![확장](./inventory_item_expand.gif)
-
-<br>
-<br>
-<br>
 <br>
 
 아이템을 클릭하면 팝업창이 활성화 되고 해당 아이템에 대한 정보가 출력된다.
@@ -42,3 +45,15 @@
 
 <p align="left"> <img src="inventory_item_available.png" width="400"> <img src="inventory_item_unavailable.png" width="400"> </p>
 
+<br>
+<br>
+<br>
+<br>
+
+## 인벤토리 확장
+
+<br>
+
+'+' 버튼을 누르면 최대 50칸까지 인벤토리를 확장할 수 있다.
+
+![확장](./inventory_item_expand.gif)

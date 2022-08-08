@@ -1,15 +1,63 @@
+# 채집
 
-## 채집 기능
-![광석 채굴](collect_mining.gif)
-<p align="center">광석 채굴</p>
+- [채집 방법](#채집-시작) <!-- omit in toc -->
+- [채집 진행](#채집-진행)
+- [채집 종류](#채집-종류)
+
 <br>
+
+## 채집 시작
+
+채집물 근처로 이동하면 버튼의 이미지가 변경된다.
+<br>
+버튼을 클릭하면 자동으로 채집물 근처로 이동하고 일정거리만큼 가까워지면 채집이 시작된다.
+
+![채집 시작](./collect_start.gif)
+
+<br>
+<br>
+<br>
+<br>
+
+## 채집 진행
+
+<br>
+
+채집이 시작되면 게이지가 나타난다. 게이지가 가득 차면 채집이 종료되고 해당 아이템을 획득한다.
+
+![채집 과정](./collect_process.gif)
+
+<br>
+<br>
+
+노란색 게이지는 현재 진행도를 나타내고 일정 확률에 따라 한칸씩 채워진다.
+<br>
+흰색 게이지는 시간을 나타내고 흰색 게이지가 전부 줄어들 때까지 노란색 게이지가 채워지지 못하면 실패하게 된다.
+
+![채집 게이지](./collect_gauge.png)
+
+
+<br>
+<br>
+<br>
+<br>
+
+## 채집 종류
+
+<br>
+
+채광
+
+![채광](collect_mining.gif)
+
+<br>
+
+낚시
 
 ![낚시](collect_fisihing.gif)
-<p align="center">낚시</p>
-<br>
-
-![채집](collect_searching.gif)
-<p align="center">채집</p>
 
 <br>
-<br>
+
+수색
+
+![수색](collect_searching.gif)

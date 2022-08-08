@@ -4,12 +4,9 @@
 
 <br>
 
-<p align="left"><img src="./resolution_16_1.png" width="500"><img src="./resolution_18_1.png" width="500"></p>
-
-<br>
-
-<p align="left"><img src="./resolution_16_2.png" width="500"><img src="./resolution_18_2.png" width="500"></p>
-
-<br>
-
-<p align="left"><img src="./resolution_16_3.png" width="500"><img src="./resolution_18_3.png" width="500"></p>
+![16:9](./resolution_16_1.png)
+![18.5:9](./resolution_18_1.png)
+![16:9](./resolution_16_2.png)
+![18.5:9](./resolution_18_2.png)
+![16:9](./resolution_16_3.png)
+![18.5:9](./resolution_18_3.png)

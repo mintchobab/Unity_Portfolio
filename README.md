@@ -12,6 +12,7 @@
 - [채집](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/collect/collect.md)
 - [퀘스트](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/quest/quest.md)
 - [전투](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/combat/combat.md)
+- [해상도 대응](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/resolution/resolution.md)
 
 <br>
 <br>

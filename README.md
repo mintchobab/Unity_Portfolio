@@ -18,11 +18,8 @@
 <br>
 
 ## 참고~~~~
-영상 링크(기능) : https://www.youtube.com/watch?v=abKHZa3Ivpo
-
+영상 링크(기능) : https://youtu.be/abKHZa3Ivpo
 <br>
-
 영상 링크(플레이 영상) : https://youtu.be/OaDpxv8fKhE
-
 <br>
 기술서 링크 :

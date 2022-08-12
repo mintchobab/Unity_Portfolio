@@ -1,5 +1,8 @@
 # Unity_Portfolio
 
+Unity로 제작한 포트폴리오입니다.
+<br>
+PC와 모바일에서 ~~~~
 
 <br>
 <br>
@@ -17,9 +20,9 @@
 <br>
 <br>
 
-## 참고~~~~
-영상 링크(기능) : https://youtu.be/abKHZa3Ivpo
+## 링크
+영상 (기능) : https://youtu.be/abKHZa3Ivpo
 <br>
-영상 링크(플레이 영상) : https://youtu.be/OaDpxv8fKhE
+영상 (플레이 영상) : https://youtu.be/OaDpxv8fKhE
 <br>
-기술서 링크 :
+기술서 :

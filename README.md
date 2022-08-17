@@ -27,12 +27,7 @@ PC와 모바일에서 동일하게 작동됩니다.
 <br>
 영상 (플레이 영상) : https://youtu.be/OaDpxv8fKhE
 <br>
-기술서 : https://drive.google.com/file/d/1pRrKZaiOfwopgGTysh6L-qMg3SjHv016/view?usp=sharing
-<br>
-<br>
-Build:
-<br>
-APK: 
+샘플 코드 : https://drive.google.com/file/d/1pRrKZaiOfwopgGTysh6L-qMg3SjHv016/view?usp=sharing
 
 <br>
 <br>

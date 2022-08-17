@@ -18,29 +18,31 @@ PC와 모바일에서 ~~~~
 <br>
 
 ## 구현된 기능
-- [다중언어 지원](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/language/language.md)
+<!-- - [다중언어 지원](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/language/language.md)
 - [대화](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/talk/talk.md)
 - [아이템 인벤토리](https://github.com/mintchobab/Unity_Portfolio/tree/main/contents/inventory_item/inventory_item.md)
 - [장비 인벤토리](https://github.com/mintchobab/Unity_Portfolio/tree/main/contents/inventory_equip/inventory_equip.md)
 - [채집](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/collect/collect.md)
 - [퀘스트](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/quest/quest.md)
 - [전투](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/combat/combat.md)
-- [해상도 대응](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/resolution/resolution.md)
+- [해상도 대응](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/resolution/resolution.md) -->
 
-- [Unity_Portfolio](#unity_portfolio)
-  - [링크](#링크)
-  - [구현된 기능](#구현된-기능)
-    - [다중 언어 지원](#다중-언어-지원)
-      - [json](#json)
-      - [언어 선택](#언어-선택)
+
+- [구현된 기능](#구현된-기능) <!-- omit in toc -->
+  - [다중 언어 지원](#다중-언어-지원)
+    - [json](#json)
+    - [언어 선택](#언어-선택)
+- 
 
 
 <br>
+<br>
+
 <hr>
 
-### 다중 언어 지원
+## 다중 언어 지원
 
-#### json
+### json
 
 <br>
 
@@ -50,7 +52,7 @@ json 파일에 저장된 데이터에 따라 게임내 텍스트들의 언어를
 
 ![json](./images/language_json.jpg)
 
-#### 언어 선택
+### 언어 선택
 
 <br>
 

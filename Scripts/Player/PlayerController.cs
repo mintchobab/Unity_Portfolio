@@ -42,6 +42,10 @@ namespace lsy
 
         private readonly float npcForwardDistance = 2f;
         private readonly float npcUpDistance = 1.4f;
+        private readonly float interactSuccessChance = 0.8f;
+        private readonly float interactProcessTime = 5f;
+        private readonly float interactLimitTime = 8f;
+
         private float rotSpeed = 10f;
 
         public PlayerEquipController EquipController { get; private set; }
@@ -444,7 +448,7 @@ namespace lsy
             gaugeCanvas.transform.position = interactObj.position + interactCollection.MyCollectionData.gaugePosition;
             gaugeCanvas.Successed += () => CollectingSuccessed(interactCollection, interactObj.position);
             gaugeCanvas.Failed += CollectingFailed;
-            gaugeCanvas.StartProcess(0.8f, 5f, 8f);
+            gaugeCanvas.StartProcess(interactSuccessChance, interactProcessTime, interactLimitTime);
 
             inputUIController.SetStopInteractButton(StopCollecting);
 

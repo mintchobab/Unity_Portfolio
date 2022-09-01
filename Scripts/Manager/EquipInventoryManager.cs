@@ -112,7 +112,6 @@ namespace lsy
         }
 
 
-
         public void Equip(int index)
         {
             EquipItem item = ItemList[index].item;

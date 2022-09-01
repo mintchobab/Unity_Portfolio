@@ -98,7 +98,7 @@ namespace lsy
 
         private void OnClickButton()
         {
-            uiController.ClickedItemSlot(this);
+            uiController.OnClickedItemSlot(this);
         }
 
     }

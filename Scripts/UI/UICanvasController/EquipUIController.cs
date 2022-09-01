@@ -88,7 +88,7 @@ namespace lsy
         }
 
 
-        public void ClickedItemSlot(ItemSlot slot)
+        public void OnClickedItemSlot(ItemSlot slot)
         {
             int index = slotList.IndexOf(slot);
 

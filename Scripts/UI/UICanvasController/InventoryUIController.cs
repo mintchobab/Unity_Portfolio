@@ -121,10 +121,24 @@ namespace lsy
         }
 
 
-        private void OnClickExitButton()
+        public void UpdateItemCountText()
         {
-            Managers.Instance.UIManager.MainUIController.Show();
-            Hide();
+            itemCountText.text = $"{inventoryManager.GetItemCountInInventory()} / <color=#4791E6>{inventoryManager.CurrentSlotSize}</color>";
+        }
+
+
+        public void OnClickedItemSlot(ItemSlot slot)
+        {
+            int index = slotList.IndexOf(slot);
+
+            if (inventoryManager.ItemList[index].item == null)
+                return;
+
+            if (index >= inventoryManager.CurrentSlotSize)
+                return;
+
+            CountableItem item = inventoryManager.ItemList[index].item;
+            inventoryPopup.Show(item, index);
         }
 
 
@@ -146,25 +160,10 @@ namespace lsy
         }
 
 
-        public void UpdateItemCountText()
+        private void OnClickExitButton()
         {
-            itemCountText.text = $"{inventoryManager.GetItemCountInInventory()} / <color=#4791E6>{inventoryManager.CurrentSlotSize}</color>";
+            Managers.Instance.UIManager.MainUIController.Show();
+            Hide();
         }
-
-
-        public void ClickedItemSlot(ItemSlot slot)
-        {
-            int index = slotList.IndexOf(slot);
-
-            if (inventoryManager.ItemList[index].item == null)
-                return;
-
-            if (index >= inventoryManager.CurrentSlotSize)
-                return;
-
-            CountableItem item = inventoryManager.ItemList[index].item;
-            inventoryPopup.Show(item, index);
-        }
-
     }
 }

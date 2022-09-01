@@ -2,7 +2,7 @@ namespace lsy
 {
     public interface IInventoryUIController
     {
-        public void ClickedItemSlot(ItemSlot slot);
+        public void OnClickedItemSlot(ItemSlot slot);
     }
 }
 

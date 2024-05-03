@@ -1,0 +1,6 @@
+ID,Name,ResourceName,CoolTime,MinDamage,MaxDamage
+int,string,string,float,float,float
+0,Skill_Skill0,Skill0,3,100,120
+1,Skill_Skill1,Skill1,5,120,140
+2,Skill_Skill2,Skill2,7,140,160
+3,Skill_Skill3,Skill3,10,180,200

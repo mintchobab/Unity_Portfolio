@@ -13,7 +13,7 @@ namespace lsy
 {
     public class CSVToScriptableObject : MonoBehaviour
     {
-        public static string CSVFolderPath = "Assets/08.Tables";
+        public static string CSVFolderPath = "Assets/08.Tables/CSV";
         public static string ScriptableFolderPath = "Assets/Resources/TableScriptableObject";
 
         public const string ScriptFolderPath = "Assets/02.Scripts/Table";
@@ -68,7 +68,7 @@ namespace lsy
             sb.AppendLine("\tpublic List<TableData> datas = new List<TableData>();");
             sb.AppendLine();
 
-            sb.AppendLine("\tpublic TableData this[int index]");
+            sb.AppendLine($"\tpublic TableData this[{types[0]} index]");
             sb.AppendLine("\t{");
             sb.AppendLine("\t\tget");
             sb.AppendLine("\t\t{");

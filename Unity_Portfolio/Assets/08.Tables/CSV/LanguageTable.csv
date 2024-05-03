@@ -1,0 +1,91 @@
+ID,Korean,English
+string,string,string
+NPC_Rona,로나,Rona
+NPC_Dunkun,던컨,Dunkun
+NPC_Malcom,말콤,Malcom
+NPC_Deian,데이안,Deian
+NPC_Youko,유코,Youko
+NPC_Souta,소우타,Souta
+Dialogue_Rona_1,다리 건너편에는 늑대가 나옵니다,"On the other side of the bridge, there's a wolf"
+Dialogue_Dunkun_1,닭들에게서는 깃털을 채집할 수 있어요,You can collect feathers from chickens
+Dialogue_Malcom_1,강에서는 낚시를 할 수 있습니다,You can fish in the river
+Dialogue_Deian_1,섬 밖을 나갈 수는 없습니다,You can't leave the island
+Dialogue_Youko_1,뒤쪽에 있는 언덕을 올라갈 수 있습니다,You can go up the hill in the back
+Dialogue_Youko_2,언덕 위에는 루비와 사파이어 광석이 있습니다,There are rubies and sapphire ore on the hill
+Dialogue_Souta_1,안녕하세요. 저희 마을에 오신것을 환영합니다!!,"Hello, welcome to our village!!"
+Dialogue_Souta_2,마을 사람들의 부탁을 들어주세요,Please listen to the villagers
+Quest_Name_1,로나의 심부름,Rona's Errand
+Quest_Name_2,던컨의 심부름,Dunkun's Errand
+Quest_Name_3,말콤의 심부름,Malcom's Errand
+Quest_Goal_1,루비 모으기,Collect Ruby
+Quest_Goal_2,깃털 모으기,Collect Feather
+Quest_Goal_3,늑대 사냥,Wolf Hunting
+Quest_Content_1,광석을 캐서 루비를 모아요,Dig up the ore and collect the rubies
+Quest_Content_2,깃털을 모아오세요,Collect the feathers
+Quest_Content_3,늑대를 사냥하세요,Hunt the wolf
+Quest_Dialogue_1,루비가 갖고 싶어요,I want Ruby
+Quest_Dialogue_2,광석을 캐서 루비를 모아주세요,Dig up the ore and collect the rubies
+Quest_Dialogue_3,고마워요,Thank you
+Quest_Dialogue_4,던컨에게 가보세요,Go to Duncan
+Quest_Dialogue_5,깃털이 필요해요,I need a feather
+Quest_Dialogue_6,닭들에게서 깃털을 모아주세요,Gather feathers from the chickens
+Quest_Dialogue_7,고마워요,Thank you
+Quest_Dialogue_8,말콤에게 가보세요,Go to Malcolm
+Quest_Dialogue_9,늑대가 나타났습니다,A wolf has appeared
+Quest_Dialogue_10,늑대를 사냥해주세요,Please hunt wolves
+Quest_Dialogue_11,(공격을 하기 위해서는 검과 방패를 착용해야 합니다),You must wear a sword and shield in order to strike
+Quest_Dialogue_12,고맙습니다. 퀘스트 종료,"Thank you, Ending the quest"
+Item_Name_WoodenSword,나무 검,Wooden Sword
+Item_Name_IronSword,강철 검,Iron Sword
+Item_Name_WoodenShield,나무 방패,Wooden Shield
+Item_Name_IronShield,강철 방패,Iron Shield
+Item_Name_LeatherHelmet,가죽 투구,Leather Helmet
+Item_Name_IronHelmet,강철 투구,Iron Helmet
+Item_Name_LeatherArmor,가죽 갑옷,Leather Armor
+Item_Name_IronArmor,강철 갑옷,Iron Armor
+Item_Name_LeatherShoes,가죽 신발,Leather Shoes
+Item_Name_IronShoes,강철 신발,Iron Shoes
+Item_Name_HpPotion,체력 물약,Hp Potion
+Item_Name_Ruby,루비,Ruby
+Item_Name_Sapphire,사파이어,Sapphire
+Item_Name_Fish,물고기,Fish
+Item_Name_Mushroom,버섯,Mushroom
+Item_Name_Feather,깃털,Feather
+Item_Explanation_WoodenSword,나무로 만들어진 검입니다,This is Wooden Sword
+Item_Explanation_IronSword,강철로 만들어진 검입니다,This is Iron Sword
+Item_Explanation_WoodenShield,나무로 만들어진 방패입니다,This is Wooden Shield
+Item_Explanation_IronShield,강철로 만들어진 방패입니다,This is Iron Shield
+Item_Explanation_LeatherHelmet,가죽으로 만들어진 투구입니다,This is Leather Helmet
+Item_Explanation_IronHelmet,강철로 만들어진 투구입니다,This is Iron Helmet
+Item_Explanation_LeatherArmor,가죽으로 만들어진 갑옷입니다,This is Leather Armor
+Item_Explanation_IronArmor,강철로 만들어진 갑옷입니다,This is Iron Armor
+Item_Explanation_LeatherShoes,가죽으로 만들어진 신발입니다,This is Leather Shoes
+Item_Explanation_IronShoes,강철로 만들어진 신발입니다,This is Iron Shoes
+Item_Explanation_HpPotion,체력을 회복시켜줍니다,Restore Health Point
+Item_Explanation_Ruby,루비 광석입니다,"This is Ruby"""
+Item_Explanation_Sapphire,사파이어 광석입니다,This is Sapphire
+Item_Explanation_Fish,평범한 물고기입니다,This is Fish
+Item_Explanation_Mushroom,버섯입니다,This is Mushroom
+Item_Explanation_Feather,깃털입니다,This is Feather
+Text_Accept,수락,Accept
+Text_Close,닫기,Close
+Text_Success,성공,Success
+Text_Fail,실패,Fail
+Text_Quest,퀘스트,Quest
+Text_Goal,목표,Goal
+Text_Content,내용,Conetent
+Text_Reward,보상,Reward
+Text_Bag,가방,Bag
+Text_ItemInfo,아이템 정보,Item Info
+Text_Use,사용,Use
+Text_Equip,장착,Equip
+Text_UnEquip,해제,UnEquip
+Text_Hp,체력,Hp
+Text_OffensivePower,공격력,Offensive Power
+Text_DefensivePower,방어력,Defensive Power
+Text_EquipWeapon,무기를 장착해주세요,Please put on the sword
+Text_EquipShield,방패를 장착해주세요,Please put on the shield
+Skill_Skill0,기본 공격,Attack
+Skill_Skill1,연속 공격,Twice Attack
+Skill_Skill2,이연격,Double Attack
+Skill_Skill3,마법 공격,Magic Attack

@@ -1,0 +1,54 @@
+{
+  "npcs": 
+  [
+    {
+      "id": 1000,
+      "name": "NPC_Rona",
+      "dialogues": [
+        "Dialogue_Rona_1"
+      ]
+    },
+
+    {
+      "id": 1001,
+      "name": "NPC_Dunkun",
+      "dialogues": [
+        "Dialogue_Dunkun_1"
+      ]
+    },
+
+    {
+      "id": 1002,
+      "name": "NPC_Malcom",
+      "dialogues": [
+        "Dialogue_Malcom_1"
+      ]
+    },
+
+    {
+      "id": 1003,
+      "name": "NPC_Deian",
+      "dialogues": [
+        "Dialogue_Deian_1"
+      ]
+    },
+
+    {
+      "id": 1004,
+      "name": "NPC_Youko",
+      "dialogues": [
+        "Dialogue_Youko_1",
+        "Dialogue_Youko_2"
+      ]
+    },
+
+    {
+      "id": 1005,
+      "name": "NPC_Souta",
+      "dialogues": [
+        "Dialogue_Souta_1",
+        "Dialogue_Souta_2"
+      ]
+    }
+  ]
+}

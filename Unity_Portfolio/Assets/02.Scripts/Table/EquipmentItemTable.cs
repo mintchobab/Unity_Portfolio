@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using lsy;
 
-public class EquipmentItemTable : SingletonScriptableObject<EquipmentItemTable>
+public class EquipmentItemTable : ScriptableObject
 {
 	[SerializeField]
 	public List<TableData> datas = new List<TableData>();

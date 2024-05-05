@@ -50,6 +50,67 @@ namespace lsy
             }
         }
 
+        private static void WriteTables(List<string> tableNames)
+        {
+            if (tableNames.Count == 0)
+            {
+                Debug.LogError($"{nameof(CSVToScriptableObject)} : Table Name Error");
+                return;
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("using UnityEngine;");
+            sb.AppendLine();
+
+            sb.AppendLine("public static class Tables");
+            sb.AppendLine("{");
+
+            // 반복, 이름 바꾸기
+            foreach(string tableName in tableNames)
+            {
+                sb.AppendLine($"\tpublic static {tableName} {tableName};");
+            }
+            
+            sb.AppendLine();
+
+            sb.AppendLine("\tstatic Tables()");
+            sb.AppendLine("\t{");
+
+            foreach (string tableName in tableNames)
+            {
+                sb.AppendLine($"\t\tif ({tableName} == null)");
+                sb.AppendLine($"\t\t\t{tableName} = Load<{tableName}>();");
+                sb.AppendLine();
+            }
+
+            sb.AppendLine("\t}");
+            sb.AppendLine();
+
+            sb.AppendLine("\tpublic static T Load<T>() where T : ScriptableObject");
+            sb.AppendLine("\t{");
+
+            sb.AppendLine("\t\tT[] asset = Resources.LoadAll<T>(\"\");");
+            sb.AppendLine();
+            sb.AppendLine("\t\tif (asset == null || asset.Length != 1)");
+            sb.AppendLine("\t\t\tthrow new System.Exception($\"{nameof(Tables)} : Tables Load Error\");");
+            sb.AppendLine();
+
+            sb.AppendLine("\t\treturn asset[0];");
+            sb.AppendLine("\t}");
+
+            sb.AppendLine("}");
+
+            string textsaver = $"{ScriptFolderPath}/Tables.cs";
+
+            if (File.Exists(textsaver))
+            {
+                File.Delete(textsaver);
+            }
+
+            File.AppendAllText(textsaver, sb.ToString());
+        }
+
 
         private static void WriteCode(string tableName, string[] header, string[] types)
         {
@@ -61,7 +122,7 @@ namespace lsy
             sb.AppendLine("using lsy;");
             sb.AppendLine();
 
-            sb.AppendLine($"public class {tableName} : SingletonScriptableObject<{tableName}>");
+            sb.AppendLine($"public class {tableName} : ScriptableObject");
             sb.AppendLine("{");
 
             sb.AppendLine("\t[SerializeField]");
@@ -112,6 +173,8 @@ namespace lsy
 
         public static void MakeScriptableObject()
         {
+            List<string> tableNames = new List<string>();
+
             try
             {
                 string[] guids = AssetDatabase.FindAssets("", new string[] { CSVFolderPath });
@@ -127,6 +190,8 @@ namespace lsy
 
                     string name = path.Substring(path.LastIndexOf('/') + 1);
                     name = name.Substring(0, name.IndexOf('.'));
+
+                    tableNames.Add(name);
 
                     if (AssetDatabase.LoadAssetAtPath<ScriptableObject>($"{ScriptableFolderPath}/{name}.asset") != null)
                         AssetDatabase.DeleteAsset($"{ScriptableFolderPath}/{name}.asset");
@@ -157,6 +222,9 @@ namespace lsy
 
                     EditorUtility.SetDirty(scriptableObj);
                 }
+
+                // Make Tables
+                WriteTables(tableNames);
 
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();                
@@ -206,8 +274,4 @@ namespace lsy
     }
 
     #endif
-
-
-
-
 }

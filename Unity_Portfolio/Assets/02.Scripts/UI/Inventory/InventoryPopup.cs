@@ -38,7 +38,9 @@ namespace lsy
 
             itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{item._resourceName}");   
             itemName.text = StringManager.GetLocalizedItemName(item.name);
+
             itemDescription.text = StringManager.GetLocalizedItemExplanation(item.explanation);
+            //itemDescription.text = StringManager.Get()
 
             if (item.itemType.Equals(nameof(ItemType.Consumable)))
             {

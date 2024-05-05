@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using lsy;
 
-public class NPCTable : SingletonScriptableObject<NPCTable>
+public class NPCTable : ScriptableObject
 {
 	[SerializeField]
 	public List<TableData> datas = new List<TableData>();

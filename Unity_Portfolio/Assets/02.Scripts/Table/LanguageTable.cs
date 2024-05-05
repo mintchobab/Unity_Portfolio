@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using lsy;
 
-public class LanguageTable : SingletonScriptableObject<LanguageTable>
+public class LanguageTable : ScriptableObject
 {
 	[SerializeField]
 	public List<TableData> datas = new List<TableData>();

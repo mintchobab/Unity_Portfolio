@@ -154,10 +154,12 @@ namespace lsy
                         MethodInfo methodInfo = tableType.GetMethod("AddData");
                         methodInfo.Invoke(scriptableObj, new object[] { tableDataInstance });
                     }
+
+                    EditorUtility.SetDirty(scriptableObj);
                 }
 
                 AssetDatabase.Refresh();
-                AssetDatabase.SaveAssets();
+                AssetDatabase.SaveAssets();                
             }
             catch (Exception e)
             {

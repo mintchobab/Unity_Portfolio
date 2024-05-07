@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2635471024c027848a01b2f5894d49e4, type: 3}
   m_Name: SkillTable
   m_EditorClassIdentifier: 
-  datas: []
+  datas:
+  - ID: 0
+    Name: Skill_Skill0
+    ResourceName: Skill0
+    CoolTime: 3
+    MinDamage: 100
+    MaxDamage: 120
+  - ID: 1
+    Name: Skill_Skill1
+    ResourceName: Skill1
+    CoolTime: 5
+    MinDamage: 120
+    MaxDamage: 140
+  - ID: 2
+    Name: Skill_Skill2
+    ResourceName: Skill2
+    CoolTime: 7
+    MinDamage: 140
+    MaxDamage: 160
+  - ID: 3
+    Name: Skill_Skill3
+    ResourceName: Skill3
+    CoolTime: 10
+    MinDamage: 180
+    MaxDamage: 200

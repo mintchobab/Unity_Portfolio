@@ -9,7 +9,8 @@ namespace lsy
         private QuestManager questManager = new QuestManager();
         private ItemManager itemManager = new ItemManager();
         private InventoryManager inventoryManager = new InventoryManager();
-        private EquipInventoryManager equipInventoryManager = new EquipInventoryManager();
+        //TODO
+        //private EquipInventoryManager equipInventoryManager = new EquipInventoryManager();
         private PoolManager poolManager = new PoolManager();
         private CombatManager combatManager = new CombatManager();
         private SoundManager soundManager = new SoundManager();
@@ -21,7 +22,8 @@ namespace lsy
         public QuestManager QuestManager { get => questManager; }
         public ItemManager ItemManager { get => itemManager; }
         public InventoryManager InventoryManager { get => inventoryManager; }
-        public EquipInventoryManager EquipInventoryManager { get => equipInventoryManager; }
+        // TODO
+        //public EquipInventoryManager EquipInventoryManager { get => equipInventoryManager; }
         public PoolManager PoolManager { get => poolManager; }
         public CombatManager CombatManager { get => combatManager; }
         public SoundManager SoundManager { get => soundManager; }
@@ -39,7 +41,8 @@ namespace lsy
             QuestManager.Init();
             ItemManager.Init();
             InventoryManager.Init();
-            EquipInventoryManager.Init();
+            // TODO
+            //EquipInventoryManager.Init();
             PoolManager.Init();
             CombatManager.Init();            
         }

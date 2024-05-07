@@ -265,10 +265,11 @@ namespace lsy
 
         private void OnItemUsed(int itemId, int itemIndex)
         {
-            if (inventoryManager.ItemList[itemIndex].item.name.Equals("Item_Name_HpPotion"))
-            {
-                hpController.AddCurrentHp(100);
-            }
+            // TODO : 확인해보기
+            //if (inventoryManager.ItemList[itemIndex].item.name.Equals("Item_Name_HpPotion"))
+            //{
+            //    hpController.AddCurrentHp(100);
+            //}
         }
 
 
@@ -337,15 +338,15 @@ namespace lsy
         }
 
 
-        private void ShowDialogue(InteractNpc interactNpc)
+        private void ShowDialogue(InteractNpc npc)
         {
-            List<string> dialogues = new List<string>();
-            for (int i = 0; i < interactNpc.Npc.dialogues.Count; i++)
-            {
-                dialogues.Add(StringManager.GetLocalizedNpcDialogue(interactNpc.Npc.dialogues[i]));
-            }
+            //List<string> dialogues = new List<string>();
+            //for (int i = 0; i < npc.Npc.dialogues.Count; i++)
+            //{
+            //    dialogues.Add(StringManager.GetLocalizedNpcDialogue(npc.Npc.dialogues[i]));
+            //}
 
-            dialogueController.SetInitializeInfo(false, interactNpc.NpcName, dialogues);
+            dialogueController.SetInitializeInfo(false, npc.NpcName, npc.GetDialogues());
             dialogueController.Show(HideModel);
         }
 
@@ -487,7 +488,7 @@ namespace lsy
         {
             anim.SetTrigger(hashSuccessInteract);
 
-            Managers.Instance.InventoryManager.AddCountableItem(interactCollection.ItemId, 1);
+            Managers.Instance.InventoryManager.AddItem(interactCollection.ItemId, 1);
             Managers.Instance.UIManager.SystemUIController.GetItem(interactCollection, targetPosition);
 
             Managers.Instance.SoundManager.Play("Success", SoundType.SFX);

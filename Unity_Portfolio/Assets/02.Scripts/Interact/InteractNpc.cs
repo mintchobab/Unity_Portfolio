@@ -1,11 +1,16 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace lsy
 {
     [RequireComponent(typeof(WorldUIName))]
     public class InteractNpc : MonoBehaviour, IInteractable
     {
+        // ID 찾는거 이런식으로 하면 안될거 같은데.....
+        // ex) 휴먼 오류로 중복된 ID 값이 존재할 수 있음
+        // TODO : 방식 수정하기
         [field: SerializeField]
         public int NpcId { get; private set; }
 
@@ -19,7 +24,6 @@ namespace lsy
 
         private readonly float npcDistance = 1f;
 
-        public Npc Npc { get; private set; }
         public Quest MyQuest { get; private set; }
         public string NpcName { get; private set; }
 
@@ -29,8 +33,7 @@ namespace lsy
             worldUIName = GetComponent<WorldUIName>();
             anim = GetComponentInChildren<Animator>();
 
-            SetNPCData();
-            NpcName = StringManager.GetLocalizedNPCName(Npc.name);
+            NpcName = StringManager.Get(Tables.NPCTable[NpcId].Name);
         }
 
 
@@ -83,22 +86,6 @@ namespace lsy
             MyQuest = null;
         }
 
-
-        private void SetNPCData()
-        {
-            JsonNpc dialogueData = Managers.Instance.JsonManager.jsonNPC;
-
-            foreach (Npc npc in dialogueData.npcs)
-            {
-                if (npc.id.Equals(NpcId))
-                    this.Npc = npc;
-            }
-
-            if (Npc == null)
-                Debug.LogError("NPC Data Not Found");
-        }
-
-
         private void CreateExclamationMark()
         {
             exclamationMark = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.ExclamationMark, transform);
@@ -135,5 +122,10 @@ namespace lsy
             }
         }
 
+
+        public List<string> GetDialogues()
+        {
+            return Tables.NPCTable[NpcId].Dialogues.Split(',').ToList();
+        }
     }
 }

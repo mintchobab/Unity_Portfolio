@@ -133,5 +133,17 @@ namespace lsy
 
             return path;
         }
+
+        // TODO : 이거 자체를 없애버리기
+        public static string GetItemSpritePathToTypeString(ItemType itemType)
+        {
+            return itemType switch
+            {
+                ItemType.Equipment => EquipItem,
+                ItemType.Consumable => ConsumableItem,
+                ItemType.Material => MaterialItem,
+                _ => string.Empty,
+            };
+        }
     }
 }

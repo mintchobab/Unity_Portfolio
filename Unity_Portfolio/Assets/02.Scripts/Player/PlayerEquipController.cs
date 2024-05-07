@@ -15,23 +15,24 @@ namespace lsy
         private GameObject currentWeapon;
         private GameObject currentShield;
 
-        private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
+        // TODO
+        //private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
 
 
         #region Weapon
 
         public void Equip(Action onEquiped = null)
         {
-            EquipItem weapon = equipInventoryManager.EquipedItemDic[EquipType.Weapon];
-            EquipItem shield = equipInventoryManager.EquipedItemDic[EquipType.Shield];
+            //EquipItem weapon = equipInventoryManager.EquipedItemDic[EquipType.Weapon];
+            //EquipItem shield = equipInventoryManager.EquipedItemDic[EquipType.Shield];
 
-            bool isWeapon = EquipWeapon(weapon);
-            bool isShield = EquipShield(shield);
+            //bool isWeapon = EquipWeapon(weapon);
+            //bool isShield = EquipShield(shield);
 
-            if (isWeapon && isShield)
-            {
-                onEquiped?.Invoke();  
-            }
+            //if (isWeapon && isShield)
+            //{
+            //    onEquiped?.Invoke();  
+            //}
         }
 
 

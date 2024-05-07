@@ -14,16 +14,30 @@ namespace lsy
             localizeIndex = language.Equals("Korean") ? 0 : 1;
         }
 
-
-        public static string GetLocalizedNPCName(string nameKey)
+        public static string Get(string id)
         {
-            return jsonString.stringNpcNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+            return Tables.LanguageTable[id].Korean;
         }
 
-        public static string GetLocalizedNpcDialogue(string nameKey)
+
+
+
+        public static string GetLocalizedItemName(string nameKey)
         {
-            return jsonString.stringNpcDialogues.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+            return jsonString.stringItemNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
+
+        public static string GetLocalizedItemExplanation(string nameKey)
+        {
+            return jsonString.stringItemExplanations.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
+        }
+
+
+
+
+
+
+
 
         public static string GetLocalizedQuestName(string nameKey)
         {
@@ -43,16 +57,6 @@ namespace lsy
         public static string GetLocalizedQuestDialogue(string nameKey)
         {
             return jsonString.stringQuestDialogues.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
-        }
-
-        public static string GetLocalizedItemName(string nameKey)
-        {
-            return jsonString.stringItemNames.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
-        }
-
-        public static string GetLocalizedItemExplanation(string nameKey)
-        {
-            return jsonString.stringItemExplanations.Find(x => x.key.Equals(nameKey)).values[localizeIndex];
         }
 
         public static string GetLocalizedUIText(string nameKey)

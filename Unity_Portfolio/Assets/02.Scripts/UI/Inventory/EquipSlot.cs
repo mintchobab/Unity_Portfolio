@@ -14,10 +14,9 @@ namespace lsy
         [SerializeField]
         private EquipInventoryPopup equipInventoryPopup;
 
-        private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
-        private Button slotButton;
+        private InventoryManager inventoryManager => Managers.Instance.InventoryManager;
 
-        private bool isEmpty = true;
+        private Button slotButton;
 
 
         private void Awake()
@@ -32,26 +31,24 @@ namespace lsy
             if (ItemImage.sprite.Equals(sprite))
                 return;
 
-            isEmpty = false;
             ItemImage.sprite = sprite;
         }
 
 
         public void ClearSlot()
         {
-            isEmpty = true;
             ItemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(ResourcePath.Empty);
         }
 
 
         private void OnClickSlotButton()
         {
-            if (isEmpty)
+            int itemId = inventoryManager.EquipedItemDic[EquipSlotType];
+
+            if (itemId <= 0)
                 return;
 
-            EquipItem item = equipInventoryManager.EquipedItemDic[EquipSlotType];
-            equipInventoryPopup.Show(item, false);
+            equipInventoryPopup.Show(false, itemId);
         }
-
     }
 }

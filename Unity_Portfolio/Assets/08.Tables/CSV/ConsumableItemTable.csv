@@ -1,8 +1,8 @@
 ID,Name,ResourceName,Explanation,MaxCount
 int,string,string,string,int
-100,Item_Name_HpPotion,HpPotion,Item_Explanation_HpPotion,99
-200,Item_Name_Ruby,Ruby,Item_Explanation_Ruby,99
-201,Item_Name_Sapphire,Sapphire,Item_Explanation_Sapphire,99
-202,Item_Name_Fish,Fish,Item_Explanation_Fish,99
-203,Item_Name_Mushroom,Mushroom,Item_Explanation_Mushroom,99
-204,Item_Name_Feather,Feather,Item_Explanation_Feather,99
+10000,Item_Name_HpPotion,HpPotion,Item_Explanation_HpPotion,99
+20000,Item_Name_Ruby,Ruby,Item_Explanation_Ruby,99
+20001,Item_Name_Sapphire,Sapphire,Item_Explanation_Sapphire,99
+20002,Item_Name_Fish,Fish,Item_Explanation_Fish,99
+20003,Item_Name_Mushroom,Mushroom,Item_Explanation_Mushroom,99
+20004,Item_Name_Feather,Feather,Item_Explanation_Feather,99

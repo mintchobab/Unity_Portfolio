@@ -1,4 +1,4 @@
-public enum ItemType { Equipment, Consumable, Material }
+public enum ItemType { None, Equipment, Consumable, Material }
 public enum EquipType { Weapon, Shield, Helmet, Armor, Shoes, Default }
 public enum StatType { Hp, Mp, Damage, Armor, MoveSpeed }
 public enum NameType { Player, Npc, Monster, Collection }

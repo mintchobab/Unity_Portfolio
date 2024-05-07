@@ -12,4 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6428ce9a7608d4aa580a9c0bea2b83, type: 3}
   m_Name: NPCTable
   m_EditorClassIdentifier: 
-  datas: []
+  datas:
+  - ID: 1000
+    Name: NPC_Rona
+    Dialogues: Dialogue_Rona_1
+  - ID: 1001
+    Name: NPC_Dunkun
+    Dialogues: Dialogue_Dunkun_1
+  - ID: 1002
+    Name: NPC_Malcom
+    Dialogues: Dialogue_Malcom_1
+  - ID: 1003
+    Name: NPC_Deian
+    Dialogues: Dialogue_Deian_1
+  - ID: 1004
+    Name: NPC_Youko
+    Dialogues: Dialogue_Youko_1,Dialogue_Youko_2
+  - ID: 1005
+    Name: NPC_Souta
+    Dialogues: Dialogue_Souta_1,Dialogue_Souta_2

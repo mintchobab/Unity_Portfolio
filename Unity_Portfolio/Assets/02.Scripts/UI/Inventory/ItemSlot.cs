@@ -27,11 +27,13 @@ namespace lsy
         public string MyItemName { get; private set; }
         public string MyItemCount { get; private set; }
 
+        public bool IsLocked { get; private set; }
+
 
         protected void Awake()
         {
             button = GetComponentInChildren<Button>();           
-            button.onClick.AddListener(OnClickButton);
+            button.onClick.AddListener(() => uiController.ClickedItemSlot(this));
 
             MyItemSprite = slotImage.sprite;
             MyItemName = itemNameText.text;
@@ -39,6 +41,7 @@ namespace lsy
         }
 
 
+        // TODO : 이게 필요한가 확인
         public void Initialize(IInventoryUIController uiController)
         {
             this.uiController = uiController;
@@ -55,6 +58,7 @@ namespace lsy
         }
 
 
+        // NOTE : 장비일 떄 이름
         public virtual void UpdateItemName(string name)
         {
             itemNameText.text = name;
@@ -62,6 +66,7 @@ namespace lsy
         }
 
 
+        // NOTE : 소모품일 떄 개수
         public void UpdateSlotCount(int count)
         {
             itemCountText.text = count.ToString();
@@ -77,8 +82,10 @@ namespace lsy
         }
 
 
-        public void ActivateLock()
+        public void Lock()
         {
+            IsLocked = true;
+
             lockImage.SetActive(true);
 
             Color newAlpha = backgorundImage.color;
@@ -87,19 +94,15 @@ namespace lsy
         }
 
 
-        public void DeactivateLock()
+        public void UnLock()
         {
+            IsLocked = false;
+
             lockImage.SetActive(false);
 
             Color newAlpha = backgorundImage.color;
             newAlpha.a = 128 / 256f;
             backgorundImage.color = newAlpha;
         }
-
-        private void OnClickButton()
-        {
-            uiController.ClickedItemSlot(this);
-        }
-
     }
 }

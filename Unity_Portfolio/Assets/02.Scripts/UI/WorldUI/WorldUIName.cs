@@ -34,7 +34,7 @@ namespace lsy
                     break;
 
                 case NameType.Npc:
-                    name = StringManager.GetLocalizedNPCName(nameKey);
+                    name = StringManager.Get(nameKey);
                     colorString = npcNameColorString;
                     break;
 

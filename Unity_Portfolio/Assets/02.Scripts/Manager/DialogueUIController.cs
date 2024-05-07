@@ -105,16 +105,11 @@ namespace lsy
         }
 
 
-        public void SetInitializeInfo(bool isQuest, string name, List<string> dialouges)
+        public void SetInitializeInfo(bool isQuest, string name, List<string> dialogues)
         {
             nameText.text = name;
             isQuestDialogue = isQuest;
-            SetCurrentDialogues(dialouges);
-        }
-
-
-        private void SetCurrentDialogues(List<string> dialogues)
-        {
+            
             currentDialogues = dialogues;
 
             currentIndex = 0;
@@ -130,7 +125,7 @@ namespace lsy
             {
                 StopCoroutine(typing);
                 isTyping = false;
-                dialogueText.text = currentDialogues[currentIndex];
+                dialogueText.text = StringManager.Get(currentDialogues[currentIndex]);
                 currentIndex++;
 
                 if (currentIndex > lastIndex)
@@ -144,9 +139,9 @@ namespace lsy
                     StopCoroutine(typing);
 
                 if (currentIndex != lastIndex)
-                    typing = StartCoroutine(Typing(currentDialogues[currentIndex], () => currentIndex++));
+                    typing = StartCoroutine(Typing(StringManager.Get(currentDialogues[currentIndex]), () => currentIndex++));
                 else
-                    typing = StartCoroutine(Typing(currentDialogues[currentIndex], AfterLastDialouge));
+                    typing = StartCoroutine(Typing(StringManager.Get(currentDialogues[currentIndex]), AfterLastDialouge));
             }
         }
 

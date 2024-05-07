@@ -12,4 +12,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5276093cde9e5843853ab684349b337, type: 3}
   m_Name: EquipmentItemTable
   m_EditorClassIdentifier: 
-  datas: []
+  datas:
+  - ID: 30000
+    Name: Item_Name_WoodenSword
+    ResourceName: WoodenSword
+    Explanation: Item_Explanation_WoodenSword
+    Parts: Weapon
+    Hp: 0
+    OffensivePower: 50
+    DefensivePower: 0
+  - ID: 30001
+    Name: Item_Name_IronSword
+    ResourceName: IronSword
+    Explanation: Item_Explanation_IronSword
+    Parts: Weapon
+    Hp: 0
+    OffensivePower: 100
+    DefensivePower: 0
+  - ID: 30010
+    Name: Item_Name_WoodenShield
+    ResourceName: WoodenShield
+    Explanation: Item_Explanation_WoodenShield
+    Parts: Shield
+    Hp: 0
+    OffensivePower: 0
+    DefensivePower: 10
+  - ID: 30011
+    Name: Item_Name_IronShield
+    ResourceName: IronShield
+    Explanation: Item_Explanation_IronShield
+    Parts: Shield
+    Hp: 0
+    OffensivePower: 0
+    DefensivePower: 20
+  - ID: 30020
+    Name: Item_Name_LeatherHelmet
+    ResourceName: LeatherHelmet
+    Explanation: Item_Explanation_LeatherHelmet
+    Parts: Helmet
+    Hp: 500
+    OffensivePower: 0
+    DefensivePower: 0
+  - ID: 30021
+    Name: Item_Name_IronHelmet
+    ResourceName: IronHelmet
+    Explanation: Item_Explanation_IronHelmet
+    Parts: Helmet
+    Hp: 1000
+    OffensivePower: 0
+    DefensivePower: 0
+  - ID: 30030
+    Name: Item_Name_LeatherArmor
+    ResourceName: LeatherArmor
+    Explanation: Item_Explanation_LeatherArmor
+    Parts: Armor
+    Hp: 50
+    OffensivePower: 0
+    DefensivePower: 0
+  - ID: 30031
+    Name: Item_Name_IronArmor
+    ResourceName: IronArmor
+    Explanation: Item_Explanation_IronArmor
+    Parts: Armor
+    Hp: 100
+    OffensivePower: 0
+    DefensivePower: 0
+  - ID: 30040
+    Name: Item_Name_LeatherShoes
+    ResourceName: LeatherShoes
+    Explanation: Item_Explanation_LeatherShoes
+    Parts: Shoes
+    Hp: 50
+    OffensivePower: 0
+    DefensivePower: 0
+  - ID: 30041
+    Name: Item_Name_IronShoes
+    ResourceName: IronShoes
+    Explanation: Item_Explanation_IronShoes
+    Parts: Shoes
+    Hp: 100
+    OffensivePower: 0
+    DefensivePower: 0

@@ -30,27 +30,17 @@ namespace lsy
         }
 
 
-        public void Show(CountableItem item, int slotIndex)
+        public void Show(InventoryManager.InventoryItem inventoryItem, int slotIndex)
         {
             currentSlotIndex = slotIndex;
 
-            string path = ResourcePath.GetItemSpritePathToTypeString(item.itemType);
+            string path = ResourcePath.GetItemSpritePathToTypeString(inventoryItem.ItemType);
+            path += $"/{Tables.ConsumableItemTable[inventoryItem.itemId].ResourceName}";
 
-            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{item._resourceName}");   
-            itemName.text = StringManager.GetLocalizedItemName(item.name);
+            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
+            itemName.text = StringManager.Get(Tables.ConsumableItemTable[inventoryItem.itemId].Name);
 
-            itemDescription.text = StringManager.GetLocalizedItemExplanation(item.explanation);
-            //itemDescription.text = StringManager.Get()
-
-            if (item.itemType.Equals(nameof(ItemType.Consumable)))
-            {
-                useButton.interactable = true;
-            }
-            else
-            {
-                useButton.interactable = false;
-            }
-
+            itemDescription.text = StringManager.Get(Tables.ConsumableItemTable[inventoryItem.itemId].Explanation);
             gameObject.SetActive(true);
         }
 

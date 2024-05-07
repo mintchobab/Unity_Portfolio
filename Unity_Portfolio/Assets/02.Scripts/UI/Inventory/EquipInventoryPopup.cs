@@ -26,36 +26,36 @@ namespace lsy
 
         [SerializeField]
         private Button equipButton;
-
-        private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
+        private InventoryManager inventoryManager => Managers.Instance.InventoryManager;
 
         private int currentSlotIndex;
 
 
-        public void Show(EquipItem item, bool isInventory, int slotIndex = -1)
+        // TODO : 매개변수 확인
+        public void Show(bool isInventory, int itemId, int slotIndex = -1)
         {
             if (slotIndex != -1)
                 currentSlotIndex = slotIndex;
 
-            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{ResourcePath.EquipItem}/{item._resourceName}");
-            itemName.text = StringManager.GetLocalizedItemName(item.name);
-            itemDescription.text = StringManager.GetLocalizedItemExplanation(item.explanation);
+            EquipmentItemTable.TableData tableData = Tables.EquipmentItemTable[itemId];
 
-            powerText.text = item.hp.ToString();
-            hpText.text = item.offensivePower.ToString();
-            mpText.text = item.defensivePower.ToString();
+            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{ResourcePath.EquipItem}/{tableData.ResourceName}");
+            itemName.text = StringManager.Get(tableData.Name);
+            itemDescription.text = StringManager.Get(tableData.Explanation);
+
+            powerText.text = tableData.Hp.ToString();
+            hpText.text = tableData.OffensivePower.ToString();
+            mpText.text = tableData.DefensivePower.ToString();
 
             if (isInventory)
             {
                 equipButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_Equip");
-                equipButton.onClick.RemoveAllListeners();
-                equipButton.onClick.AddListener(OnClickEquipButton);
+                equipButton.onClick.SetListener(OnClickEquipButton);
             }
             else
             {
                 equipButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_UnEquip");
-                equipButton.onClick.RemoveAllListeners();
-                equipButton.onClick.AddListener(() => OnClickUnequipButton(item));
+                equipButton.onClick.SetListener(() => OnClickUnequipButton(itemId));
             }
 
             gameObject.SetActive(true);
@@ -70,13 +70,14 @@ namespace lsy
 
         private void OnClickEquipButton()
         {
-            equipInventoryManager.Equip(currentSlotIndex);
+            // TODO
+            inventoryManager.Equip(currentSlotIndex);
             gameObject.SetActive(false);
         }
 
-        private void OnClickUnequipButton(EquipItem item)
+        private void OnClickUnequipButton(int itemId)
         {
-            equipInventoryManager.UnEquip(item);
+            inventoryManager.UnEquip(itemId);
             gameObject.SetActive(false);
         }
     }

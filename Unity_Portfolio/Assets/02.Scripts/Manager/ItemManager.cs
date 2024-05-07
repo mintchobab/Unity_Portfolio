@@ -10,7 +10,6 @@ namespace lsy
 
         }
 
-
         public EquipItem GetEquipItem(int itemId)
         {
             return jsonItem.equips.Find(x => x.id == itemId);

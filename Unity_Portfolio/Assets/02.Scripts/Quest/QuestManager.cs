@@ -62,7 +62,8 @@ namespace lsy
 
         private List<Quest> allQuestList => Managers.Instance.JsonManager.jsonQuest.quests;
         private InventoryManager inventoryManager => Managers.Instance.InventoryManager;
-        private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
+        // TODO
+        //private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
         public CurrentQuest CurrentQuest { get; private set; }
 
 
@@ -71,8 +72,9 @@ namespace lsy
         {
             npcs = UnityEngine.Object.FindObjectsOfType<InteractNpc>().ToList();
 
-            inventoryManager.onItemAdded += OnChangedQuestItemCount;
-            inventoryManager.onItemChanged += OnChangedQuestItemCount;
+            // TODO
+            //inventoryManager.onItemAdded += OnChangedQuestItemCount;
+            inventoryManager.onConsumableChanged += OnChangedQuestItemCount;
             inventoryManager.onItemUsed += OnChangedQuestItemCount;
         }
 
@@ -111,11 +113,13 @@ namespace lsy
 
                 if (count > 0)
                 {
-                    inventoryManager.AddCountableItem(id, count);
+                    //TODO
+                    //inventoryManager.AddCountableItem(id, count);
                 }
                 else
                 {
-                    equipInventoryManager.AddEquipItem(id);
+                    //TODO
+                    //equipInventoryManager.AddEquipItem(id);
                 }
             }
 

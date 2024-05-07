@@ -12,4 +12,276 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f22b1580219c043b8a5830c3c761e2, type: 3}
   m_Name: LanguageTable
   m_EditorClassIdentifier: 
-  datas: []
+  datas:
+  - ID: NPC_Rona
+    Korean: "\uB85C\uB098"
+    English: Rona
+  - ID: NPC_Dunkun
+    Korean: "\uB358\uCEE8"
+    English: Dunkun
+  - ID: NPC_Malcom
+    Korean: "\uB9D0\uCF64"
+    English: Malcom
+  - ID: NPC_Deian
+    Korean: "\uB370\uC774\uC548"
+    English: Deian
+  - ID: NPC_Youko
+    Korean: "\uC720\uCF54"
+    English: Youko
+  - ID: NPC_Souta
+    Korean: "\uC18C\uC6B0\uD0C0"
+    English: Souta
+  - ID: Dialogue_Rona_1
+    Korean: "\uB2E4\uB9AC \uAC74\uB108\uD3B8\uC5D0\uB294 \uB291\uB300\uAC00 \uB098\uC635\uB2C8\uB2E4"
+    English: On the other side of the bridge, there's a wolf
+  - ID: Dialogue_Dunkun_1
+    Korean: "\uB2ED\uB4E4\uC5D0\uAC8C\uC11C\uB294 \uAE43\uD138\uC744 \uCC44\uC9D1\uD560
+      \uC218 \uC788\uC5B4\uC694"
+    English: You can collect feathers from chickens
+  - ID: Dialogue_Malcom_1
+    Korean: "\uAC15\uC5D0\uC11C\uB294 \uB09A\uC2DC\uB97C \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
+    English: You can fish in the river
+  - ID: Dialogue_Deian_1
+    Korean: "\uC12C \uBC16\uC744 \uB098\uAC08 \uC218\uB294 \uC5C6\uC2B5\uB2C8\uB2E4"
+    English: You can't leave the island
+  - ID: Dialogue_Youko_1
+    Korean: "\uB4A4\uCABD\uC5D0 \uC788\uB294 \uC5B8\uB355\uC744 \uC62C\uB77C\uAC08
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4"
+    English: You can go up the hill in the back
+  - ID: Dialogue_Youko_2
+    Korean: "\uC5B8\uB355 \uC704\uC5D0\uB294 \uB8E8\uBE44\uC640 \uC0AC\uD30C\uC774\uC5B4
+      \uAD11\uC11D\uC774 \uC788\uC2B5\uB2C8\uB2E4"
+    English: There are rubies and sapphire ore on the hill
+  - ID: Dialogue_Souta_1
+    Korean: "\uC548\uB155\uD558\uC138\uC694. \uC800\uD76C \uB9C8\uC744\uC5D0 \uC624\uC2E0\uAC83\uC744
+      \uD658\uC601\uD569\uB2C8\uB2E4!!"
+    English: Hello, welcome to our village!!
+  - ID: Dialogue_Souta_2
+    Korean: "\uB9C8\uC744 \uC0AC\uB78C\uB4E4\uC758 \uBD80\uD0C1\uC744 \uB4E4\uC5B4\uC8FC\uC138\uC694"
+    English: Please listen to the villagers
+  - ID: Quest_Name_1
+    Korean: "\uB85C\uB098\uC758 \uC2EC\uBD80\uB984"
+    English: Rona's Errand
+  - ID: Quest_Name_2
+    Korean: "\uB358\uCEE8\uC758 \uC2EC\uBD80\uB984"
+    English: Dunkun's Errand
+  - ID: Quest_Name_3
+    Korean: "\uB9D0\uCF64\uC758 \uC2EC\uBD80\uB984"
+    English: Malcom's Errand
+  - ID: Quest_Goal_1
+    Korean: "\uB8E8\uBE44 \uBAA8\uC73C\uAE30"
+    English: Collect Ruby
+  - ID: Quest_Goal_2
+    Korean: "\uAE43\uD138 \uBAA8\uC73C\uAE30"
+    English: Collect Feather
+  - ID: Quest_Goal_3
+    Korean: "\uB291\uB300 \uC0AC\uB0E5"
+    English: Wolf Hunting
+  - ID: Quest_Content_1
+    Korean: "\uAD11\uC11D\uC744 \uCE90\uC11C \uB8E8\uBE44\uB97C \uBAA8\uC544\uC694"
+    English: Dig up the ore and collect the rubies
+  - ID: Quest_Content_2
+    Korean: "\uAE43\uD138\uC744 \uBAA8\uC544\uC624\uC138\uC694"
+    English: Collect the feathers
+  - ID: Quest_Content_3
+    Korean: "\uB291\uB300\uB97C \uC0AC\uB0E5\uD558\uC138\uC694"
+    English: Hunt the wolf
+  - ID: Quest_Dialogue_1
+    Korean: "\uB8E8\uBE44\uAC00 \uAC16\uACE0 \uC2F6\uC5B4\uC694"
+    English: I want Ruby
+  - ID: Quest_Dialogue_2
+    Korean: "\uAD11\uC11D\uC744 \uCE90\uC11C \uB8E8\uBE44\uB97C \uBAA8\uC544\uC8FC\uC138\uC694"
+    English: Dig up the ore and collect the rubies
+  - ID: Quest_Dialogue_3
+    Korean: "\uACE0\uB9C8\uC6CC\uC694"
+    English: Thank you
+  - ID: Quest_Dialogue_4
+    Korean: "\uB358\uCEE8\uC5D0\uAC8C \uAC00\uBCF4\uC138\uC694"
+    English: Go to Duncan
+  - ID: Quest_Dialogue_5
+    Korean: "\uAE43\uD138\uC774 \uD544\uC694\uD574\uC694"
+    English: I need a feather
+  - ID: Quest_Dialogue_6
+    Korean: "\uB2ED\uB4E4\uC5D0\uAC8C\uC11C \uAE43\uD138\uC744 \uBAA8\uC544\uC8FC\uC138\uC694"
+    English: Gather feathers from the chickens
+  - ID: Quest_Dialogue_7
+    Korean: "\uACE0\uB9C8\uC6CC\uC694"
+    English: Thank you
+  - ID: Quest_Dialogue_8
+    Korean: "\uB9D0\uCF64\uC5D0\uAC8C \uAC00\uBCF4\uC138\uC694"
+    English: Go to Malcolm
+  - ID: Quest_Dialogue_9
+    Korean: "\uB291\uB300\uAC00 \uB098\uD0C0\uB0AC\uC2B5\uB2C8\uB2E4"
+    English: A wolf has appeared
+  - ID: Quest_Dialogue_10
+    Korean: "\uB291\uB300\uB97C \uC0AC\uB0E5\uD574\uC8FC\uC138\uC694"
+    English: Please hunt wolves
+  - ID: Quest_Dialogue_11
+    Korean: "(\uACF5\uACA9\uC744 \uD558\uAE30 \uC704\uD574\uC11C\uB294 \uAC80\uACFC
+      \uBC29\uD328\uB97C \uCC29\uC6A9\uD574\uC57C \uD569\uB2C8\uB2E4)"
+    English: You must wear a sword and shield in order to strike
+  - ID: Quest_Dialogue_12
+    Korean: "\uACE0\uB9D9\uC2B5\uB2C8\uB2E4. \uD018\uC2A4\uD2B8 \uC885\uB8CC"
+    English: Thank you, Ending the quest
+  - ID: Item_Name_WoodenSword
+    Korean: "\uB098\uBB34 \uAC80"
+    English: Wooden Sword
+  - ID: Item_Name_IronSword
+    Korean: "\uAC15\uCCA0 \uAC80"
+    English: Iron Sword
+  - ID: Item_Name_WoodenShield
+    Korean: "\uB098\uBB34 \uBC29\uD328"
+    English: Wooden Shield
+  - ID: Item_Name_IronShield
+    Korean: "\uAC15\uCCA0 \uBC29\uD328"
+    English: Iron Shield
+  - ID: Item_Name_LeatherHelmet
+    Korean: "\uAC00\uC8FD \uD22C\uAD6C"
+    English: Leather Helmet
+  - ID: Item_Name_IronHelmet
+    Korean: "\uAC15\uCCA0 \uD22C\uAD6C"
+    English: Iron Helmet
+  - ID: Item_Name_LeatherArmor
+    Korean: "\uAC00\uC8FD \uAC11\uC637"
+    English: Leather Armor
+  - ID: Item_Name_IronArmor
+    Korean: "\uAC15\uCCA0 \uAC11\uC637"
+    English: Iron Armor
+  - ID: Item_Name_LeatherShoes
+    Korean: "\uAC00\uC8FD \uC2E0\uBC1C"
+    English: Leather Shoes
+  - ID: Item_Name_IronShoes
+    Korean: "\uAC15\uCCA0 \uC2E0\uBC1C"
+    English: Iron Shoes
+  - ID: Item_Name_HpPotion
+    Korean: "\uCCB4\uB825 \uBB3C\uC57D"
+    English: Hp Potion
+  - ID: Item_Name_Ruby
+    Korean: "\uB8E8\uBE44"
+    English: Ruby
+  - ID: Item_Name_Sapphire
+    Korean: "\uC0AC\uD30C\uC774\uC5B4"
+    English: Sapphire
+  - ID: Item_Name_Fish
+    Korean: "\uBB3C\uACE0\uAE30"
+    English: Fish
+  - ID: Item_Name_Mushroom
+    Korean: "\uBC84\uC12F"
+    English: Mushroom
+  - ID: Item_Name_Feather
+    Korean: "\uAE43\uD138"
+    English: Feather
+  - ID: Item_Explanation_WoodenSword
+    Korean: "\uB098\uBB34\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uAC80\uC785\uB2C8\uB2E4"
+    English: This is Wooden Sword
+  - ID: Item_Explanation_IronSword
+    Korean: "\uAC15\uCCA0\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uAC80\uC785\uB2C8\uB2E4"
+    English: This is Iron Sword
+  - ID: Item_Explanation_WoodenShield
+    Korean: "\uB098\uBB34\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uBC29\uD328\uC785\uB2C8\uB2E4"
+    English: This is Wooden Shield
+  - ID: Item_Explanation_IronShield
+    Korean: "\uAC15\uCCA0\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uBC29\uD328\uC785\uB2C8\uB2E4"
+    English: This is Iron Shield
+  - ID: Item_Explanation_LeatherHelmet
+    Korean: "\uAC00\uC8FD\uC73C\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uD22C\uAD6C\uC785\uB2C8\uB2E4"
+    English: This is Leather Helmet
+  - ID: Item_Explanation_IronHelmet
+    Korean: "\uAC15\uCCA0\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uD22C\uAD6C\uC785\uB2C8\uB2E4"
+    English: This is Iron Helmet
+  - ID: Item_Explanation_LeatherArmor
+    Korean: "\uAC00\uC8FD\uC73C\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uAC11\uC637\uC785\uB2C8\uB2E4"
+    English: This is Leather Armor
+  - ID: Item_Explanation_IronArmor
+    Korean: "\uAC15\uCCA0\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uAC11\uC637\uC785\uB2C8\uB2E4"
+    English: This is Iron Armor
+  - ID: Item_Explanation_LeatherShoes
+    Korean: "\uAC00\uC8FD\uC73C\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uC2E0\uBC1C\uC785\uB2C8\uB2E4"
+    English: This is Leather Shoes
+  - ID: Item_Explanation_IronShoes
+    Korean: "\uAC15\uCCA0\uB85C \uB9CC\uB4E4\uC5B4\uC9C4 \uC2E0\uBC1C\uC785\uB2C8\uB2E4"
+    English: This is Iron Shoes
+  - ID: Item_Explanation_HpPotion
+    Korean: "\uCCB4\uB825\uC744 \uD68C\uBCF5\uC2DC\uCF1C\uC90D\uB2C8\uB2E4"
+    English: Restore Health Point
+  - ID: Item_Explanation_Ruby
+    Korean: "\uB8E8\uBE44 \uAD11\uC11D\uC785\uB2C8\uB2E4"
+    English: This is Ruby
+  - ID: Item_Explanation_Sapphire
+    Korean: "\uC0AC\uD30C\uC774\uC5B4 \uAD11\uC11D\uC785\uB2C8\uB2E4"
+    English: This is Sapphire
+  - ID: Item_Explanation_Fish
+    Korean: "\uD3C9\uBC94\uD55C \uBB3C\uACE0\uAE30\uC785\uB2C8\uB2E4"
+    English: This is Fish
+  - ID: Item_Explanation_Mushroom
+    Korean: "\uBC84\uC12F\uC785\uB2C8\uB2E4"
+    English: This is Mushroom
+  - ID: Item_Explanation_Feather
+    Korean: "\uAE43\uD138\uC785\uB2C8\uB2E4"
+    English: This is Feather
+  - ID: Text_Accept
+    Korean: "\uC218\uB77D"
+    English: Accept
+  - ID: Text_Close
+    Korean: "\uB2EB\uAE30"
+    English: Close
+  - ID: Text_Success
+    Korean: "\uC131\uACF5"
+    English: Success
+  - ID: Text_Fail
+    Korean: "\uC2E4\uD328"
+    English: Fail
+  - ID: Text_Quest
+    Korean: "\uD018\uC2A4\uD2B8"
+    English: Quest
+  - ID: Text_Goal
+    Korean: "\uBAA9\uD45C"
+    English: Goal
+  - ID: Text_Content
+    Korean: "\uB0B4\uC6A9"
+    English: Conetent
+  - ID: Text_Reward
+    Korean: "\uBCF4\uC0C1"
+    English: Reward
+  - ID: Text_Bag
+    Korean: "\uAC00\uBC29"
+    English: Bag
+  - ID: Text_ItemInfo
+    Korean: "\uC544\uC774\uD15C \uC815\uBCF4"
+    English: Item Info
+  - ID: Text_Use
+    Korean: "\uC0AC\uC6A9"
+    English: Use
+  - ID: Text_Equip
+    Korean: "\uC7A5\uCC29"
+    English: Equip
+  - ID: Text_UnEquip
+    Korean: "\uD574\uC81C"
+    English: UnEquip
+  - ID: Text_Hp
+    Korean: "\uCCB4\uB825"
+    English: Hp
+  - ID: Text_OffensivePower
+    Korean: "\uACF5\uACA9\uB825"
+    English: Offensive Power
+  - ID: Text_DefensivePower
+    Korean: "\uBC29\uC5B4\uB825"
+    English: Defensive Power
+  - ID: Text_EquipWeapon
+    Korean: "\uBB34\uAE30\uB97C \uC7A5\uCC29\uD574\uC8FC\uC138\uC694"
+    English: Please put on the sword
+  - ID: Text_EquipShield
+    Korean: "\uBC29\uD328\uB97C \uC7A5\uCC29\uD574\uC8FC\uC138\uC694"
+    English: Please put on the shield
+  - ID: Skill_Skill0
+    Korean: "\uAE30\uBCF8 \uACF5\uACA9"
+    English: Attack
+  - ID: Skill_Skill1
+    Korean: "\uC5F0\uC18D \uACF5\uACA9"
+    English: Twice Attack
+  - ID: Skill_Skill2
+    Korean: "\uC774\uC5F0\uACA9"
+    English: Double Attack
+  - ID: Skill_Skill3
+    Korean: "\uB9C8\uBC95 \uACF5\uACA9"
+    English: Magic Attack

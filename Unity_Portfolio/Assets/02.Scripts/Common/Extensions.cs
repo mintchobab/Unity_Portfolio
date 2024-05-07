@@ -1,4 +1,6 @@
 using UnityEngine;
+using static UnityEngine.UI.Toggle;
+using UnityEngine.Events;
 
 namespace lsy
 {
@@ -14,6 +16,24 @@ namespace lsy
             }
 
             return component;
+        }
+
+        public static void SetListener(this UnityEvent unityEvent, UnityAction unityAction)
+        {
+            unityEvent.RemoveAllListeners();
+            unityEvent.AddListener(unityAction);
+        }
+
+        public static void SetListener<T0>(this UnityEvent<T0> unityEvent, UnityAction<T0> unityAction)
+        {
+            unityEvent.RemoveAllListeners();
+            unityEvent.AddListener(unityAction);
+        }
+
+        public static void SetListener<T0, T1>(this UnityEvent<T0, T1> unityEvent, UnityAction<T0, T1> unityAction)
+        {
+            unityEvent.RemoveAllListeners();
+            unityEvent.AddListener(unityAction);
         }
     }
 }

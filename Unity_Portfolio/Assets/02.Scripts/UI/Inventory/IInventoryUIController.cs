@@ -5,5 +5,3 @@ namespace lsy
         public void ClickedItemSlot(ItemSlot slot);
     }
 }
-
-

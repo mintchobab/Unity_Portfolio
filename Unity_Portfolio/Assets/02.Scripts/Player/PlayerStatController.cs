@@ -10,13 +10,14 @@ namespace lsy
 
         public event Action onChangedStat;
 
-        private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
+        // TODO
+        //private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
 
 
         private void Start()
         {
-            equipInventoryManager.onEquipedItem += OnEquipedItem;
-            equipInventoryManager.onUnEquipedItem += OnUnEquipedItem;
+            //equipInventoryManager.onEquipedItem += OnEquipedItem;
+            //equipInventoryManager.onUnEquipedItem += OnUnEquipedItem;
         }
 
 

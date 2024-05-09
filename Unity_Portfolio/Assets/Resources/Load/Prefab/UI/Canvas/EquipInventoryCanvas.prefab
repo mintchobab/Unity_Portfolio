@@ -916,7 +916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a201c0b7e1a6ce47a434a9c605cf3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabType: 0
+  tabType: 1
 --- !u!1 &1309075008164085541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a201c0b7e1a6ce47a434a9c605cf3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabType: 4
+  tabType: 5
 --- !u!1 &1309075008750107313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a201c0b7e1a6ce47a434a9c605cf3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabType: 2
+  tabType: 3
 --- !u!1 &1309075009190442913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,7 +1748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a201c0b7e1a6ce47a434a9c605cf3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabType: 1
+  tabType: 2
 --- !u!1 &1309075009215319108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,7 +1884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a201c0b7e1a6ce47a434a9c605cf3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabType: 3
+  tabType: 4
 --- !u!1 &1759519497785182398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3384,7 +3384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a201c0b7e1a6ce47a434a9c605cf3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabType: 5
+  tabType: 0
 --- !u!1 &6939733076023613298
 GameObject:
   m_ObjectHideFlags: 0
@@ -3847,7 +3847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -210}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7478333594099159094
@@ -4385,6 +4385,10 @@ PrefabInstance:
       propertyPath: equipInventoryPopup
       value: 
       objectReference: {fileID: 3036873529219587373}
+    - target: {fileID: 441138438836586824, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
+      propertyPath: <EquipSlotType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2854173230328429157, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: m_Name
       value: Slot_Weapon
@@ -4508,7 +4512,7 @@ PrefabInstance:
       objectReference: {fileID: 3036873529219587373}
     - target: {fileID: 441138438836586824, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: <EquipSlotType>k__BackingField
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2854173230328429157, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: m_Name
@@ -4633,7 +4637,7 @@ PrefabInstance:
       objectReference: {fileID: 3036873529219587373}
     - target: {fileID: 441138438836586824, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: <EquipSlotType>k__BackingField
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2854173230328429157, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: m_Name
@@ -4758,7 +4762,7 @@ PrefabInstance:
       objectReference: {fileID: 3036873529219587373}
     - target: {fileID: 441138438836586824, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: <EquipSlotType>k__BackingField
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2854173230328429157, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: m_Name
@@ -7934,7 +7938,7 @@ PrefabInstance:
       objectReference: {fileID: 3036873529219587373}
     - target: {fileID: 441138438836586824, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: <EquipSlotType>k__BackingField
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2854173230328429157, guid: 0b94525403cb4d745b36ea10067747db, type: 3}
       propertyPath: m_Name

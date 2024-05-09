@@ -30,16 +30,16 @@ namespace lsy
             Managers.Instance.InventoryManager.AddItem(10000, 99);
 
             //TODO
-            Managers.Instance.InventoryManager.AddItem(30000);
+            Managers.Instance.InventoryManager.AddItem(30031);
+            Managers.Instance.InventoryManager.AddItem(30021);
             Managers.Instance.InventoryManager.AddItem(30001);
+            Managers.Instance.InventoryManager.AddItem(30041);
             Managers.Instance.InventoryManager.AddItem(30010);
             Managers.Instance.InventoryManager.AddItem(30011);
-            Managers.Instance.InventoryManager.AddItem(30020);
-            Managers.Instance.InventoryManager.AddItem(30021);
-            Managers.Instance.InventoryManager.AddItem(30030);
-            Managers.Instance.InventoryManager.AddItem(30031);
             Managers.Instance.InventoryManager.AddItem(30040);
-            Managers.Instance.InventoryManager.AddItem(30041);
+            Managers.Instance.InventoryManager.AddItem(30030);
+            Managers.Instance.InventoryManager.AddItem(30020);
+            Managers.Instance.InventoryManager.AddItem(30000);
         }
 
 

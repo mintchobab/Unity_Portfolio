@@ -17,11 +17,9 @@ namespace lsy
             button.onClick.AddListener(OnClickButton);
         }
 
-
         private void OnClickButton()
         {
-            // TODO
-            //Managers.Instance.EquipInventoryManager.SortInventory(tabType);
+            Managers.Instance.InventoryManager.SortEquipment(tabType);
         }
 
     }

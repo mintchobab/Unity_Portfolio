@@ -23,6 +23,8 @@ namespace lsy
         {
             try
             {
+                List<string> tableNames = new List<string>();
+
                 string[] guids = AssetDatabase.FindAssets("", new string[] { CSVFolderPath });
 
                 foreach (var guid in guids)
@@ -33,6 +35,11 @@ namespace lsy
                     if (asset == null || !path.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
                         continue;
 
+                    string name = path.Substring(path.LastIndexOf('/') + 1);
+                    name = name.Substring(0, name.IndexOf('.'));
+
+                    tableNames.Add(name);
+
                     List<Dictionary<string, object>> tableDataList = TableCSVReader.Read(asset, out string[] header, out string[] types);
 
                     if (header.Length == 0 || types.Length == 0)
@@ -40,6 +47,8 @@ namespace lsy
 
                     WriteCode(asset.name, header, types);
                 }
+
+                WriteTables(tableNames);
 
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();
@@ -112,8 +121,6 @@ namespace lsy
 
         public static void MakeScriptableObject()
         {
-            List<string> tableNames = new List<string>();
-
             try
             {
                 string[] guids = AssetDatabase.FindAssets("", new string[] { CSVFolderPath });
@@ -130,11 +137,8 @@ namespace lsy
                     string name = path.Substring(path.LastIndexOf('/') + 1);
                     name = name.Substring(0, name.IndexOf('.'));
 
-                    tableNames.Add(name);
-
                     if (AssetDatabase.LoadAssetAtPath<ScriptableObject>($"{ScriptableFolderPath}/{name}.asset") != null)
                         AssetDatabase.DeleteAsset($"{ScriptableFolderPath}/{name}.asset");
-
 
                     Type tableType = Type.GetType(name);
 
@@ -161,9 +165,6 @@ namespace lsy
 
                     EditorUtility.SetDirty(scriptableObj);
                 }
-
-                // Make Tables
-                WriteTables(tableNames);
 
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();                

@@ -95,11 +95,11 @@ namespace lsy
             if (inventoryItem.IsExist)
             {
                 // TODO : GetItemSpritePathToTypeString ¾ø¾Ö±â
-                string path = $"{ResourcePath.GetItemSpritePathToTypeString(inventoryItem.ItemType)}/{Tables.ConsumableItemTable[inventoryItem.itemId].ResourceName}";
+                string path = $"{ResourcePath.GetItemSpritePathToTypeString(inventoryItem.ItemType)}/{Tables.ConsumableItemTable[inventoryItem.ItemId].ResourceName}";
                 Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
 
                 slotList[index].UpdateSlotImage(sprite);
-                slotList[index].UpdateSlotCount(inventoryItem.itemCount);
+                slotList[index].UpdateSlotCount(inventoryItem.ItemCount);
             }
             else
             {

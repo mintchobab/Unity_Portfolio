@@ -2,25 +2,68 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace lsy
 {
-    public partial class InventoryManager : IManager
+    public class InventoryManager : IManager
     {
         public class InventoryItem
         {
-            public ItemType ItemType = ItemType.None;
-            public int itemId = -1;
-            public int itemCount = 0;
+            public ItemType ItemType { get; private set; }
+            public EquipType EquipType { get; private set; }
 
-            public bool IsExist => itemId != -1;
+            public int ItemId { get; private set; }
+            public int ItemCount { get; private set; }
+
+            public bool IsExist => ItemId != -1;
+
+            public InventoryItem()
+            {
+                SetEmpty();
+            }
 
             public void SetEmpty()
             {
                 ItemType = ItemType.None;
-                itemId = -1;
-                itemCount = 0;
+                EquipType = EquipType.None;
+                ItemId = -1;
+                ItemCount = 0;
+            }
+
+            public void SetData(int id, int count)
+            {
+                if (Tables.ConsumableItemTable.IsExist(id))
+                {
+                    ItemType = ItemType.Consumable;
+                    EquipType = EquipType.None;
+                }
+                else if (Tables.EquipmentItemTable.IsExist(id))
+                {
+                    ItemType = ItemType.Equipment;
+                    EquipType = Utility.StringToEnum<EquipType>(Tables.EquipmentItemTable[id].Parts);
+                }
+                else
+                {
+                    Debug.LogError($"{nameof(InventoryItem)} : ItemType Error");
+                }
+
+                this.ItemId = id;
+                this.ItemCount = count;
+            }
+
+            public void SetCount(int count)
+            {
+                if (ItemType != ItemType.Consumable)
+                    return;
+
+                int maxCount = Tables.ConsumableItemTable[ItemId].MaxCount;
+                ItemCount = Mathf.Min(count, maxCount);
+            }
+
+            public void AddCount(int count)
+            {
+                int tmpCount = Mathf.Max(ItemCount + count, 0);
+                SetCount(tmpCount);
             }
         }
 
@@ -80,22 +123,17 @@ namespace lsy
         // 리스트 타입 자체는 같으니까 그걸로....???
         public void AddItem(int itemId, int amount = 1)
         {
-            bool? isConsumable = IsConsumableItem(itemId);
-
-            if (!isConsumable.HasValue)
-                return;
-
-            if (isConsumable.Value)
+            if (Tables.ConsumableItemTable.IsExist(itemId))
             {
                 int maxCount = Tables.ConsumableItemTable[itemId].MaxCount;
 
                 for (int i = 0; i < ConsumableList.Count; i++)
                 {
-                    if (ConsumableList[i].itemId == itemId && ConsumableList[i].itemCount < maxCount)
+                    if (ConsumableList[i].ItemId == itemId && ConsumableList[i].ItemCount < maxCount)
                     {
-                        if (ConsumableList[i].itemCount + amount <= maxCount)
+                        if (ConsumableList[i].ItemCount + amount <= maxCount)
                         {
-                            ConsumableList[i].itemCount += amount;
+                            ConsumableList[i].AddCount(amount);
                             amount = 0;
 
                             onConsumableChanged?.Invoke(itemId, i);
@@ -103,8 +141,8 @@ namespace lsy
                         }
                         else
                         {
-                            ConsumableList[i].itemCount = maxCount;
-                            amount -= (maxCount - ConsumableList[i].itemCount);
+                            ConsumableList[i].SetCount(maxCount);
+                            amount -= (maxCount - ConsumableList[i].ItemCount);
 
                             onConsumableChanged?.Invoke(itemId, i);
                             continue;
@@ -123,14 +161,12 @@ namespace lsy
                         return;
                     }
 
-                    ConsumableList[index].itemId = itemId;
-                    ConsumableList[index].itemCount = amount;
-                    ConsumableList[index].ItemType = ItemType.Consumable;
+                    ConsumableList[index].SetData(itemId, amount);
 
                     onConsumableChanged?.Invoke(itemId, index);
                 }
             }
-            else if (!isConsumable.Value)
+            else if (Tables.EquipmentItemTable.IsExist(itemId))
             {
                 int index = EquipmentList.FindIndex(x => x.IsExist == false);
 
@@ -140,11 +176,13 @@ namespace lsy
                     return;
                 }
 
-                EquipmentList[index].itemId = itemId;
-                EquipmentList[index].itemCount = 1;
-                EquipmentList[index].ItemType = ItemType.Equipment;
+                EquipmentList[index].SetData(itemId, 1);
 
                 onChangedEquipmentList?.Invoke(index);
+            }
+            else
+            {
+                UnityEngine.Debug.LogError($"{nameof(InventoryManager)} : This is Not Item ID ({itemId})");
             }
         }
 
@@ -153,11 +191,11 @@ namespace lsy
 
         public void UseItem(int index)
         {
-            ConsumableList[index].itemCount--;
+            ConsumableList[index].AddCount(-1);
 
-            onConsumableChanged?.Invoke(ConsumableList[index].itemId, index);
+            onConsumableChanged?.Invoke(ConsumableList[index].ItemId, index);
 
-            if (ConsumableList[index].itemCount <= 0)
+            if (ConsumableList[index].ItemCount <= 0)
                 ConsumableList[index].SetEmpty();
         }
 
@@ -180,20 +218,6 @@ namespace lsy
         }
 
 
-        public bool? IsConsumableItem(int itemId)
-        {
-            if (Tables.ConsumableItemTable[itemId] != null)
-                return true;
-
-            if (Tables.EquipmentItemTable[itemId] != null)
-                return false;
-
-            UnityEngine.Debug.LogError($"{nameof(InventoryManager)} : This is Not Item ID ({itemId})");
-
-            return null;
-        }
-
-
         public int FindItemCount(int itemId)
         {
             int count = 0;
@@ -203,9 +227,9 @@ namespace lsy
                 if (!item.IsExist)
                     continue;
 
-                if (item.itemId == itemId)
+                if (item.ItemId == itemId)
                 {
-                    count += item.itemCount;
+                    count += item.ItemCount;
                 }
             }
 
@@ -236,12 +260,12 @@ namespace lsy
         {
             InventoryItem item = EquipmentList[index];
 
-            EquipType type = (EquipType)Enum.Parse(typeof(EquipType), $"{Tables.EquipmentItemTable[item.itemId].Parts}");
+            EquipType type = (EquipType)Enum.Parse(typeof(EquipType), $"{Tables.EquipmentItemTable[item.ItemId].Parts}");
 
             int prevEquipItemId = EquipedItemDic[type];
 
-            EquipedItemDic[type] = item.itemId;
-            onChangedEquipedItem?.Invoke(type, item.itemId);
+            EquipedItemDic[type] = item.ItemId;
+            onChangedEquipedItem?.Invoke(type, item.ItemId);
 
             EquipmentList[index].SetEmpty();
             onChangedEquipmentList?.Invoke(index);
@@ -265,7 +289,6 @@ namespace lsy
         public void UnEquip(int itemId)
         {
             // TODO : 해제는 아이템 슬롯에 공백이 있어야해서 체크하기
-
             KeyValuePair<EquipType, int> tmp = EquipedItemDic.First(x => x.Value == itemId);
             EquipedItemDic[tmp.Key] = 0;
 
@@ -275,97 +298,29 @@ namespace lsy
             AddItem(itemId);
         }
 
+        public void SortEquipment(EquipType equipType = EquipType.None)
+        {
+            if (equipType == EquipType.None)
+            {
+                EquipmentList = EquipmentList
+                    .OrderByDescending(x => x.ItemId > 0)
+                    .ThenBy(x => x.ItemId)
+                    .ToList();
+            }
+            else
+            {
+                EquipmentList = EquipmentList
+                    .OrderByDescending(x => x.EquipType == equipType)
+                    .ThenByDescending(x => x.ItemId > 0)
+                    .ThenBy(x => x.ItemId)
+                    .ToList();
+            }            
 
-        // ------------------------------------------------
-
-
-        //    public void SortInventory(EquipType tabType)
-        //    {
-        //        if (tabType == EquipType.Default)
-        //        {
-        //            SortInventoryAll();                
-        //            return;
-        //        }
-
-        //        List<EquipInventoryItem> tmpList = new List<EquipInventoryItem>();
-
-        //        for (int i = ItemList.Count - 1; i >= 0; i--)
-        //        {
-        //            if (ItemList[i].item == null)
-        //                continue;
-
-        //            EquipType type = (EquipType)Enum.Parse(typeof(EquipType), $"{ItemList[i].item._parts}");
-
-        //            if (type.Equals(tabType))
-        //            {
-        //                tmpList.Add(ItemList[i]);
-        //                ItemList.RemoveAt(i);
-        //            }
-        //        }
-
-        //        tmpList.Sort((x, y) => x.item.id.CompareTo(y.item.id));
-
-        //        for (int i = 0; i < tmpList.Count; i++)
-        //        {
-        //            ItemList.Insert(i, tmpList[i]);
-        //        }
-
-        //        onExchangedAllItems?.Invoke();
-        //    }
-
-
-        //    private void SortInventoryAll()
-        //    {
-        //        List<EquipInventoryItem> tmpList = new List<EquipInventoryItem>();
-
-        //        for (int i = 0; i < ItemList.Count; i++)
-        //        {
-        //            if (ItemList[i].item == null)
-        //                continue;
-
-        //            tmpList.Add(ItemList[i]);
-        //        }
-
-        //        tmpList.Sort((x, y) => x.item.id.CompareTo(y.item.id));
-
-        //        for (int i = 0; i < tmpList.Count; i++)
-        //        {
-        //            ItemList[i] = tmpList[i];
-        //        }
-
-        //        onExchangedAllItems?.Invoke();
-        //    }
-
-
-        //    private void PushList(int startIndex)
-        //    {
-        //        int lastIndex = 0;
-
-        //        for (int i = 0; i < ItemList.Count; i++)
-        //        {
-        //            if(ItemList[i].item == null)
-        //            {
-        //                lastIndex = i;
-        //                break;
-        //            }
-        //        }
-
-        //        for (int i = lastIndex; i > startIndex; i--)
-        //        {
-        //            ItemList[i] = ItemList[i - 1];
-        //            onExchangedItem?.Invoke(i - 1, i);
-        //        }
-        //    }
-
-
-        //    private EquipInventoryItem MakeNewEquipItem(int itemId)
-        //    {
-        //        //EquipmentItemTable.Instance[itemId].;
-
-        //        EquipItem itemData = Managers.Instance.ItemManager.GetEquipItem(itemId);
-        //        return new EquipInventoryItem() { item = itemData };
-        //    }
-        //}
+            for (int i = 0; i < EquipmentList.Count; i++)
+            {
+                onChangedEquipmentList?.Invoke(i);
+            }
+        }
 
         #endregion
     }

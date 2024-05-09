@@ -107,11 +107,9 @@ namespace lsy
                 slotList[i].Lock();
                 slotList[i].Initialize(this);
             }
-
         }
 
 
-        // TODO
         public override void Hide(Action onHide = null)
         {
             base.Hide(onHide);
@@ -132,11 +130,11 @@ namespace lsy
 
             if (inventoryItem.IsExist)
             {
-                string path = $"{ResourcePath.EquipItem}/{Tables.EquipmentItemTable[inventoryItem.itemId].ResourceName}";
+                string path = $"{ResourcePath.EquipItem}/{Tables.EquipmentItemTable[inventoryItem.ItemId].ResourceName}";
                 Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
 
                 slotList[index].UpdateSlotImage(sprite);
-                slotList[index].UpdateItemName(StringManager.Get(Tables.EquipmentItemTable[inventoryItem.itemId].Name));
+                slotList[index].UpdateItemName(StringManager.Get(Tables.EquipmentItemTable[inventoryItem.ItemId].Name));
             }
             else
             {
@@ -147,7 +145,23 @@ namespace lsy
 
         private void UpdateEquipedSlot(EquipType equipType, int itemId)
         {
-            EquipSlot slot = FindEquipSlot(equipType);
+            EquipSlot slot = null;
+
+            for (int i = 0; i < equipSlots.Length; i++)
+            {
+                if (equipSlots[i].EquipSlotType == equipType)
+                {
+                    slot = equipSlots[i];
+                    break;
+                }
+            }
+
+            if (slot == null)
+            {
+                Debug.LogError($"{nameof(EquipmentInventory)} : Slot Error");
+                return;
+            }
+
 
             if (itemId > 0)
             {
@@ -163,40 +177,6 @@ namespace lsy
         }
 
 
-        //private void OnEquipedItem(EquipType equipType, EquipItem item)
-        //{
-        //    EquipSlot slot = FindEquipSlot(equipType);
-
-        //    string path = $"{ResourcePath.EquipItem}/{item._resourceName}";
-        //    Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
-
-        //    slot.UpdateSlotImage(sprite);
-        //}
-
-
-
-        private void OnUnEquipedItem(EquipType equipType, EquipItem item)
-        {
-            EquipSlot slot = FindEquipSlot(equipType);
-            slot.ClearSlot();
-        }
-
-
-        private EquipSlot FindEquipSlot(EquipType equipType)
-        {
-            for (int i = 0; i < equipSlots.Length; i++)
-            {
-                if (equipSlots[i].EquipSlotType == equipType)
-                {
-                    return equipSlots[i];
-                }
-            }
-
-            return null;
-        }
-
-
-
         public void ClickedItemSlot(ItemSlot slot)
         {
             int index = slotList.IndexOf(slot);
@@ -204,84 +184,11 @@ namespace lsy
             if (!inventoryManager.EquipmentList[index].IsExist)
                 return;
 
-            equipInventoryPopup.Show(true, inventoryManager.EquipmentList[index].itemId, index);
+            equipInventoryPopup.Show(true, inventoryManager.EquipmentList[index].ItemId, index);
         }
 
 
-
-
-
-
-
-
-        // -------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private void OnExchangedAllItems()
-        {
-            //List<EquipInventoryItem> itemList = equipInventoryManager.ItemList;
-
-            //for (int i = 0; i < itemList.Count; i++)
-            //{
-            //    EquipItem item = itemList[i].item;
-
-            //    if (item == null)
-            //        continue;
-
-            //    string path = $"{ResourcePath.EquipItem}/{item._resourceName}";
-            //    Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
-
-            //    slotList[i].UpdateSlotImage(sprite);
-
-            //    string name = StringManager.GetLocalizedItemName(item.name);
-            //    slotList[i].UpdateItemName(name);
-            //}
-        }
-
-
-
-
-
-        private void OnExchangedItem(int prev, int next)
-        {
-            Sprite prevSprite;
-            string prevName;
-
-            prevSprite = slotList[prev].MyItemSprite;
-            prevName = slotList[prev].MyItemName;
-
-            slotList[prev].UpdateSlotImage(slotList[next].MyItemSprite);
-            slotList[prev].UpdateItemName(slotList[next].MyItemName);
-
-            slotList[next].UpdateSlotImage(prevSprite);
-            slotList[next].UpdateItemName(prevName);
-        }
-
-
-        private void OnMovedItem(int self, int target)
-        {
-            slotList[target].UpdateSlotImage(slotList[self].MyItemSprite);
-            slotList[target].UpdateItemName(slotList[self].MyItemName);
-        }
-
-
-
-
-
-
+        // TODO : 아이템 장착 시 스탯 변경 관련 작업 수정하기
         private void UpdatePlayerStatText()
         {
             hpText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedHp().ToString();
@@ -289,5 +196,4 @@ namespace lsy
             defensivePowerText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedDefensivePower().ToString();
         }
     }
-
 }

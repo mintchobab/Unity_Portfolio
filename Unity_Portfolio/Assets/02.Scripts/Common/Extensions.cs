@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.UI.Toggle;
 using UnityEngine.Events;
 
 namespace lsy

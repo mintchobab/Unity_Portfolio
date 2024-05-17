@@ -150,7 +150,7 @@ namespace lsy
                         gaugeBubble.transform.position = gaugeBubblePositionList[i + 1].position;
 
                     gaugeBubble.ChangeBubbleColor(failColor);
-                    gaugeBubble.ChangeResultText(StringManager.GetLocalizedUIText("Text_Fail"));
+                    gaugeBubble.ChangeResultText(StringManager.Get("Text_Fail"));
 
                     continue;
                 }
@@ -162,7 +162,7 @@ namespace lsy
 
                 gaugeBubble.transform.position = gaugeBubblePositionList[i + 1].position;
                 gaugeBubble.ChangeBubbleColor(successColor);
-                gaugeBubble.ChangeResultText(StringManager.GetLocalizedUIText("Text_Success"));
+                gaugeBubble.ChangeResultText(StringManager.Get("Text_Success"));
             }
 
             if (!isFail)

@@ -1,0 +1,5 @@
+ID,NpcID,Name,Goal,Content,NextQuestID,StartDialogues,ProgressingDialogues,EndDialogues,Collect,Kill,Exp,Gold,Reward
+int,int,string,string,string,int,string,string,string,string,string,int,int,string
+2000,1000,Quest_Name_1,Quest_Goal_1,Quest_Content_1,2001,Quest_Dialogue_1/Quest_Dialogue_2,Quest_Dialogue_2,Quest_Dialogue_3/Quest_Dialogue_4,20000/2,,100,200,10000/1
+2001,1001,Quest_Name_2,Quest_Goal_2,Quest_Content_2,2002,Quest_Dialogue_5/Quest_Dialogue_6,Quest_Dialogue_6,Quest_Dialogue_7/Quest_Dialogue_8,20004/3,,200,400,10000/10
+2002,1002,Quest_Name_3,Quest_Goal_3,Quest_Content_3,-1,Quest_Dialogue_9/Quest_Dialogue_10/Quest_Dialogue_11,Quest_Dialogue_10,Quest_Dialogue_12,,0/3,500,1000,10000/10

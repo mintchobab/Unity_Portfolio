@@ -15,7 +15,7 @@ namespace lsy
             Text myText = GetComponent<Text>();
 
             if (!textNameKey.Equals(string.Empty))
-                myText.text = StringManager.GetLocalizedUIText(textNameKey);
+                myText.text = StringManager.Get(textNameKey);
         }
     }
 }

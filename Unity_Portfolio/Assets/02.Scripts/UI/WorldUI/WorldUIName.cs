@@ -42,7 +42,7 @@ namespace lsy
                     break;
 
                 case NameType.Collection:
-                    name = StringManager.GetLocalizedItemName(nameKey);
+                    name = StringManager.Get(nameKey);
                     colorString = collectionNameColorString;
                     break;
             }

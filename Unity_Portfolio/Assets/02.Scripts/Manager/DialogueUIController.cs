@@ -31,7 +31,7 @@ namespace lsy
         private List<string> currentDialogues;
 
         private bool isTyping;
-        private bool isQuestDialogue;
+        private bool isAcceptDialogue;
 
         private int currentIndex;
         private int lastIndex;
@@ -47,8 +47,8 @@ namespace lsy
             acceptButton.onClick.AddListener(OnClickAcceptButton);
             closeButton.onClick.AddListener(() => Hide());
 
-            acceptButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_Accept");
-            closeButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_Close");
+            acceptButton.GetComponentInChildren<Text>().text = StringManager.Get("Text_Accept");
+            closeButton.GetComponentInChildren<Text>().text = StringManager.Get("Text_Close");
         }
 
 
@@ -77,7 +77,7 @@ namespace lsy
 
             if (currentIndex == -1)
             {
-                if (isQuestDialogue)
+                if (isAcceptDialogue)
                 {
                     return;
                 }
@@ -105,12 +105,17 @@ namespace lsy
         }
 
 
-        public void SetInitializeInfo(bool isQuest, string name, List<string> dialogues)
+        public void SetInitializeInfo(bool isAcceptDialogue, string name, List<string> dialogues)
         {
             nameText.text = name;
-            isQuestDialogue = isQuest;
-            
+            this.isAcceptDialogue = isAcceptDialogue;
+
             currentDialogues = dialogues;
+
+            //for (int i = 0; i < dialouges.Count; i++)
+            //{
+            //    resultDialogues.Add(StringManager.Get(dialouges[i]));
+            //}
 
             currentIndex = 0;
             lastIndex = currentDialogues.Count - 1;
@@ -169,7 +174,7 @@ namespace lsy
             onDialogueEnded = null;
 
             // 퀘스트가 있을때만
-            if (isQuestDialogue)
+            if (isAcceptDialogue)
             {
                 acceptButton.gameObject.SetActive(true);
                 closeButton.gameObject.SetActive(true);

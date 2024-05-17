@@ -1,52 +1,75 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace lsy
 {
     public class CurrentQuest
     {
-        public Quest Quest { get; private set; }
-        public QuestType QuestType { get; private set; }
+        public int QuestId { get; private set; }
+        //public Quest Quest { get; private set; }
 
+        public QuestType QuestType { get; private set; }
         public bool IsCompleted { get; private set; }
 
         public int CurrentCount { get; private set; }
         public int GoalCount { get; private set; }
 
+        public List<(int, int)> RewardList { get; private set; }
 
-        public CurrentQuest(Quest quest)
+        // TODO : 퀘스트가 몬스터와 수집을 구분하지 않는 구조로 만들기..>???
+        // 퀘스트 내용은 다르겠지만 처리하는 방법은 동일하게?
+        public CurrentQuest(int id)
         {
-            this.Quest = quest;
+            //this.Quest = quest;
+            QuestId = id;
             IsCompleted = false;
             CurrentCount = 0;
             GoalCount = 0;
-            SetQuestType();
-        }
 
+            QuestTable.TableData questInfo = Tables.QuestTable[QuestId];
 
-        private void SetQuestType()
-        {
-            if (Quest.task.collect.Count != 0)
+            if (!string.IsNullOrEmpty(questInfo.Collect))
             {
                 QuestType = QuestType.Collect;
-                GoalCount = Quest.task.collect[1];
 
-                CurrentCount = Managers.Instance.InventoryManager.FindItemCount(Quest.task.collect[0]);
+                int[] collectInfo = questInfo.Collect.Split('/').ToInt();
+
+                CurrentCount = Managers.Instance.InventoryManager.FindItemCount(collectInfo[0]);
+                GoalCount = collectInfo[1];
             }
-            else if (Quest.task.kill.Count != 0)
+            else if (!string.IsNullOrEmpty(questInfo.Kill))
             {
                 QuestType = QuestType.Kill;
+
+                string[] killInfo = questInfo.Kill.Split('/');
+
                 CurrentCount = 0;
-                GoalCount = Quest.task.kill[1];
+                GoalCount = int.Parse(killInfo[1]);
+            }
+
+            // TOdo
+            RewardList = new();
+
+            string[] rewards = questInfo.Reward.Split('|');
+
+            foreach (string reward in rewards)
+            {
+                int[] rewardInfo = reward.Split('/').ToInt();
+                RewardList.Add((rewardInfo[0], rewardInfo[1]));
             }
         }
-
 
         public void ChangeCurrentCount(int count)
         {
             CurrentCount = count;
             IsCompleted = CurrentCount >= GoalCount ? true : false;
+        }
+
+        public QuestTable.TableData GetQuestTableData()
+        {
+            return QuestId > 0 ? Tables.QuestTable[QuestId] : null;
         }
     }
 
@@ -60,10 +83,7 @@ namespace lsy
 
         private InteractNpc currentQuestNpc;
 
-        private List<Quest> allQuestList => Managers.Instance.JsonManager.jsonQuest.quests;
         private InventoryManager inventoryManager => Managers.Instance.InventoryManager;
-        // TODO
-        //private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
         public CurrentQuest CurrentQuest { get; private set; }
 
 
@@ -81,57 +101,46 @@ namespace lsy
 
         public void SetQuestToNPC(int questId)
         {
-            Quest quest = allQuestList.Find(x => x.questId == questId);
+            int npcId = Tables.QuestTable[questId].NpcID;
 
-            foreach (InteractNpc npc in npcs)
-            {
-                if (npc.NpcId == quest.questNpcId)
-                {
-                    currentQuestNpc = npc;
-                    currentQuestNpc.SetQuest(quest);
-                    break;
-                }
-            }
+            InteractNpc npc = npcs.Find(x => x.NpcId == npcId);
+            npc.SetQuest(questId);
+
+            currentQuestNpc = npc;
         }
 
 
-        public void TakeQuest(Quest quest)
+        public void TakeQuest(int questId)
         {
-            CurrentQuest = new CurrentQuest(quest);
+            CurrentQuest = new CurrentQuest(questId);
             onQuestChanged?.Invoke();
         }
 
 
         public void CompleteQuest()
         {
-            List<RewardItem> rewards = CurrentQuest.Quest.reward.items;
-
-            for (int i = 0; i < rewards.Count; i++)
-            {
-                int id = rewards[i].itemId;
-                int count = rewards[i].itemCount;
-
-                if (count > 0)
-                {
-                    //TODO
-                    //inventoryManager.AddCountableItem(id, count);
-                }
-                else
-                {
-                    //TODO
-                    //equipInventoryManager.AddEquipItem(id);
-                }
-            }
-
-            InteractNpc npc = npcs.Find(x => x.NpcId == CurrentQuest.Quest.questNpcId);
-            npc.ResetQuest();
-
-            if (CurrentQuest.Quest.nextQuestId > 0)
-            {
-                SetQuestToNPC(CurrentQuest.Quest.nextQuestId);
-            }
+            List<(int, int)> rewardList = CurrentQuest.RewardList;
+            int questId = CurrentQuest.QuestId;
 
             CurrentQuest = null;
+
+            for (int i = 0; i < rewardList.Count; i++)
+            {
+                int id = rewardList[i].Item1;
+                int count = rewardList[i].Item2;
+
+                inventoryManager.AddItem(id, count);
+            }
+
+            int currentNpcId = Tables.QuestTable[questId].NpcID;
+            int nextQuestId = Tables.QuestTable[questId].NextQuestID;
+
+            InteractNpc npc = npcs.Find(x => x.NpcId == currentNpcId);
+            npc.ResetQuest();
+
+            if (nextQuestId >= 0)
+                SetQuestToNPC(nextQuestId);
+            
             onQuestChanged?.Invoke();
         }
 
@@ -144,10 +153,10 @@ namespace lsy
             if (CurrentQuest.QuestType != QuestType.Collect)
                 return;
 
-            int questItemId = CurrentQuest.Quest.task.collect[0];
+            //int questItemId = CurrentQuest.Quest.task.collect[0];
 
-            if (questItemId != itemId)
-                return;
+            //if (questItemId != itemId)
+            //    return;
 
             CurrentQuest.ChangeCurrentCount(inventoryManager.FindItemCount(itemId));
 
@@ -168,10 +177,10 @@ namespace lsy
             if (CurrentQuest.QuestType != QuestType.Kill)
                 return;
 
-            int id = CurrentQuest.Quest.task.kill[0];
+            //int targetMonsterid = CurrentQuest.Quest.task.kill[0];
 
-            if (id != monsterId)
-                return;
+            //if (targetMonsterid != monsterId)
+            //    return;
 
             CurrentQuest.ChangeCurrentCount(CurrentQuest.CurrentCount + 1);
 

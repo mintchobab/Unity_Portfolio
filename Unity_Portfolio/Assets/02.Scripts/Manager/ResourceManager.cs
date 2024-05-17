@@ -13,7 +13,12 @@ public class ResourceManager : IManager
         if (!resourceCache.ContainsKey(path))
             resourceCache[path] = Resources.Load<T>(path);
 
-        return (T)resourceCache[path];
+        var result = (T)resourceCache[path];
+
+        if (result == null)
+            Debug.LogError($"{nameof(ResourceManager)} : {path} is Not Exist");
+
+        return result;
     }
 
     public T[] LoadAll<T>(string path) where T : Object

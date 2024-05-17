@@ -9,37 +9,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a56173bdc313ce44ae0cc161edebe58, type: 3}
-  m_Name: ConsumableItemTable
+  m_Script: {fileID: 11500000, guid: 64a28ee1c16b7794ab70243a4701baef, type: 3}
+  m_Name: ItemTable
   m_EditorClassIdentifier: 
   datas:
   - ID: 10000
     Name: Item_Name_HpPotion
-    ResourceName: HpPotion
+    SpritePath: Load/Texture/Item/Consumable/HpPotion
     Explanation: Item_Explanation_HpPotion
     MaxCount: 99
   - ID: 20000
     Name: Item_Name_Ruby
-    ResourceName: Ruby
+    SpritePath: Load/Texture/Item/Material/Ruby
     Explanation: Item_Explanation_Ruby
     MaxCount: 99
   - ID: 20001
     Name: Item_Name_Sapphire
-    ResourceName: Sapphire
+    SpritePath: Load/Texture/Item/Material/Sapphire
     Explanation: Item_Explanation_Sapphire
     MaxCount: 99
   - ID: 20002
     Name: Item_Name_Fish
-    ResourceName: Fish
+    SpritePath: Load/Texture/Item/Material/Fish
     Explanation: Item_Explanation_Fish
     MaxCount: 99
   - ID: 20003
     Name: Item_Name_Mushroom
-    ResourceName: Mushroom
+    SpritePath: Load/Texture/Item/Material/Mushroom
     Explanation: Item_Explanation_Mushroom
     MaxCount: 99
   - ID: 20004
     Name: Item_Name_Feather
-    ResourceName: Feather
+    SpritePath: Load/Texture/Item/Material/Feather
     Explanation: Item_Explanation_Feather
     MaxCount: 99

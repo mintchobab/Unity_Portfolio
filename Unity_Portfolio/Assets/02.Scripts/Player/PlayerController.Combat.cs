@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace lsy
 {
-    public class PlayerCombatController : MonoBehaviour
+    public partial class PlayerController
     {
         [SerializeField]
         private TargetCircleController circleController;
@@ -18,11 +18,6 @@ namespace lsy
 
         public Action onStoppedCombat;
 
-        private PlayerController playerController;
-        private PlayerStatController statController;
-        private PlayerEquipController equipController;
-        private PlayerInteractChecker interactChecker;
-        private Animator anim;
         private Transform targetMonster;
 
         private Coroutine startSkill;
@@ -41,37 +36,25 @@ namespace lsy
         public bool IsProcessingSkill { get; private set; }
 
 
-        private void Awake()
+        private void InitCombat()
         {
-            playerController    = GetComponent<PlayerController>();
-            statController      = GetComponent<PlayerStatController>();
-            equipController     = GetComponent<PlayerEquipController>();
-            anim                = GetComponentInChildren<Animator>();
-            interactChecker     = GetComponentInChildren<PlayerInteractChecker>();
+            anim = GetComponentInChildren<Animator>();
 
             monsterLayer = 1 << LayerMask.NameToLayer("Monster");
 
             combatManager.onStartedCombat += OnStartCombat;
         }
 
-      
-        private void Start()
+        private void StartCombat()
         {
-            SetSkillButton();
+            //inputUIController.ChangeSkillButtons(normalAttack, playerSkills, OnClickSkillButton);
         }
-
-
-        private void SetSkillButton()
-        {
-            inputUIController.ChangeSkillButtons(normalAttack, playerSkills, OnClickSkillButton);
-        }
-   
 
         public void OnStartCombat()
         {
-            interactChecker.enabled = false;
+            //interactChecker.enabled = false;
 
-            inputUIController.SetCombatReadyButton(() => equipController.Equip(OnEnquiped));
+            //inputUIController.SetCombatReadyButton(() => equipController.Equip(OnEnquiped));
 
             if (findTargetMonster != null)
                 StopCoroutine(findTargetMonster);
@@ -83,7 +66,7 @@ namespace lsy
         private void OnEnquiped()
         {
             anim.SetTrigger(hashstartCombat);
-            inputUIController.ActivateCombatButton();
+            //inputUIController.ActivateCombatButton();
         }
 
 
@@ -168,14 +151,14 @@ namespace lsy
         private IEnumerator StartSkill(PlayerSkill playerSkill, CombatButton combatButton)
         {
             isAutoMoving = true;
-            yield return StartCoroutine(playerController.AutoMove(targetMonster, playerSkill.DistanceToTarget));
+            yield return StartCoroutine(AutoMove(targetMonster, playerSkill.DistanceToTarget));
             isAutoMoving = false;
 
             Action onEnded = null;
 
             playerSkill.Activate();
             anim.SetTrigger(playerSkill.HashSkill);
-            playerController.DisableCanMoving();
+            DisableCanMoving();
 
             if (combatButton is SkillButton)
             {
@@ -183,8 +166,8 @@ namespace lsy
                 float coolTime = playerSkill.SkillData.coolTime;
                 button.StartCoroutine(button.FillImageCoolTime(coolTime));
 
-                inputUIController.SizeUpSkillButtons();
-                onEnded = () => inputUIController.SizeDownSkillButtons();
+                //inputUIController.SizeUpSkillButtons();
+                //onEnded = () => inputUIController.SizeDownSkillButtons();
             }
 
             Vector3 dir = (targetMonster.position - transform.position).normalized;
@@ -232,7 +215,7 @@ namespace lsy
                         if (hpController != null)
                         {
                             float damage = UnityEngine.Random.Range(playerSkill.SkillData.minDamage, playerSkill.SkillData.maxDamage) * 0.01f;
-                            damage *= statController.PlayerStat.GetAddedOffensivePower();
+                            damage *= TotalStat.offensivePower;
 
                             hpController.TakeDamage((int)damage);
                             playerSkill.onExecuteSkill?.Invoke(targetMonster);
@@ -258,7 +241,7 @@ namespace lsy
 
             IsProcessingSkill = false;
             playerSkill.Deactivate();
-            playerController.EnableCanMoving();
+            EnableCanMoving();
         }
     }
 }

@@ -23,8 +23,8 @@ public class SkillTable : ScriptableObject
 		public string Name;
 		public string ResourceName;
 		public float CoolTime;
-		public float MinDamage;
-		public float MaxDamage;
+		public int MinDamage;
+		public int MaxDamage;
 	}
 
 	public void AddData(TableData data)

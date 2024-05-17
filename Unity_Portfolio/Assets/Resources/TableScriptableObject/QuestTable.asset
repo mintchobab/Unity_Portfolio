@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ec51df98fb7de459e0dff95d2b61b5, type: 3}
+  m_Name: QuestTable
+  m_EditorClassIdentifier: 
+  datas:
+  - ID: 2000
+    NpcID: 1000
+    Name: Quest_Name_1
+    Goal: Quest_Goal_1
+    Content: Quest_Content_1
+    NextQuestID: 2002
+    StartDialogues: Quest_Dialogue_1/Quest_Dialogue_2
+    ProgressingDialogues: Quest_Dialogue_2
+    EndDialogues: Quest_Dialogue_3/Quest_Dialogue_4
+    Collect: 20000/2
+    Kill: 
+    Exp: 100
+    Gold: 200
+    Reward: 10000/1
+  - ID: 2001
+    NpcID: 1001
+    Name: Quest_Name_2
+    Goal: Quest_Goal_2
+    Content: Quest_Content_2
+    NextQuestID: 2002
+    StartDialogues: Quest_Dialogue_5/Quest_Dialogue_6
+    ProgressingDialogues: Quest_Dialogue_6
+    EndDialogues: Quest_Dialogue_7/Quest_Dialogue_8
+    Collect: 20004/3
+    Kill: 
+    Exp: 200
+    Gold: 400
+    Reward: 10000/10
+  - ID: 2002
+    NpcID: 1002
+    Name: Quest_Name_3
+    Goal: Quest_Goal_3
+    Content: Quest_Content_3
+    NextQuestID: -1
+    StartDialogues: Quest_Dialogue_9/Quest_Dialogue_10/Quest_Dialogue_11
+    ProgressingDialogues: Quest_Dialogue_10
+    EndDialogues: Quest_Dialogue_12
+    Collect: 
+    Kill: 0/3
+    Exp: 500
+    Gold: 1000
+    Reward: 10000/10

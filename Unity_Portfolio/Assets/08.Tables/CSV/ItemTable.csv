@@ -1,0 +1,8 @@
+ID,Name,SpritePath,Explanation,MaxCount
+int,string,string,string,int
+10000,Item_Name_HpPotion,Load/Texture/Item/Consumable/HpPotion,Item_Explanation_HpPotion,99
+20000,Item_Name_Ruby,Load/Texture/Item/Material/Ruby,Item_Explanation_Ruby,99
+20001,Item_Name_Sapphire,Load/Texture/Item/Material/Sapphire,Item_Explanation_Sapphire,99
+20002,Item_Name_Fish,Load/Texture/Item/Material/Fish,Item_Explanation_Fish,99
+20003,Item_Name_Mushroom,Load/Texture/Item/Material/Mushroom,Item_Explanation_Mushroom,99
+20004,Item_Name_Feather,Load/Texture/Item/Material/Feather,Item_Explanation_Feather,99

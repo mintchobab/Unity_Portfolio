@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,6 +34,11 @@ namespace lsy
         {
             unityEvent.RemoveAllListeners();
             unityEvent.AddListener(unityAction);
+        }
+
+        public static int[] ToInt(this string[] strings)
+        {
+            return Array.ConvertAll(strings, x => int.Parse(x));
         }
     }
 }

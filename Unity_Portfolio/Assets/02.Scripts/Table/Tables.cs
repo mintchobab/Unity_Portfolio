@@ -2,25 +2,29 @@ using UnityEngine;
 
 public static class Tables
 {
-	public static ConsumableItemTable ConsumableItemTable;
 	public static EquipmentItemTable EquipmentItemTable;
+	public static ItemTable ItemTable;
 	public static LanguageTable LanguageTable;
 	public static NPCTable NPCTable;
+	public static QuestTable QuestTable;
 	public static SkillTable SkillTable;
 
 	static Tables()
 	{
-		if (ConsumableItemTable == null)
-			ConsumableItemTable = Load<ConsumableItemTable>();
-
 		if (EquipmentItemTable == null)
 			EquipmentItemTable = Load<EquipmentItemTable>();
+
+		if (ItemTable == null)
+			ItemTable = Load<ItemTable>();
 
 		if (LanguageTable == null)
 			LanguageTable = Load<LanguageTable>();
 
 		if (NPCTable == null)
 			NPCTable = Load<NPCTable>();
+
+		if (QuestTable == null)
+			QuestTable = Load<QuestTable>();
 
 		if (SkillTable == null)
 			SkillTable = Load<SkillTable>();

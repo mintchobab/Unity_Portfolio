@@ -34,13 +34,10 @@ namespace lsy
         {
             currentSlotIndex = slotIndex;
 
-            string path = ResourcePath.GetItemSpritePathToTypeString(inventoryItem.ItemType);
-            path += $"/{Tables.ConsumableItemTable[inventoryItem.ItemId].ResourceName}";
+            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(Tables.ItemTable[inventoryItem.ItemId].SpritePath);
+            itemName.text = StringManager.Get(Tables.ItemTable[inventoryItem.ItemId].Name);
 
-            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
-            itemName.text = StringManager.Get(Tables.ConsumableItemTable[inventoryItem.ItemId].Name);
-
-            itemDescription.text = StringManager.Get(Tables.ConsumableItemTable[inventoryItem.ItemId].Explanation);
+            itemDescription.text = StringManager.Get(Tables.ItemTable[inventoryItem.ItemId].Explanation);
             gameObject.SetActive(true);
         }
 

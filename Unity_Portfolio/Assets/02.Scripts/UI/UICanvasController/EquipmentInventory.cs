@@ -47,14 +47,7 @@ namespace lsy
         {
             inventoryManager.onChangedEquipmentList += UpdateSlot;
             inventoryManager.onChangedEquipedItem += UpdateEquipedSlot;
-
-            // TODO
-            //equipInventoryManager.onExchangedAllItems += OnExchangedAllItems;
-            //equipInventoryManager.onAddedItem += OnAddedItem;
-            //equipInventoryManager.onExchangedItem += OnExchangedItem;
-            //equipInventoryManager.onMovedItem += OnMovedItem;
-            //equipInventoryManager.onEquipedItem += OnEquipedItem;
-            //equipInventoryManager.onUnEquipedItem += OnUnEquipedItem;
+            inventoryManager.onAfterChangedEquipedItem += UpdatePlayerStatText;
         }
 
         private void OnDisable()
@@ -63,13 +56,8 @@ namespace lsy
             {
                 inventoryManager.onChangedEquipmentList -= UpdateSlot;
                 inventoryManager.onChangedEquipedItem -= UpdateEquipedSlot;
+                inventoryManager.onAfterChangedEquipedItem -= UpdatePlayerStatText;
             }
-        }
-
-
-        private void Start()
-        {
-            PlayerController.Instance.StatController.onChangedStat += UpdatePlayerStatText;
         }
 
 
@@ -130,8 +118,7 @@ namespace lsy
 
             if (inventoryItem.IsExist)
             {
-                string path = $"{ResourcePath.EquipItem}/{Tables.EquipmentItemTable[inventoryItem.ItemId].ResourceName}";
-                Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
+                Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(Tables.EquipmentItemTable[inventoryItem.ItemId].SpritePath);
 
                 slotList[index].UpdateSlotImage(sprite);
                 slotList[index].UpdateItemName(StringManager.Get(Tables.EquipmentItemTable[inventoryItem.ItemId].Name));
@@ -165,7 +152,7 @@ namespace lsy
 
             if (itemId > 0)
             {
-                string path = $"{ResourcePath.EquipItem}/{Tables.EquipmentItemTable[itemId].ResourceName}";
+                string path = Tables.EquipmentItemTable[itemId].SpritePath;
                 Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
 
                 slot.UpdateSlotImage(sprite);
@@ -188,12 +175,14 @@ namespace lsy
         }
 
 
-        // TODO : 아이템 장착 시 스탯 변경 관련 작업 수정하기
         private void UpdatePlayerStatText()
         {
-            hpText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedHp().ToString();
-            offensivePowerText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedOffensivePower().ToString();
-            defensivePowerText.text = PlayerController.Instance.StatController.PlayerStat.GetAddedDefensivePower().ToString();
+            if (!isActivate)
+                return;
+
+            hpText.text = PlayerController.Instance.TotalStat.hp.ToString();
+            offensivePowerText.text = PlayerController.Instance.TotalStat.offensivePower.ToString();
+            defensivePowerText.text = PlayerController.Instance.TotalStat.defensivePower.ToString();
         }
     }
 }

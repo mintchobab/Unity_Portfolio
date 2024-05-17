@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace lsy
 {
-    public class PlayerEquipController : MonoBehaviour
+    public partial class PlayerController
     {
         [SerializeField]
         private Transform leftHand;
@@ -19,8 +19,6 @@ namespace lsy
         //private EquipInventoryManager equipInventoryManager => Managers.Instance.EquipInventoryManager;
 
 
-        #region Weapon
-
         public void Equip(Action onEquiped = null)
         {
             //EquipItem weapon = equipInventoryManager.EquipedItemDic[EquipType.Weapon];
@@ -31,7 +29,7 @@ namespace lsy
 
             //if (isWeapon && isShield)
             //{
-            //    onEquiped?.Invoke();  
+            //    onEquiped?.Invoke();
             //}
         }
 
@@ -43,27 +41,28 @@ namespace lsy
         }
 
 
-        public bool EquipWeapon(EquipItem equipItem)
-        {
-            if (equipItem == null)
-            {
-                Managers.Instance.UIManager.SystemUIController.ShowSystemText("Text_EquipWeapon");
-                return false;
-            }
+        // TODO
+        //public bool EquipWeapon(EquipItem equipItem)
+        //{
+        //    if (equipItem == null)
+        //    {
+        //        Managers.Instance.UIManager.SystemUIController.ShowSystemText("Text_EquipWeapon");
+        //        return false;
+        //    }
 
-            if (currentWeapon != null)
-                UnEquipWeapon();
+        //    if (currentWeapon != null)
+        //        UnEquipWeapon();
 
-            string path = $"{ResourcePath.Equip}/{equipItem._resourceName}";
-            GameObject weapon = Managers.Instance.ResourceManager.Instantiate<GameObject>(path, rightHand);
+        //    string path = $"{ResourcePath.Equip}/{equipItem._resourceName}";
+        //    GameObject weapon = Managers.Instance.ResourceManager.Instantiate<GameObject>(path, rightHand);
 
-            weapon.transform.localPosition = Vector3.zero;
-            weapon.transform.localRotation = Quaternion.identity;
+        //    weapon.transform.localPosition = Vector3.zero;
+        //    weapon.transform.localRotation = Quaternion.identity;
 
-            currentWeapon = weapon;
+        //    currentWeapon = weapon;
 
-            return true;
-        }
+        //    return true;
+        //}
 
 
         public void UnEquipWeapon()
@@ -73,27 +72,28 @@ namespace lsy
         }
 
 
-        public bool EquipShield(EquipItem equipItem)
-        {
-            if (equipItem == null)
-            {
-                Managers.Instance.UIManager.SystemUIController.ShowSystemText("Text_EquipShield");
-                return false;
-            }
+        // TODO
+        //public bool EquipShield(EquipItem equipItem)
+        //{
+        //    if (equipItem == null)
+        //    {
+        //        Managers.Instance.UIManager.SystemUIController.ShowSystemText("Text_EquipShield");
+        //        return false;
+        //    }
 
-            if (currentShield != null)
-                UnEquipShield();
+        //    if (currentShield != null)
+        //        UnEquipShield();
 
-            string path = $"{ResourcePath.Equip}/{equipItem._resourceName}";
-            GameObject shield = Managers.Instance.ResourceManager.Instantiate<GameObject>(path, leftHand);
+        //    string path = $"{ResourcePath.Equip}/{equipItem._resourceName}";
+        //    GameObject shield = Managers.Instance.ResourceManager.Instantiate<GameObject>(path, leftHand);
 
-            shield.transform.localPosition = Vector3.zero;
-            shield.transform.localRotation = Quaternion.identity;
+        //    shield.transform.localPosition = Vector3.zero;
+        //    shield.transform.localRotation = Quaternion.identity;
 
-            currentShield = shield;
+        //    currentShield = shield;
 
-            return true;
-        }
+        //    return true;
+        //}
 
 
         public void UnEquipShield()
@@ -116,10 +116,7 @@ namespace lsy
             currentShield?.SetActive(false);
         }
 
-        #endregion
 
-
-        #region Tool
 
         public void MakeTool(InteractCollectionType collectionType)
         {
@@ -143,7 +140,5 @@ namespace lsy
             Destroy(currentTool);
             ShowCurrentEquip();
         }
-
-        #endregion
     }
 }

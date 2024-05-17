@@ -138,7 +138,9 @@ namespace lsy
                     name = name.Substring(0, name.IndexOf('.'));
 
                     if (AssetDatabase.LoadAssetAtPath<ScriptableObject>($"{ScriptableFolderPath}/{name}.asset") != null)
+                    {
                         AssetDatabase.DeleteAsset($"{ScriptableFolderPath}/{name}.asset");
+                    }
 
                     Type tableType = Type.GetType(name);
 
@@ -164,14 +166,12 @@ namespace lsy
                     }
 
                     EditorUtility.SetDirty(scriptableObj);
+                    AssetDatabase.SaveAssets();
                 }
-
-                AssetDatabase.Refresh();
-                AssetDatabase.SaveAssets();                
             }
             catch (Exception e)
             {
-                Debug.LogError($"{nameof(CSVToScriptableObject)} : {e.Message}");
+                Debug.LogError($"{nameof(CSVToScriptableObject)} : {e.Message} : {e.StackTrace}");
             }
         }
 

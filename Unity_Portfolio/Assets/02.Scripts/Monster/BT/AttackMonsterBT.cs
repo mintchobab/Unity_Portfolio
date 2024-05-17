@@ -22,7 +22,7 @@ namespace lsy
         private int monsterId;
 
         public HpController HpController { get; private set; }
-        public Stat MonsterStat { get; private set; }
+        public PlayerController.Stat MonsterStat { get; private set; }
 
         public bool IsAttacking { get; set; }
 

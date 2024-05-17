@@ -6,9 +6,9 @@ namespace lsy
 {
     public static class TablesExtension
     {
-        public static bool IsExist(this ConsumableItemTable table, int id)
+        public static bool IsExist(this ItemTable table, int id)
         {
-            return Tables.ConsumableItemTable[id] != null;
+            return Tables.ItemTable[id] != null;
         }
 
         public static bool IsExist(this EquipmentItemTable table, int id)

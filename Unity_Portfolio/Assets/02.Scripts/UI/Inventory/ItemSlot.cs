@@ -23,6 +23,7 @@ namespace lsy
         protected Button button;
         protected IInventoryUIController uiController;
 
+        // TODO : 왜 있는건지 확인해보기
         public Sprite MyItemSprite { get; private set; }
         public string MyItemName { get; private set; }
         public string MyItemCount { get; private set; }
@@ -41,7 +42,7 @@ namespace lsy
         }
 
 
-        // TODO : 이게 필요한가 확인
+        // TODO : 필요한가 확인
         public void Initialize(IInventoryUIController uiController)
         {
             this.uiController = uiController;

@@ -32,7 +32,7 @@ namespace lsy
 
             public void SetData(int id, int count)
             {
-                if (Tables.ConsumableItemTable.IsExist(id))
+                if (Tables.ItemTable.IsExist(id))
                 {
                     ItemType = ItemType.Consumable;
                     EquipType = EquipType.None;
@@ -56,7 +56,7 @@ namespace lsy
                 if (ItemType != ItemType.Consumable)
                     return;
 
-                int maxCount = Tables.ConsumableItemTable[ItemId].MaxCount;
+                int maxCount = Tables.ItemTable[ItemId].MaxCount;
                 ItemCount = Mathf.Min(count, maxCount);
             }
 
@@ -86,6 +86,7 @@ namespace lsy
 
         public event Action<int> onChangedEquipmentList;
         public event Action<EquipType, int> onChangedEquipedItem;
+        public event Action onAfterChangedEquipedItem;
 
 
 
@@ -123,9 +124,9 @@ namespace lsy
         // 리스트 타입 자체는 같으니까 그걸로....???
         public void AddItem(int itemId, int amount = 1)
         {
-            if (Tables.ConsumableItemTable.IsExist(itemId))
+            if (Tables.ItemTable.IsExist(itemId))
             {
-                int maxCount = Tables.ConsumableItemTable[itemId].MaxCount;
+                int maxCount = Tables.ItemTable[itemId].MaxCount;
 
                 for (int i = 0; i < ConsumableList.Count; i++)
                 {
@@ -255,7 +256,6 @@ namespace lsy
 
         #region Equipment
 
-        // TODO : 장비는 장비 타입별로 정렬 기능이 있다
         public void Equip(int index)
         {
             InventoryItem item = EquipmentList[index];
@@ -272,6 +272,8 @@ namespace lsy
 
             if (prevEquipItemId > 0)
                 AddItem(prevEquipItemId);
+
+            onAfterChangedEquipedItem?.Invoke();
 
 
             // NOTE : 바꾸는 아이템의 자리 그대로 하고 싶다면
@@ -294,8 +296,9 @@ namespace lsy
 
             onChangedEquipedItem?.Invoke(tmp.Key, 0);
 
-            // TODO : 인벤토리로 되돌리기
             AddItem(itemId);
+
+            onAfterChangedEquipedItem?.Invoke();
         }
 
         public void SortEquipment(EquipType equipType = EquipType.None)

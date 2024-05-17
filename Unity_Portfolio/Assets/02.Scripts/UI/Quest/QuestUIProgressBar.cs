@@ -50,22 +50,49 @@ namespace lsy
             if (questManager.CurrentQuest == null)
                 return;
 
-            Quest quest = questManager.CurrentQuest.Quest;
-            int count = 0;
+            int goalCount = questManager.CurrentQuest.GoalCount;
 
-            if (quest.task.collect.Count != 0)
+            if (barImages.Length < goalCount)
             {
-                count = quest.task.collect[1];
-            }
-            else if (quest.task.kill.Count != 0)
-            {
-                count = quest.task.kill[1];
+                Debug.LogError($"{nameof(QuestUIProgressBar)} : Count Error");
+                return;
             }
 
-            questGoalString = StringManager.GetLocalizedQuestGoal(quest.goal);
+            int currentCount = questManager.CurrentQuest.CurrentCount;
+            questGoalString = StringManager.Get(questManager.CurrentQuest.GetQuestTableData().Goal);
 
-            ClearBarImages();
-            ActivateBarImages(count);
+            float barWidth = rectTransform.rect.width / goalCount;
+            float xPos = 0f;
+
+            for (int i = 0; i < barImages.Length; i++)
+            {
+                if (i < goalCount)
+                {
+                    barImages[i].rectTransform.sizeDelta = new Vector2(barWidth, barImages[i].rectTransform.sizeDelta.y);
+                    barImages[i].rectTransform.anchoredPosition = new Vector2(xPos, 0);
+                    xPos += barWidth;
+
+                    if (i < currentCount)
+                    {
+                        ColorUtility.TryParseHtmlString(barImageColor, out Color targetColor);
+                        barImages[i].color = targetColor;
+                    }
+                    else
+                    {
+                        barImages[i].color = Color.black;
+                    }
+
+                    barImages[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    barImages[i].rectTransform.sizeDelta = Vector2.zero;
+                    barImages[i].rectTransform.anchoredPosition = Vector2.zero;
+                    barImages[i].color = Color.white;
+
+                    barImages[i].gameObject.SetActive(false);
+                }
+            }
         }
 
 
@@ -133,37 +160,5 @@ namespace lsy
                 yield return null;
             }
         }
-
-
-        private void ActivateBarImages(int imageCount)
-        {
-            float barWidth = rectTransform.rect.width / questManager.CurrentQuest.GoalCount;
-            float xPos = 0f;
-
-            for (int i = 0; i < imageCount; i++)
-            {
-                barImages[i].rectTransform.sizeDelta = new Vector2(barWidth, barImages[i].rectTransform.sizeDelta.y);
-                barImages[i].rectTransform.anchoredPosition = new Vector2(xPos, 0);
-                xPos += barWidth;
-                activatedBarImages.Add(barImages[i]);
-            }
-        }
-
-
-        private void ClearBarImages()
-        {
-            if (activatedBarImages.Count != 0)
-            {
-                for (int i = 0; i < activatedBarImages.Count; i++)
-                {
-                    activatedBarImages[i].color = Color.white;
-                    activatedBarImages[i].gameObject.SetActive(false);
-                }
-            }
-
-            activatedBarImages.Clear();
-        }
-
     }
 }
-

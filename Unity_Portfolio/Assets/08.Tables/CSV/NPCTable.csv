@@ -4,5 +4,5 @@ int,string,string
 1001,NPC_Dunkun,Dialogue_Dunkun_1
 1002,NPC_Malcom,Dialogue_Malcom_1
 1003,NPC_Deian,Dialogue_Deian_1
-1004,NPC_Youko,"Dialogue_Youko_1,Dialogue_Youko_2"
-1005,NPC_Souta,"Dialogue_Souta_1,Dialogue_Souta_2"
+1004,NPC_Youko,Dialogue_Youko_1/Dialogue_Youko_2
+1005,NPC_Souta,Dialogue_Souta_1/Dialogue_Souta_2

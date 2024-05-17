@@ -12,7 +12,7 @@ namespace lsy
         public SystemUIController SystemUIController { get; private set; }
         public DialogueUIController DialogueUIController { get; private set; }
         public QuestUIController QuestUIController { get; private set; }
-        public ConsumableInventory InventoryUIController { get; private set; }
+        public ItemInventory InventoryUIController { get; private set; }
         public EquipmentInventory EquipUIController { get; private set; }
 
 
@@ -40,7 +40,7 @@ namespace lsy
             SystemUIController = Managers.Instance.ResourceManager.Instantiate<SystemUIController>(ResourcePath.SystemCanvas, rootCanvas.transform);
             DialogueUIController = Managers.Instance.ResourceManager.Instantiate<DialogueUIController>(ResourcePath.DialogueCanvas, rootCanvas.transform);
             QuestUIController = Managers.Instance.ResourceManager.Instantiate<QuestUIController>(ResourcePath.QuestCanvas, rootCanvas.transform);
-            InventoryUIController = Managers.Instance.ResourceManager.Instantiate<ConsumableInventory>(ResourcePath.InventoryCanvas, rootCanvas.transform);
+            InventoryUIController = Managers.Instance.ResourceManager.Instantiate<ItemInventory>(ResourcePath.InventoryCanvas, rootCanvas.transform);
             EquipUIController = Managers.Instance.ResourceManager.Instantiate<EquipmentInventory>(ResourcePath.EquipInventoryCanvas, rootCanvas.transform);
         }
     }

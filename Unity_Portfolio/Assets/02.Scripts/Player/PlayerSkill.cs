@@ -43,7 +43,7 @@ namespace lsy
 
         public string GetSkillName()
         {
-            return StringManager.GetLocalizedSkillName(SkillData.skillName);
+            return StringManager.Get(SkillData.skillName);
         }
 
 

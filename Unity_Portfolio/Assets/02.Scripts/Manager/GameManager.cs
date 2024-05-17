@@ -65,7 +65,7 @@ namespace lsy
 
             triggerCollider.gameObject.SetActive(false);
 
-            if (Managers.Instance.QuestManager.CurrentQuest.Quest.questId == 2002)
+            if (Managers.Instance.QuestManager.CurrentQuest.QuestId == 2002)
             {
                 StartCoroutine(WolfCutScene());
             }            

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace lsy
 {
-    public class ConsumableInventory : SceneUI, IInventoryUIController
+    public class ItemInventory : SceneUI, IInventoryUIController
     {
         [SerializeField]
         private Button exitButton;
@@ -94,9 +94,7 @@ namespace lsy
 
             if (inventoryItem.IsExist)
             {
-                // TODO : GetItemSpritePathToTypeString ¾ø¾Ö±â
-                string path = $"{ResourcePath.GetItemSpritePathToTypeString(inventoryItem.ItemType)}/{Tables.ConsumableItemTable[inventoryItem.ItemId].ResourceName}";
-                Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(path);
+                Sprite sprite = Managers.Instance.ResourceManager.Load<Sprite>(Tables.ItemTable[inventoryItem.ItemId].SpritePath);
 
                 slotList[index].UpdateSlotImage(sprite);
                 slotList[index].UpdateSlotCount(inventoryItem.ItemCount);

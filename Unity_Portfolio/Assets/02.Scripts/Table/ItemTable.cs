@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using lsy;
 
-public class ConsumableItemTable : ScriptableObject
+public class ItemTable : ScriptableObject
 {
 	[SerializeField]
 	public List<TableData> datas = new List<TableData>();
@@ -21,7 +21,7 @@ public class ConsumableItemTable : ScriptableObject
 	{
 		public int ID;
 		public string Name;
-		public string ResourceName;
+		public string SpritePath;
 		public string Explanation;
 		public int MaxCount;
 	}

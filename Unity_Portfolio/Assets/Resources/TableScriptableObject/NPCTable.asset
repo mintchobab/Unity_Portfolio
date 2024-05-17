@@ -27,7 +27,7 @@ MonoBehaviour:
     Dialogues: Dialogue_Deian_1
   - ID: 1004
     Name: NPC_Youko
-    Dialogues: Dialogue_Youko_1,Dialogue_Youko_2
+    Dialogues: Dialogue_Youko_1/Dialogue_Youko_2
   - ID: 1005
     Name: NPC_Souta
-    Dialogues: Dialogue_Souta_1,Dialogue_Souta_2
+    Dialogues: Dialogue_Souta_1/Dialogue_Souta_2

@@ -15,6 +15,6 @@ namespace lsy
     {
         public int id;
         public string monsterName;
-        public Stat stat;
+        public PlayerController.Stat stat;
     }
 }

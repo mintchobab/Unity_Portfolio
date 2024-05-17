@@ -50,14 +50,26 @@ namespace lsy
         {
             rect = GetComponent<RectTransform>();
 
-            questManager.onQuestChanged += OnQuestChanged;
-            questManager.onChangedCurrentQuestCount += OnCurrentQuestItemCountChanged;
-
             showButton.onClick.AddListener(OnClickShowButton);
 
             contentsPanel.gameObject.SetActive(false);
 
             InitailizeTexts();
+        }
+
+        private void OnEnable()
+        {
+            questManager.onQuestChanged += OnQuestChanged;
+            questManager.onChangedCurrentQuestCount += OnCurrentQuestItemCountChanged;
+        }
+
+        private void OnDisable()
+        {
+            if (questManager != null)
+            {
+                questManager.onQuestChanged -= OnQuestChanged;
+                questManager.onChangedCurrentQuestCount -= OnCurrentQuestItemCountChanged;
+            }            
         }
 
 
@@ -88,61 +100,41 @@ namespace lsy
             // 퀘스트가 있을 때
             else
             {
-                Quest quest = questManager.CurrentQuest.Quest;
+                QuestTable.TableData tableData = questManager.CurrentQuest.GetQuestTableData();
 
-                outsideQuestName.text = StringManager.GetLocalizedQuestName(quest.questName);
-                questNameText.text = StringManager.GetLocalizedQuestName(quest.questName);
-                questContentText.text = StringManager.GetLocalizedQuestContent(quest.content);
-                
-                SetQuestGoalText(quest);
-                SetQuestRewardText(quest);
+                outsideQuestName.text = StringManager.Get(tableData.Name);
+                questNameText.text = StringManager.Get(tableData.Name);
+                questContentText.text = StringManager.Get(tableData.Content);
+
+                // Goal
+                string strGoal = $"{StringManager.Get(tableData.Goal)} {questManager.CurrentQuest.CurrentCount}/{questManager.CurrentQuest.GoalCount}";
+                outsideQuestGoal.text = strGoal;
+                questGoalText.text = strGoal;
+
+                // Reward
+                string resultStr = $"{tableData.Exp} exp\n{tableData.Gold} gold";
+
+                for (int i = 0; i < questManager.CurrentQuest.RewardList.Count; i++)
+                {
+                    int itemId = questManager.CurrentQuest.RewardList[i].Item1;
+
+                    if (Tables.EquipmentItemTable.IsExist(itemId))
+                    {
+                        resultStr += $"\n{StringManager.Get(Tables.EquipmentItemTable[itemId].Name)}";
+                    }
+                    else if (Tables.ItemTable.IsExist(itemId))
+                    {
+                        resultStr += $"\n{StringManager.Get(Tables.ItemTable[itemId].Name)} : {questManager.CurrentQuest.RewardList[i].Item2}";
+                    }
+                }
+
+                questRewardText.text = resultStr;
             }
         }
-
-
-        private void SetQuestGoalText(Quest quest)
-        {
-            string str = StringManager.GetLocalizedQuestGoal(quest.goal) +
-                    $" ({questManager.CurrentQuest.CurrentCount}/{questManager.CurrentQuest.GoalCount})";
-
-            outsideQuestGoal.text = str;
-            questGoalText.text = str;
-        }
-
-
-        private void SetQuestRewardText(Quest quest)
-        {
-            string resultStr = $"{quest.reward.exp} exp\n{quest.reward.gold} gold";
-
-            for (int i = 0; i < quest.reward.items.Count; i++)
-            {
-                RewardItem reward = quest.reward.items[i];
-
-                // 장비
-                if (reward.itemCount < 0)
-                {
-                    EquipItem item = itemManager.GetEquipItem(reward.itemId);
-                    string name = StringManager.GetLocalizedItemName(item.name);
-
-                    resultStr += $"\n{name}";
-                }
-                // 소모품
-                else
-                {
-                    CountableItem item = itemManager.GetCountableItem(reward.itemId);
-                    string name = StringManager.GetLocalizedItemName(item.name);
-
-                    resultStr += $"\n{name} : {reward.itemCount}";
-                }
-            }
-
-            questRewardText.text = resultStr;
-        }
-
 
         private void OnCurrentQuestItemCountChanged()
         {
-            string str = StringManager.GetLocalizedQuestGoal(questManager.CurrentQuest.Quest.goal) +
+            string str = StringManager.Get(questManager.CurrentQuest.GetQuestTableData().Goal) +
                 $" ({questManager.CurrentQuest.CurrentCount}/{questManager.CurrentQuest.GoalCount})";
 
             outsideQuestGoal.text = str;

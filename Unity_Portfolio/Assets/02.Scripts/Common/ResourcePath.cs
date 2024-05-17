@@ -34,11 +34,6 @@ namespace lsy
         public static readonly string IconFishing = "Load/Texture/Icon/Icon_Fishing";
         public static readonly string IconCombat = "Load/Texture/Icon/Icon_Combat";
 
-        // Item
-        public static readonly string EquipItem = "Load/Texture/Item/Equip";
-        public static readonly string ConsumableItem = "Load/Texture/Item/Consumable";
-        public static readonly string MaterialItem = "Load/Texture/Item/Material";
-
         // Tool
         public static readonly string Pickax = "Load/Prefab/Tool/Pickax";
         public static readonly string FishingRod = "Load/Prefab/Tool/FishingRod";
@@ -89,61 +84,26 @@ namespace lsy
         public static readonly string SlotRow = "UI/SlotRow";
 
         
-        public static string GetItemSpritePathToType(ItemType itemType)
-        {
-            string path = string.Empty;
+        //public static string GetItemSpritePathToType(ItemType itemType)
+        //{
+        //    string path = string.Empty;
 
-            switch (itemType)
-            {
-                case ItemType.Equipment:
-                    path = EquipItem;
-                    break;
+        //    switch (itemType)
+        //    {
+        //        case ItemType.Equipment:
+        //            path = EquipItem;
+        //            break;
 
-                case ItemType.Consumable:
-                    path = ConsumableItem;
-                    break;
+        //        case ItemType.Consumable:
+        //            path = ConsumableItem;
+        //            break;
 
-                case ItemType.Material:
-                    path = MaterialItem;
-                    break;
-            }
+        //        case ItemType.Material:
+        //            path = MaterialItem;
+        //            break;
+        //    }
 
-            return path;
-        }
-
-
-        public static string GetItemSpritePathToTypeString(string itemType)
-        {
-            string path = string.Empty;
-
-            switch (itemType) 
-            {
-                case nameof(ItemType.Equipment):
-                    path = EquipItem;
-                    break;
-
-                case nameof(ItemType.Consumable):
-                    path = ConsumableItem;
-                    break;
-
-                case nameof(ItemType.Material):
-                    path = MaterialItem;
-                    break;
-            }
-
-            return path;
-        }
-
-        // TODO : 이거 자체를 없애버리기
-        public static string GetItemSpritePathToTypeString(ItemType itemType)
-        {
-            return itemType switch
-            {
-                ItemType.Equipment => EquipItem,
-                ItemType.Consumable => ConsumableItem,
-                ItemType.Material => MaterialItem,
-                _ => string.Empty,
-            };
-        }
+        //    return path;
+        //}
     }
 }

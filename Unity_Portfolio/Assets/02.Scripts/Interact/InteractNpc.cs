@@ -8,9 +8,9 @@ namespace lsy
     [RequireComponent(typeof(WorldUIName))]
     public class InteractNpc : MonoBehaviour, IInteractable
     {
+        // TODO : 방식 수정하기
         // ID 찾는거 이런식으로 하면 안될거 같은데.....
         // ex) 휴먼 오류로 중복된 ID 값이 존재할 수 있음
-        // TODO : 방식 수정하기
         [field: SerializeField]
         public int NpcId { get; private set; }
 
@@ -24,8 +24,13 @@ namespace lsy
 
         private readonly float npcDistance = 1f;
 
-        public Quest MyQuest { get; private set; }
         public string NpcName { get; private set; }
+
+
+        [field: SerializeField]
+        public int CurrentQuestId { get; private set; }
+
+        public bool IsExistQuest => CurrentQuestId > 0;
 
 
         protected void Awake()
@@ -74,22 +79,18 @@ namespace lsy
         }
 
 
-        public void SetQuest(Quest quest)
+        public void SetQuest(int questId)
         {
-            MyQuest = quest;
-            CreateExclamationMark();
+            CurrentQuestId = questId;
+
+            exclamationMark = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.ExclamationMark, transform);
+            exclamationMark.transform.localPosition = new Vector3(0f, 2.65f, 0f);
         }
 
 
         public void ResetQuest()
         {
-            MyQuest = null;
-        }
-
-        private void CreateExclamationMark()
-        {
-            exclamationMark = Managers.Instance.ResourceManager.Instantiate<GameObject>(ResourcePath.ExclamationMark, transform);
-            exclamationMark.transform.localPosition = new Vector3(0f, 2.65f, 0f);
+            CurrentQuestId = -1;
         }
 
 
@@ -125,7 +126,7 @@ namespace lsy
 
         public List<string> GetDialogues()
         {
-            return Tables.NPCTable[NpcId].Dialogues.Split(',').ToList();
+            return Tables.NPCTable[NpcId].Dialogues.Split('/').ToList();
         }
     }
 }

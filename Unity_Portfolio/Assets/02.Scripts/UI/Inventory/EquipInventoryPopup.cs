@@ -39,7 +39,7 @@ namespace lsy
 
             EquipmentItemTable.TableData tableData = Tables.EquipmentItemTable[itemId];
 
-            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{ResourcePath.EquipItem}/{tableData.ResourceName}");
+            itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(tableData.SpritePath);
             itemName.text = StringManager.Get(tableData.Name);
             itemDescription.text = StringManager.Get(tableData.Explanation);
 
@@ -49,12 +49,12 @@ namespace lsy
 
             if (isInventory)
             {
-                equipButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_Equip");
+                equipButton.GetComponentInChildren<Text>().text = StringManager.Get("Text_Equip");
                 equipButton.onClick.SetListener(OnClickEquipButton);
             }
             else
             {
-                equipButton.GetComponentInChildren<Text>().text = StringManager.GetLocalizedUIText("Text_UnEquip");
+                equipButton.GetComponentInChildren<Text>().text = StringManager.Get("Text_UnEquip");
                 equipButton.onClick.SetListener(() => OnClickUnequipButton(itemId));
             }
 

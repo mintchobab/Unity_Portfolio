@@ -76,7 +76,7 @@ namespace lsy
         public void ShowSystemText(string messageKey)
         {
             Text systemText = systemTextQueue.Dequeue();
-            systemText.text = StringManager.GetLocalizedSystemMessage(messageKey);
+            systemText.text = StringManager.Get(messageKey);
             systemText.rectTransform.anchoredPosition = startPos;
             systemText.gameObject.SetActive(true);
 
@@ -107,7 +107,7 @@ namespace lsy
 
         public void GetItem(InteractCollection interactCollection, Vector3 targetPostion)
         {
-            string path = ResourcePath.GetItemSpritePathToType(interactCollection.MyCollectionData.itemType);
+            //string path = ResourcePath.GetItemSpritePathToType(interactCollection.MyCollectionData.itemType);
 
             //itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>($"{path}/{interactCollection.InteractObjResourceName}");
             //StartCoroutine(MoveItemImage(targetPostion));

@@ -44,7 +44,12 @@ PC와 모바일에서 동일하게 작동됩니다.
 - [전투](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/combat/combat.md)
 - [해상도 대응](https://github.com/mintchobab/Unity_Portfolio/blob/main/contents/resolution/resolution.md) -->
 
- 
+2024 기능 업데이트
+
+ - [테이블 데이터](#테이블-데이터)
+
+ ---
+
 - [다중 언어 지원](#다중-언어-지원) <!-- omit in toc -->
   <!-- - [json](#json)
   - [언어 선택](#언어-선택) -->
@@ -74,7 +79,20 @@ PC와 모바일에서 동일하게 작동됩니다.
   - [보스 몬스터](#보스-몬스터) -->
 - [해상도 대응](#해상도-대응)
 
+<br>
+<br>
 
+## 테이블 데이터
+
+<br>
+
+Excel 데이터를 Unity Scriptable Object로 변환 후 테이블 데이터 사용
+
+![테이블 예시](./images/table.png)
+
+![테이블 예시](./images/table2.png)
+
+![테이블 예시](./images/table3.png)
 
 <br>
 <br>
@@ -87,9 +105,11 @@ PC와 모바일에서 동일하게 작동됩니다.
 
 <br>
 
-json 파일에 저장된 데이터에 따라 게임내 텍스트들의 언어를 변경할 수 있다.
+~~json 파일에 저장된 데이터에 따라 게임내 텍스트들의 언어를 변경할 수 있다.~~
 <br>
-현재 한국어와 영어 두 가지 언어만 저장되어 있지만, 추가하고자 하는 언어의 문장들만 입력하면 적용이 가능하다.
+~~현재 한국어와 영어 두 가지 언어만 저장되어 있지만, 추가하고자 하는 언어의 문장들만 입력하면 적용이 가능하다.~~
+
+=> csv 사용으로 인한 json 기능 삭제
 
 ![json](./images/language_json.jpg)
 

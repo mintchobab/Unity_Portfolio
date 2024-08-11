@@ -47,12 +47,12 @@ namespace lsy
 
         private void StartCombat()
         {
-            //inputUIController.ChangeSkillButtons(normalAttack, playerSkills, OnClickSkillButton);
+            inputUIController.ChangeSkillButtons(normalAttack, playerSkills, OnClickSkillButton);
         }
 
         public void OnStartCombat()
         {
-            //interactChecker.enabled = false;
+            interactChecker.enabled = false;
 
             //inputUIController.SetCombatReadyButton(() => equipController.Equip(OnEnquiped));
 
@@ -66,7 +66,7 @@ namespace lsy
         private void OnEnquiped()
         {
             anim.SetTrigger(hashstartCombat);
-            //inputUIController.ActivateCombatButton();
+            inputUIController.ActivateCombatButton();
         }
 
 
@@ -166,8 +166,8 @@ namespace lsy
                 float coolTime = playerSkill.SkillData.coolTime;
                 button.StartCoroutine(button.FillImageCoolTime(coolTime));
 
-                //inputUIController.SizeUpSkillButtons();
-                //onEnded = () => inputUIController.SizeDownSkillButtons();
+                inputUIController.SizeUpSkillButtons();
+                onEnded = () => inputUIController.SizeDownSkillButtons();
             }
 
             Vector3 dir = (targetMonster.position - transform.position).normalized;

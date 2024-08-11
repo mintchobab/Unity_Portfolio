@@ -8,9 +8,7 @@ namespace lsy
         [field: SerializeField]
         public string InteractObjResourceName { get; protected set; }
 
-        public virtual void Interact()
-        {
-        }
+        public virtual void Interact() { }
 
         public abstract Sprite LoadButtonImage();
     }

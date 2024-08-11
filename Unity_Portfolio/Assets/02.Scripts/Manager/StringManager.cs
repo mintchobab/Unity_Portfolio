@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace lsy
 {
     public class StringManager : IManager
@@ -14,9 +12,10 @@ namespace lsy
 
         public static string Get(string id)
         {
-            //UnityEngine.Debug.LogWarning("String ID : " + id);
-
-            return Tables.LanguageTable[id].Korean;
+            if (localizeIndex == 0)
+                return Tables.LanguageTable[id].Korean;
+            else
+                return Tables.LanguageTable[id].English;
         }
     }
 }
